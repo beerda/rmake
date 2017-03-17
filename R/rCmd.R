@@ -1,10 +1,7 @@
 rCmd <- function(...) {
-  f <- parent.frame()
+  f <- as.list(parent.frame())
   exprs <- lapply(pryr::dots(...), function(e) {
-    substitute_q(e, as.list(f))
+    substitute_q(e, f)
   })
-
-  paste0('R --no-save --no-restore --quiet -e \'',
-         as.character(exprs),
-         '\'')
+  paste0('R --no-save --no-restore --quiet -e \'', as.character(exprs), '\'')
 }
