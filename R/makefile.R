@@ -1,3 +1,4 @@
+#' @export
 makefile <- function(job=list(), fileName='Makefile') {
   allTargets <- unlist(lapply(job, function(task) task$target))
   allTask <- task(target='all',

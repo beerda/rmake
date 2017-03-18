@@ -10,4 +10,5 @@
   )
 }
 
+#' @export
 maker <- .optionsFactory()

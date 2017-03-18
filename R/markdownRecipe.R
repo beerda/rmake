@@ -1,3 +1,4 @@
+#' @export
 markdownRecipe <- function(target,
                            script,
                            depends=NULL,

@@ -6,6 +6,7 @@
            md="md_document")
 
 
+#' @export
 markdownFormatFromExtension <- function(extension=c('html', 'pdf', 'docx', 'odt', 'rtf', 'md')) {
   extension <- match.arg(extension)
   .map[extension]

@@ -1,3 +1,4 @@
+#' @export
 inShell <- function(...) {
   f <- as.list(parent.frame())
   exprs <- lapply(pryr::dots(...), function(e) {
