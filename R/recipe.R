@@ -1,5 +1,5 @@
 #' @export
-recipe <- function(target, depends, build=NULL, clean=NULL) {
+recipe <- function(target, depends=NULL, build=NULL, clean=NULL) {
   assert_that(is.string(target))
   assert_that(is.null(depends) || is.character(depends))
   assert_that(is.null(build) || is.character(build))
