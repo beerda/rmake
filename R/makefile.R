@@ -1,32 +1,35 @@
 #' @export
 makefile <- function(job=list(), fileName='Makefile') {
-  allTargets <- unlist(lapply(job, function(task) task$target))
-  allTask <- task(target='all',
-                  depends=paste(allTargets, collapse=' '),
-                  build='')
+  assert_that(is.list(job))
+  assert_that(all(vapply(job, is.recipe, logical(1))))
+  assert_that(is.null(fileName) || is.string(fileName))
+
+  targets <- unlist(lapply(job, function(recipe) recipe$target))
+  allRecipe <- recipe(target='all',
+                      depends=targets,
+                      build=NULL)
   job <- c(list(allTask), job)
 
-  cleanCmd <- lapply(job, function(task) task[['clean']])
-  if (!is.null(cleanCmd) && length(cleanCmd) > 0) {
-    cleanTask <- task(target='clean',
-                      depends=NULL,
-                      build=unlist(cleanCmd))
-    job <- c(job, list(cleanTask))
+  cleans <- lapply(job, function(recipe) recipe[['clean']])
+  if (!is.null(cleans) && length(cleans) > 0) {
+    cleanRecipe <- reciipe(target='clean',
+                           depends=NULL,
+                           build=unlist(cleans))
+    job <- c(job, list(cleanRecipe))
   }
 
-  makefileTask <- rTask(target='Makefile', depends=NULL, source='Makefile.R')
-  job <- c(job, list(makefileTask))
+  makefileRecipe <- rRecipe(target='Makefile', script='Makefile.R')
+  job <- c(job, list(makefileRecipe))
 
-
-  cmdTabs <- lapply(job, function(task) nchar(task$target))
+  cmdTabs <- lapply(job, function(recipe) nchar(recipe$target))
   cmdTabs <- floor((1 + max(unlist(cmdTabs))) / 8) + 1
   cmdTabs <- paste0(rep('\t', cmdTabs), collapse='')
 
-  rows <- lapply(job, function(task) {
-    depTabs <- nchar(cmdTabs) - floor(1 + (nchar(task$target) / 8)) + 1
+  rows <- lapply(job, function(recipe) {
+    depTabs <- nchar(cmdTabs) - floor(1 + (nchar(recipe$target) / 8)) + 1
     depTabs <- paste0(rep('\t', depTabs), collapse='')
-    paste0(task$target, ':', depTabs, paste(task$depends, collapse=' '), '\n',
-           paste0(cmdTabs, task$build, collapse='\n'), '\n')
+    paste0(recipe$target, ':', depTabs, paste(recipe$depends, collapse=' '), '\n',
+           paste0(cmdTabs, recipe$build, collapse='\n'), '\n')
   })
 
   conn <- stdout()

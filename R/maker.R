@@ -1,3 +1,6 @@
+#' @import assertthat
+
+
 .optionsFactory <- function() {
   defaults <- list(
     'R.command'='R --no-save --no-restore -quiet -e',

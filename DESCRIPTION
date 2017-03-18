@@ -8,5 +8,5 @@ Description: Makefile generator for R analytical projects
 License: GPL (>= 3.0)
 Encoding: UTF-8
 LazyData: true
-Imports: tools, pryr
+Imports: tools, pryr, assertthat
 RoxygenNote: 6.0.1
