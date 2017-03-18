@@ -4,5 +4,5 @@ test_that('rRecipe', {
   expect_equal(r$target, 'target.Rdata')
   expect_equal(r$depends, c('script.R', 'dep1', 'dep2'))
   expect_equal(r$build, '$(Rcode) \'source("script.R")\'')
-  expect_equal(r$clean, 'rm target.Rdata')
+  expect_equal(r$clean, '$(RM) target.Rdata')
 })

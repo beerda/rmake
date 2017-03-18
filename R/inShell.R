@@ -4,5 +4,5 @@ inShell <- function(...) {
   exprs <- lapply(pryr::dots(...), function(e) {
     pryr::substitute_q(e, f)
   })
-  paste0('R --no-save --no-restore --quiet -e \'', as.character(exprs), '\'')
+  paste0('$(Rcode) \'', as.character(exprs), '\'')
 }
