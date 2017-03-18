@@ -2,6 +2,7 @@
                   RM='rm')
 
 #' @export
+#' @import assertthat
 makefile <- function(job=list(),
                      fileName='Makefile',
                      vars=NULL,

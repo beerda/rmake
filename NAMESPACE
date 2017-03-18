@@ -3,7 +3,6 @@
 export(inShell)
 export(is.recipe)
 export(makefile)
-export(maker)
 export(markdownFormatFromExtension)
 export(markdownRecipe)
 export(newProject)
