@@ -9,7 +9,14 @@ inShell <- function(...) {
     deparse(e, control=c('keepInteger', 'showAttributes', 'useSource', 'warnIncomplete', 'keepNA'))
   })
   exprs <- unlist(exprs)
-  exprs <- encodeString(paste0(exprs, '\n'))
-  exprs <- paste0('\'', exprs, '\' \\')
-  c('echo \\', exprs, ' | $(Rcode)')
+  if (length(exprs) > 0) {
+    last <- length(exprs)
+    notLast <- seq_len(last-1)
+    exprs <- encodeString(paste0(exprs, '\n'))
+    exprs <- paste0('\'', exprs, '\'')
+    exprs[1] <- paste0('echo ', exprs[1])
+    exprs[notLast] <- paste0(exprs[notLast], '\\')
+    exprs[last] <- paste0(exprs[last], ' | $(R)')
+  }
+  exprs
 }

@@ -1,6 +1,6 @@
 #' @export
-defaultVars <- c(Rcode='R --no-save --no-restore --quiet',
-                  RM='rm')
+defaultVars <- c(R='R --no-save --no-restore --quiet',
+                 RM='rm')
 
 #' @export
 #' @import assertthat
