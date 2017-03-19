@@ -6,7 +6,9 @@ inShell <- function(...) {
   })
   #exprs <- as.character(exprs)
   exprs <- lapply(exprs, function(e) {
-    deparse(e, control=c('keepInteger', 'showAttributes', 'useSource', 'warnIncomplete', 'keepNA'))
+    deparse(e,
+            width.cutoff=500L,
+            control=c('keepInteger', 'showAttributes', 'useSource', 'warnIncomplete', 'keepNA'))
   })
   exprs <- unlist(exprs)
   if (length(exprs) > 0) {
