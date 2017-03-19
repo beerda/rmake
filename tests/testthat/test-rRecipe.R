@@ -6,6 +6,7 @@ test_that('single target rRecipe', {
   expect_equal(r$build, 'echo \'source("script.R")\\n\' | $(R)')
   expect_equal(r$clean, '$(RM) target.Rdata')
 })
+
 test_that('multiple target rRecipe', {
   r <- rRecipe(target=c('target.Rdata', 'target2.Rdata'),
                script='script.R',
