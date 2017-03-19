@@ -1,5 +1,5 @@
 #' @export
-defaultVars <- c(Rcode='R --no-save --no-restore --quiet -e',
+defaultVars <- c(Rcode='R --no-save --no-restore --quiet',
                   RM='rm')
 
 #' @export

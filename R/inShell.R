@@ -4,6 +4,12 @@ inShell <- function(...) {
   exprs <- lapply(pryr::dots(...), function(e) {
     pryr::substitute_q(e, f)
   })
-  exprs <- trimws(unlist(strsplit(as.character(exprs), '\n', fixed=TRUE)))
-  paste0('$(Rcode) \'', paste0(exprs, collapse='; '), '\'')
+  #exprs <- as.character(exprs)
+  exprs <- lapply(exprs, function(e) {
+    deparse(e, control=c('keepInteger', 'showAttributes', 'useSource', 'warnIncomplete', 'keepNA'))
+  })
+  exprs <- unlist(exprs)
+  exprs <- encodeString(paste0(exprs, '\n'))
+  exprs <- paste0('\'', exprs, '\' \\')
+  c('echo \\', exprs, ' | $(Rcode)')
 }
