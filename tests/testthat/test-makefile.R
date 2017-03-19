@@ -12,7 +12,10 @@ test_that('1 recipe makefile', {
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
-                      '\techo \'source("Makefile.R")\\n\' | $(R)'))
+                      '\techo \'{\\n\'\\',
+                      '\t\'    params <- NULL\\n\'\\',
+                      '\t\'    source("Makefile.R")\\n\'\\',
+                      '\t\'}\\n\' | $(R)'))
 })
 
 test_that('not all in makefile', {
@@ -27,7 +30,10 @@ test_that('not all in makefile', {
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
-                      '\techo \'source("Makefile.R")\\n\' | $(R)'))
+                      '\techo \'{\\n\'\\',
+                      '\t\'    params <- NULL\\n\'\\',
+                      '\t\'    source("Makefile.R")\\n\'\\',
+                      '\t\'}\\n\' | $(R)'))
 })
 
 test_that('not clean in makefile', {
@@ -42,7 +48,10 @@ test_that('not clean in makefile', {
                       'target.Rdata: dep1 dep2',
                       '\tbuildCmd',
                       'Makefile: Makefile.R',
-                      '\techo \'source("Makefile.R")\\n\' | $(R)'))
+                      '\techo \'{\\n\'\\',
+                      '\t\'    params <- NULL\\n\'\\',
+                      '\t\'    source("Makefile.R")\\n\'\\',
+                      '\t\'}\\n\' | $(R)'))
 })
 
 test_that('not Makefile in makefile', {
@@ -75,7 +84,10 @@ test_that('custom vars in makefile', {
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
-                      '\techo \'source("Makefile.R")\\n\' | $(R)'))
+                      '\techo \'{\\n\'\\',
+                      '\t\'    params <- NULL\\n\'\\',
+                      '\t\'    source("Makefile.R")\\n\'\\',
+                      '\t\'}\\n\' | $(R)'))
 })
 
 
@@ -94,7 +106,10 @@ test_that('redefined vars in makefile', {
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
-                      '\techo \'source("Makefile.R")\\n\' | $(R)'))
+                      '\techo \'{\\n\'\\',
+                      '\t\'    params <- NULL\\n\'\\',
+                      '\t\'    source("Makefile.R")\\n\'\\',
+                      '\t\'}\\n\' | $(R)'))
 })
 
 test_that('multiple target recipe makefile', {
@@ -114,5 +129,8 @@ test_that('multiple target recipe makefile', {
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
-                      '\techo \'source("Makefile.R")\\n\' | $(R)'))
+                      '\techo \'{\\n\'\\',
+                      '\t\'    params <- NULL\\n\'\\',
+                      '\t\'    source("Makefile.R")\\n\'\\',
+                      '\t\'}\\n\' | $(R)'))
 })
