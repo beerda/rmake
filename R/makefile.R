@@ -2,12 +2,22 @@
 defaultVars <- c(R='R --no-save --no-restore --quiet',
                  RM='rm')
 
+
+.taskDependencies <- function(job, task) {
+  r <- lapply(job, function(recipe) {
+    ifelse(task %in% recipe$task, list(recipe$target), list())
+  })
+  unlist(r)
+}
+
+
 #' @export
 #' @import assertthat
 makefile <- function(job=list(),
                      fileName='Makefile',
                      vars=NULL,
                      all=TRUE,
+                     tasks=TRUE,
                      clean=TRUE,
                      makefile=TRUE) {
   assert_that(is.list(job))
@@ -20,14 +30,24 @@ makefile <- function(job=list(),
     assert_that(all(names(vars) != ""))
   }
   assert_that(is.flag(all))
+  assert_that(is.flag(tasks))
   assert_that(is.flag(clean))
   assert_that(is.flag(makefile))
 
+  if (tasks) {
+    uniqueTaskNames <- unique(unlist(lapply(job, function(recipe) recipe$task)))
+    for (task in uniqueTaskNames) {
+      if (task != 'all') {
+        taskRecipe <- recipe(target=task,
+                             depends=.taskDependencies(job, task))
+        job <- c(list(taskRecipe), job)
+      }
+    }
+  }
+
   if (all) {
-    targets <- unique(unlist(lapply(job, function(recipe) recipe$target)))
     allRecipe <- recipe(target='all',
-                        depends=targets,
-                        build=NULL)
+                        depends=.taskDependencies(job, 'all'))
     job <- c(list(allRecipe), job)
   }
 
