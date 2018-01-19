@@ -36,7 +36,7 @@ makefile <- function(job=list(),
 
   if (tasks) {
     uniqueTaskNames <- unique(unlist(lapply(job, function(recipe) recipe$task)))
-    for (task in uniqueTaskNames) {
+    for (task in rev(uniqueTaskNames)) {
       if (task != 'all') {
         taskRecipe <- recipe(target=task,
                              depends=.taskDependencies(job, task))
