@@ -1,4 +1,5 @@
 #' @export
+#' @importFrom rmarkdown render
 markdownRecipe <- function(target,
                            script,
                            depends=NULL,

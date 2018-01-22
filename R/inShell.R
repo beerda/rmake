@@ -1,8 +1,10 @@
 #' @export
+#' @importFrom pryr dots
+#' @importFrom pryr substitute_q
 inShell <- function(...) {
   f <- as.list(parent.frame())
-  exprs <- lapply(pryr::dots(...), function(e) {
-    pryr::substitute_q(e, f)
+  exprs <- lapply(dots(...), function(e) {
+    substitute_q(e, f)
   })
   #exprs <- as.character(exprs)
   exprs <- lapply(exprs, function(e) {
