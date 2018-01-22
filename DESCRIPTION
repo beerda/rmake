@@ -1,7 +1,7 @@
 Package: maker
 Type: Package
 Title: Makefile generator for R analytical projects
-Version: 0.1.0
+Version: 0.1
 Author: Michal Burda
 Maintainer: Michal Burda <michal.burda@osu.cz>
 Description: Makefile generator for R analytical projects
