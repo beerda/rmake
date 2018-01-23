@@ -1,3 +1,12 @@
+#' Variables used within Makefile generating process
+#'
+#' `defaultVars` is a reserved variable, a named vector that defines
+#' Makefile variables, i.e. shell variables that will exist during
+#' the execution of Makefile recipes. The content of this variable
+#' is written into the resulting Makefile withen the execution of
+#' the [makefile()] function.
+#' @seealso [makefile()]
+#' @author Michal Burda
 #' @export
 defaultVars <- c(R='R --no-save --no-restore --quiet',
                  RM='rm')
@@ -11,10 +20,47 @@ defaultVars <- c(R='R --no-save --no-restore --quiet',
 }
 
 
+#' Generate Makefile from given list of recipes (`job`).
+#'
+#' In the (GNU) `make` jargon, *recipe* is an atomic build process unit. In this package, recipe
+#' should be understood similarly: It is a command that optionally produces some files while depending
+#' on some other files (or recipes). Moreover, a recipe may contain a command for cleanup, i.e. removal
+#' of generated files.
+#'
+#' The [makefile()] function takes a list of recipes (see [recipe()]) and generates a `Makefile` from them.
+#' Additionally, `all` and `clean` recipes are optionally generated too.
+#'
+#' If there is a need to group some recipes into a group, it can be done either via dependencies or by using
+#' the `task` mechanism. Each recipe may get assigned one or more tasks (see `task` in [recipe()]). Each
+#' task is then created as a standalone recipe depending on assigned recipes. That way, executing `make task_name`
+#' will build all recipes with assigned task `task_name`. By default, all recipes are assigned to task `all`,
+#' which allows `make all` to build everything.
+#'
+#' @param job A list of recipes (i.e. of instances of the S3 class `recipe` - see [recipe()])
+#' @param fileName A file to write to. If `NULL`, the result is returned as a character vector instead of
+#' writing to a file.
+#' @param makeScript A name of the file that calls this function (in order to generate
+#' the `makefile` recipe)
+#' @param vars A named character vector of shell variables that will be declared in the resulting Makefile
+#' (additionally to `[defaultVars]`)
+#' @param all `TRUE` if the `all` recipe should be automatically created and added: created `all` recipe
+#' has dependencies to all the other recipes, which causes that everything is built if `make all` is executed
+#' in shell's command line.
+#' @param tasks `TRUE` if "task" recipes should be automatically created and added -- see [recipe()] for
+#' more details.
+#' @param clean `TRUE` if the `clean` recipe should be automatically created and added
+#' @param makefile `TRUE` if the `Makefile` recipe should be automatically created and added: this recipe
+#' causes that any change in the R script - that generates the `Makefile` (i.e. that calls [makefile()]) -
+#' issues the re-generation of the Makefile in the beginning of any build.
+#' @return If `fileName` is `NULL`, the function returns a character vector with the contents of the
+#' Makefile.
+#' @seealso [recipe()], [makerSkeleton()]
+#' @author Michal Burda
 #' @export
 #' @import assertthat
 makefile <- function(job=list(),
                      fileName='Makefile',
+                     makeScript='Makefile.R',
                      vars=NULL,
                      all=TRUE,
                      tasks=TRUE,
@@ -23,6 +69,7 @@ makefile <- function(job=list(),
   assert_that(is.list(job))
   assert_that(all(vapply(job, is.recipe, logical(1))))
   assert_that(is.null(fileName) || is.string(fileName))
+  assert_that(is.string(makeScript))
   if (!is.null(vars)) {
     assert_that(is.character(vars))
     assert_that(!is.null(names(vars)))
@@ -62,7 +109,11 @@ makefile <- function(job=list(),
   }
 
   if (makefile) {
-    makefileRecipe <- rRecipe(target='Makefile', script='Makefile.R')
+    target <- fileName
+    if (is.null(target)) {
+      target <- 'Makefile'
+    }
+    makefileRecipe <- rRecipe(target=target, script=makeScript)
     job <- c(job, list(makefileRecipe))
   }
 
