@@ -53,7 +53,7 @@ defaultVars <- c(R='R --no-save --no-restore --quiet',
 #' causes that any change in the R script - that generates the `Makefile` (i.e. that calls [makefile()]) -
 #' issues the re-generation of the Makefile in the beginning of any build.
 #' @return If `fileName` is `NULL`, the function returns a character vector with the contents of the
-#' Makefile.
+#' Makefile. Instead, the content is written to the given `fileName`.
 #' @seealso [recipe()], [makerSkeleton()]
 #' @author Michal Burda
 #' @export

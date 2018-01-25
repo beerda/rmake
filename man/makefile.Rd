@@ -35,7 +35,7 @@ issues the re-generation of the Makefile in the beginning of any build.}
 }
 \value{
 If `fileName` is `NULL`, the function returns a character vector with the contents of the
-Makefile.
+Makefile. Instead, the content is written to the given `fileName`.
 }
 \description{
 In the (GNU) `make` jargon, *recipe* is an atomic build process unit. In this package, recipe
