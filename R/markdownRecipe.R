@@ -3,14 +3,23 @@
 #' This recipe is for execution of Markdown rendering in order to create text file
 #' of various supported formats such as (PDF, DOCX, etc.).
 #'
+#' This recipe executes the following command in a separate R process:
+#' `params <- params; rmarkdown::render(script, output_format=format, output_file=target)``
+#'
+#' Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
+#'
 #' @param target Name of the output file to be created
 #' @param script Name of the markdown file to be rendered
-#' @param depends A vector of file names that the markdown script depends on.
+#' @param depends A vector of file names that the markdown script depends on, or `NULL`.
 #' @param format Requested format of the result. Parameter is passed as `format` argument
-#' to [markdown::render()]. Allowed values are: 'all', 'html_document', 'pdf_document',
+#' to [rmarkdown::render()]. Allowed values are: 'all', 'html_document', 'pdf_document',
 #' 'word_document', 'odt_document', 'rtf_document', or 'md_document'.
-#' @param params A list of R values that become available within the `script` in variables of names
-#' corresponding to names of elements in the list.
+#' @param params `NULL` or a list of R values that become available within the `script` in
+#' a `params` variable.
+#' @param task A character vector of parent task names. The mechanism of tasks allows to
+#' group recipes. Anything different from `'all'` will
+#' cause creation of a new task depending on the given recipe. Executing `make taskname`
+#' will then force building of this recipe.
 #' @return Instance of S3 class `recipe`
 #' @seealso [recipe()], [makefile()], [rRecipe()]
 #' @author Michal Burda
@@ -39,9 +48,8 @@ markdownRecipe <- function(target,
   recipe(target=target,
          depends=allDeps,
          build=inShell({
-           library(rmarkdown)
            params <- p
-           render(script, output_format=format, output_file=target)
+           rmarkdown::render(script, output_format=format, output_file=target)
          }),
          clean=paste0('$(RM) ', paste0(target, collapse=' ')),
          task=task)

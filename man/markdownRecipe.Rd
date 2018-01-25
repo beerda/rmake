@@ -12,14 +12,19 @@ markdownRecipe(target, script, depends = NULL, format = "all",
 
 \item{script}{Name of the markdown file to be rendered}
 
-\item{depends}{A vector of file names that the markdown script depends on.}
+\item{depends}{A vector of file names that the markdown script depends on, or `NULL`.}
 
 \item{format}{Requested format of the result. Parameter is passed as `format` argument
-to [markdown::render()]. Allowed values are: 'all', 'html_document', 'pdf_document',
+to [rmarkdown::render()]. Allowed values are: 'all', 'html_document', 'pdf_document',
 'word_document', 'odt_document', 'rtf_document', or 'md_document'.}
 
-\item{params}{A list of R values that become available within the `script` in variables of names
-corresponding to names of elements in the list.}
+\item{params}{`NULL` or a list of R values that become available within the `script` in
+a `params` variable.}
+
+\item{task}{A character vector of parent task names. The mechanism of tasks allows to
+group recipes. Anything different from `'all'` will
+cause creation of a new task depending on the given recipe. Executing `make taskname`
+will then force building of this recipe.}
 }
 \value{
 Instance of S3 class `recipe`
@@ -27,6 +32,12 @@ Instance of S3 class `recipe`
 \description{
 This recipe is for execution of Markdown rendering in order to create text file
 of various supported formats such as (PDF, DOCX, etc.).
+}
+\details{
+This recipe executes the following command in a separate R process:
+`params <- params; rmarkdown::render(script, output_format=format, output_file=target)``
+
+Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
 }
 \seealso{
 [recipe()], [makefile()], [rRecipe()]
