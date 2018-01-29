@@ -29,7 +29,7 @@ This recipe is for execution of R scripts in order to create various file output
 }
 \details{
 In detail, this recipe executes the following command in a separate R process:
-`params <- params; source(script)``
+`params <- params; source(script)`
 
 Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
 }
