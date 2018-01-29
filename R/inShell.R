@@ -1,3 +1,23 @@
+.unixInShell <- function(exprs) {
+  last <- length(exprs)
+  notLast <- seq_len(last-1)
+  exprs <- encodeString(paste0(exprs, '\n'))
+  exprs <- paste0('\'', exprs, '\'')
+  exprs[1] <- paste0('echo ', exprs[1])
+  exprs[notLast] <- paste0(exprs[notLast], '\\')
+  exprs[last] <- paste0(exprs[last], ' | $(R)')
+  exprs
+}
+
+
+.windowsInShell <- function(exprs) {
+  exprs <- gsub('([&()^<>|\'`,;=])', '^\\1', exprs)
+  exprs <- paste0('echo ', exprs, collapse = '&')
+  exprs <- paste0('(', exprs, ') | $(R)')
+  exprs
+}
+
+
 #' Convert R code to the character vector of shell commands evaluating the given R code.
 #'
 #' The function takes R commands, deparses them, substitutes existing variables, and converts
@@ -26,13 +46,11 @@ inShell <- function(...) {
   })
   exprs <- unlist(exprs)
   if (length(exprs) > 0) {
-    last <- length(exprs)
-    notLast <- seq_len(last-1)
-    exprs <- encodeString(paste0(exprs, '\n'))
-    exprs <- paste0('\'', exprs, '\'')
-    exprs[1] <- paste0('echo ', exprs[1])
-    exprs[notLast] <- paste0(exprs[notLast], '\\')
-    exprs[last] <- paste0(exprs[last], ' | $(R)')
+    if (.Platform$OS.type == 'windows') {
+      exprs <- .windowsInShell(exprs)
+    } else {
+      exprs <- .unixInShell(exprs)
+    }
   }
   exprs
 }
