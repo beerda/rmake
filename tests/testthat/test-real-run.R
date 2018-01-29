@@ -45,7 +45,7 @@ contentGreater <- function(f1, f2) {
 }
 
 runSystem <- function(cmd) {
-  try(system2(cmd, stdout=TRUE, stderr=TRUE), silent=TRUE)
+  try(system2(cmd, wait=TRUE), silent=FALSE)
 }
 
 test_that('simple R script', {
