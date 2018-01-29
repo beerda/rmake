@@ -13,7 +13,7 @@
 .windowsInShell <- function(exprs) {
   exprs <- gsub('([&()^<>|\'`,;=])', '^\\1', exprs)
   exprs <- paste0('echo ', exprs, collapse = '&')
-  exprs <- paste0('\t(', exprs, ') | $(R)')
+  exprs <- paste0('(', exprs, ') | $(R)')
   exprs
 }
 
