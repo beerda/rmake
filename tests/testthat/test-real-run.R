@@ -44,6 +44,10 @@ contentGreater <- function(f1, f2) {
   return(v1[1,1] > v2[1,1])
 }
 
+runSystem <- function(cmd) {
+  try(system2(cmd, stdout=TRUE, stderr=TRUE), silent=TRUE)
+}
+
 test_that('simple R script', {
   initTesting('simple')
   dep1 <- createDepFile()
@@ -54,8 +58,14 @@ test_that('simple R script', {
                  paste0('job <- list(rRecipe("', out, '", "', r, '", c("', dep1, '", "', dep2, '")))'),
                  'makefile(job)')
 
+  expect_true(file.exists(dep1))
+  expect_true(file.exists(dep2))
   expect_false(file.exists(out))
-  system('make')
+  expect_true(file.exists(r))
+
+  res <- runSystem('make')
+  expect_false(inherits(res, 'try-error'))
+
   expect_true(file.exists(out))
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
