@@ -9,7 +9,7 @@
 #' @author Michal Burda
 #' @export
 defaultVars <- c(R='R --no-save --no-restore --quiet',
-                 RM='rm')
+                 RM=ifelse(.Platform$OS.type == 'unix', 'rm', 'del'))
 
 
 .taskDependencies <- function(job, task) {
