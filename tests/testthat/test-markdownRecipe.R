@@ -16,7 +16,7 @@ test_that('single target markdownRecipe', {
                    '\'}\\n\' | $(R)'))
   } else {
     expect_equal(r$build,
-                 c('(echo {&echo     params ^<- NULL&echo     rmarkdown::render^("script.Rmd", output_format = "all", output_file = "target.pdf"^)&echo }) | $(R)'))
+                 c('(echo {&echo     params ^<- NULL&echo     rmarkdown::render^("script.Rmd"^, output_format = "all"^, output_file = "target.pdf"^)&echo }) | $(R)'))
   }
 })
 
@@ -38,6 +38,6 @@ test_that('multiple target markdownRecipe', {
                    '\'}\\n\' | $(R)'))
   } else {
     expect_equal(r$build,
-                 c('(echo {&echo     params ^<- NULL&echo     rmarkdown::render^("script.Rmd", output_format = "all", output_file = "target.pdf", "target.docx"^)&echo }) | $(R)'))
+                 c('(echo {&echo     params ^<- NULL&echo     rmarkdown::render^("script.Rmd"^, output_format = "all"^, output_file = "target.pdf"^, "target.docx"^)&echo }) | $(R)'))
   }
 })

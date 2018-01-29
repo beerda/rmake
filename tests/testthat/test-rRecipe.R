@@ -15,7 +15,7 @@ test_that('single target rRecipe', {
                    '\'}\\n\' | $(R)'))
   } else {
     expect_equal(r$build,
-                 c('(echo {&echo     params <- NULL&echo     source("script.R")&echo }) | $(R)'))
+                 c('(echo {&echo     params ^<- NULL&echo     source("script.R")&echo }) | $(R)'))
 
   }
 })
@@ -38,6 +38,6 @@ test_that('multiple target rRecipe', {
                    '\'}\\n\' | $(R)'))
   } else {
     expect_equal(r$build,
-                 c('(echo {&echo     params <- NULL&echo     source("script.R")&echo }) | $(R)'))
+                 c('(echo {&echo     params ^<- NULL&echo     source("script.R")&echo }) | $(R)'))
   }
 })
