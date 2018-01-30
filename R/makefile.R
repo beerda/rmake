@@ -9,7 +9,12 @@
 #' @author Michal Burda
 #' @export
 defaultVars <- c(R='R --no-save --no-restore --quiet',
+                 ECHO='echo -e',
                  RM=ifelse(.Platform$OS.type == 'unix', 'rm', 'del'))
+
+if (.Platform$OS.type == 'unix') {
+  defaultVars <- c(defaultVars, SHELL='/bin/bash')
+}
 
 
 .taskDependencies <- function(job, task) {
