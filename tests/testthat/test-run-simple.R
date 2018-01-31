@@ -24,19 +24,23 @@ test_that('simple R script', {
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 
+  Sys.sleep(1)
   writeToDepFile(dep1)
   expect_false(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 
   res <- runSystem('make')
+  expect_false(inherits(res, 'try-error'))
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 
+  Sys.sleep(1)
   writeToDepFile(dep2)
   expect_true(contentGreater(out, dep1))
   expect_false(contentGreater(out, dep2))
 
   res <- runSystem('make')
+  expect_false(inherits(res, 'try-error'))
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 })
