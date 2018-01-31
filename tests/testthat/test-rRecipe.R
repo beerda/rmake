@@ -7,10 +7,10 @@ test_that('single target rRecipe', {
   expect_equal(r$depends, c('script.R', 'dep1', 'dep2'))
   expect_equal(r$clean, '$(RM) target.Rdata')
   expect_equal(sanitizeCovr(r$build),
-               c('$(ECHO) \'{\\n\'\\',
-                 '\'    params <- NULL\\n\'\\',
-                 '\'    source("script.R")\\n\'\\',
-                 '\'}\\n\' | $(R)'))
+               c('$(R) -e \'{\' \\',
+                 '-e \'    params <- NULL\' \\',
+                 '-e \'    source("script.R")\' \\',
+                 '-e \'}\''))
 })
 
 test_that('multiple target rRecipe', {
@@ -23,8 +23,8 @@ test_that('multiple target rRecipe', {
   expect_equal(r$depends, c('script.R', 'dep1', 'dep2'))
   expect_equal(r$clean, '$(RM) target.Rdata target2.Rdata')
   expect_equal(sanitizeCovr(r$build),
-               c('$(ECHO) \'{\\n\'\\',
-                 '\'    params <- NULL\\n\'\\',
-                 '\'    source("script.R")\\n\'\\',
-                 '\'}\\n\' | $(R)'))
+               c('$(R) -e \'{\' \\',
+                 '-e \'    params <- NULL\' \\',
+                 '-e \'    source("script.R")\' \\',
+                 '-e \'}\''))
 })

@@ -28,11 +28,10 @@ inShell <- function(...) {
   if (length(exprs) > 0) {
     last <- length(exprs)
     notLast <- seq_len(last-1)
-    exprs <- encodeString(paste0(exprs, '\n'))
-    exprs <- paste0('\'', exprs, '\'')
-    exprs[1] <- paste0('$(ECHO) ', exprs[1])
-    exprs[notLast] <- paste0(exprs[notLast], '\\')
-    exprs[last] <- paste0(exprs[last], ' | $(R)')
+    exprs <- encodeString(exprs)
+    exprs <- paste0('-e \'', exprs, '\'')
+    exprs[1] <- paste0('$(R) ', exprs[1])
+    exprs[notLast] <- paste0(exprs[notLast], ' \\')
   }
   exprs
 }
