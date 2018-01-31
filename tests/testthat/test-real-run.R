@@ -28,8 +28,9 @@ createScriptFile <- function(out) {
 createMakefile <- function(...) {
   makerSkeleton()
   Sys.sleep(1)
-  cat(paste(..., sep='\n'), file=paste0(tempdir(), '/Makefile.R'))
-  theTestingFiles <<- c(theTestingFiles, paste0(tempdir(), '/', c('Makefile.R', 'Makefile')))
+  print(...)
+  cat(paste(..., sep='\n'), file=file.path(tempdir(), 'Makefile.R'))
+  theTestingFiles <<- c(theTestingFiles, file.path(tempdir(), c('Makefile.R', 'Makefile')))
 }
 
 getOutFileName <- function() {
