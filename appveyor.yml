@@ -46,3 +46,4 @@ artifacts:
 
 environment:
   _R_CHECK_FORCE_SUGGESTS_: FALSE
+  R_ARCH_BIN: /i386
