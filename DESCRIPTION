@@ -1,13 +1,13 @@
 Package: rmake
 Type: Package
 Title: Makefile generator for R analytical projects
-Version: 0.1
+Version: 1.0
 Author: Michal Burda
 Maintainer: Michal Burda <michal.burda@osu.cz>
-Description: Tool for creating and maintaining a build process of complex analytic tasks in R.
-  It allows to easily generate Makefile for the 'make' tool, which drives the build process
-  by (paralelly) executing build commands accordingly to given dependencies between source files
-  and generated data files and/or reports.
+Description: Creates and maintains a build process for complex analytic tasks in R.
+  Package allows to easily generate Makefile for the (GNU) 'make' tool, which drives the build process
+  by (paralelly) executing build commands in order to update results accordingly to given dependencies
+  on changed data or updated source files.
 License: GPL (>= 3.0)
 Encoding: UTF-8
 LazyData: true
