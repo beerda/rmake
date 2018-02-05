@@ -15,7 +15,7 @@ createScriptFile <- function(f, out) {
 }
 
 createMakefile <- function(...) {
-  makerSkeleton()
+  rmakeSkeleton()
   Sys.sleep(1)
   cat(paste(..., sep='\n'), file='Makefile.R')
 }

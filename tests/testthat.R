@@ -1,2 +1,2 @@
 library(testthat)
-test_check("maker")
+test_check("rmake")

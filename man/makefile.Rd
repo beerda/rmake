@@ -54,7 +54,7 @@ will build all recipes with assigned task `task_name`. By default, all recipes a
 which allows `make all` to build everything.
 }
 \seealso{
-[recipe()], [makerSkeleton()]
+[recipe()], [rmakeSkeleton()]
 }
 \author{
 Michal Burda

@@ -14,7 +14,7 @@ test_that('tasks', {
   writeToDepFile(dep2)
   createScriptFile(r1, out1)
   createScriptFile(r2, out2)
-  createMakefile('library(maker)',
+  createMakefile('library(rmake)',
                  paste0('job <- list(rRecipe(target="', out1, '", script="', r1, '", depends=c("', dep11, '", "', dep12, '"), task="task1"),',
                         '            rRecipe(target="', out2, '", script="', r2, '", depends="', dep2, '", task="task2"))'),
                  'makefile(job)')

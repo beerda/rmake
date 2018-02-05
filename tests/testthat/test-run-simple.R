@@ -9,7 +9,7 @@ test_that('simple R script', {
   writeToDepFile(dep1)
   writeToDepFile(dep2)
   createScriptFile(r, out)
-  createMakefile('library(maker)',
+  createMakefile('library(rmake)',
                  paste0('job <- list(rRecipe("', out, '", "', r, '", c("', dep1, '", "', dep2, '")))'),
                  'makefile(job)')
 
