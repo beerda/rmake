@@ -1,4 +1,4 @@
-Package: maker
+Package: rmake
 Type: Package
 Title: Makefile generator for R analytical projects
 Version: 0.1
