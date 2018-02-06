@@ -38,14 +38,16 @@ If `fileName` is `NULL`, the function returns a character vector with the conten
 Makefile. Instead, the content is written to the given `fileName`.
 }
 \description{
-In the (GNU) `make` jargon, *recipe* is an atomic build process unit. In this package, recipe
-should be understood similarly: It is a command that optionally produces some files while depending
-on some other files (or recipes). Moreover, a recipe may contain a command for cleanup, i.e. removal
-of generated files.
+In the (GNU) `make` jargon, *recipe* is a sequence of commands to build a result. In this package, recipe
+should be understood similarly: It is a command or a sequence of command that optionally produces some
+files and depends on some other files (such as data files, scripts) or other recipes. Moreover, a recipe
+contain a command for cleanup, i.e. for removal of generated files.
 }
 \details{
 The [makefile()] function takes a list of recipes (see [recipe()]) and generates a `Makefile` from them.
-Additionally, `all` and `clean` recipes are optionally generated too.
+Additionally, `all` and `clean` recipes are optionally generated too, which can be executed from shell
+by issuing `make all` or `make clean` command, respectively, in order to build everything or erase all
+generated files.
 
 If there is a need to group some recipes into a group, it can be done either via dependencies or by using
 the `task` mechanism. Each recipe may get assigned one or more tasks (see `task` in [recipe()]). Each

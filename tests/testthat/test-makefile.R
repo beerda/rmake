@@ -6,10 +6,12 @@ test_that('1 recipe makefile', {
 
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
-  expect_equal(res, c('all: target.Rdata',
+  expect_equal(res, c('.PHONY: all',
+                      'all: target.Rdata',
                       '\t',
                       'target.Rdata: dep1 dep2',
                       '\tbuildCmd',
+                      '.PHONY: clean',
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
@@ -26,6 +28,7 @@ test_that('not all in makefile', {
   res <- res[-seq_len(which(res == ''))]
   expect_equal(res, c('target.Rdata: dep1 dep2',
                       '\tbuildCmd',
+                      '.PHONY: clean',
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
@@ -40,7 +43,8 @@ test_that('not clean in makefile', {
   res <- makefile(job, fileName=NULL, clean=FALSE)
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
-  expect_equal(res, c('all: target.Rdata',
+  expect_equal(res, c('.PHONY: all',
+                      'all: target.Rdata',
                       '\t',
                       'target.Rdata: dep1 dep2',
                       '\tbuildCmd',
@@ -56,10 +60,12 @@ test_that('not Makefile in makefile', {
   res <- makefile(job, fileName=NULL, makefile=FALSE)
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
-  expect_equal(res, c('all: target.Rdata',
+  expect_equal(res, c('.PHONY: all',
+                      'all: target.Rdata',
                       '\t',
                       'target.Rdata: dep1 dep2',
                       '\tbuildCmd',
+                      '.PHONY: clean',
                       'clean: ',
                       '\tcleanCmd'))
 })
@@ -113,10 +119,12 @@ test_that('multiple target recipe makefile', {
   res <- makefile(job, fileName=NULL)
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
-  expect_equal(res, c('all: target.pdf target.docx',
+  expect_equal(res, c('.PHONY: all',
+                      'all: target.pdf target.docx',
                       '\t',
                       'target%pdf target%docx: dep1 dep2',
                       '\tbuildCmd',
+                      '.PHONY: clean',
                       'clean: ',
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
@@ -144,10 +152,13 @@ test_that('makefile with tasks', {
   res <- makefile(job, fileName=NULL)
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
-  expect_equal(res, c('all: task1 task2 target3.pdf target3.docx',
+  expect_equal(res, c('.PHONY: all',
+                      'all: task1 task2 target3.pdf target3.docx',
                       '\t',
+                      '.PHONY: task1',
                       'task1: target1.pdf target1.docx',
                       '\t',
+                      '.PHONY: task2',
                       'task2: target2.pdf target2.docx',
                       '\t',
                       'target1%pdf target1%docx: dep1.1 dep1.2',
@@ -156,6 +167,7 @@ test_that('makefile with tasks', {
                       '\tbuildCmd2',
                       'target3%pdf target3%docx: dep3.1 dep3.2',
                       '\tbuildCmd3',
+                      '.PHONY: clean',
                       'clean: ',
                       '\tcleanCmd1',
                       '\tcleanCmd2',

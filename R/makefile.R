@@ -22,13 +22,15 @@ defaultVars <- c(R='"$(R_HOME)/bin$(R_ARCH)/Rscript"',
 
 #' Generate Makefile from given list of recipes (`job`).
 #'
-#' In the (GNU) `make` jargon, *recipe* is an atomic build process unit. In this package, recipe
-#' should be understood similarly: It is a command that optionally produces some files while depending
-#' on some other files (or recipes). Moreover, a recipe may contain a command for cleanup, i.e. removal
-#' of generated files.
+#' In the (GNU) `make` jargon, *recipe* is a sequence of commands to build a result. In this package, recipe
+#' should be understood similarly: It is a command or a sequence of command that optionally produces some
+#' files and depends on some other files (such as data files, scripts) or other recipes. Moreover, a recipe
+#' contain a command for cleanup, i.e. for removal of generated files.
 #'
 #' The [makefile()] function takes a list of recipes (see [recipe()]) and generates a `Makefile` from them.
-#' Additionally, `all` and `clean` recipes are optionally generated too.
+#' Additionally, `all` and `clean` recipes are optionally generated too, which can be executed from shell
+#' by issuing `make all` or `make clean` command, respectively, in order to build everything or erase all
+#' generated files.
 #'
 #' If there is a need to group some recipes into a group, it can be done either via dependencies or by using
 #' the `task` mechanism. Each recipe may get assigned one or more tasks (see `task` in [recipe()]). Each
@@ -86,7 +88,8 @@ makefile <- function(job=list(),
     for (task in rev(uniqueTaskNames)) {
       if (task != 'all') {
         taskRecipe <- recipe(target=task,
-                             depends=.taskDependencies(job, task))
+                             depends=.taskDependencies(job, task),
+                             phony=TRUE)
         job <- c(list(taskRecipe), job)
       }
     }
@@ -94,7 +97,8 @@ makefile <- function(job=list(),
 
   if (all) {
     allRecipe <- recipe(target='all',
-                        depends=.taskDependencies(job, 'all'))
+                        depends=.taskDependencies(job, 'all'),
+                        phony=TRUE)
     job <- c(list(allRecipe), job)
   }
 
@@ -103,7 +107,8 @@ makefile <- function(job=list(),
     if (!is.null(cleans) && length(cleans) > 0) {
       cleanRecipe <- recipe(target='clean',
                             depends=NULL,
-                            build=cleans)
+                            build=cleans,
+                            phony=TRUE)
       job <- c(job, list(cleanRecipe))
     }
   }
@@ -123,10 +128,15 @@ makefile <- function(job=list(),
                     paste0(names(v), '=', v))
 
   recipeRows <- lapply(job, function(recipe) {
-    c(paste0(paste0(recipe$pattern, collapse=' '),
-             ': ',
-             paste0(recipe$depends, collapse=' ')),
-      paste0('\t', recipe$build))
+    res <- c(paste0(paste0(recipe$pattern, collapse=' '),
+                    ': ',
+                    paste0(recipe$depends, collapse=' ')),
+             paste0('\t', recipe$build))
+    if (isTRUE(recipe$phony)) {
+      res <- c(paste0('.PHONY: ', recipe$pattern),
+               res)
+    }
+    return(res)
   })
   recipeRows <- unlist(recipeRows)
 
