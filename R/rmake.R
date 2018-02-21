@@ -7,8 +7,7 @@
 #'
 #' Note: The package requires the `R_HOME` environment variable to be properly set.
 #'
-#' @section Basic Usage
-#'
+#' @section Basic Usage:
 #' Suppose you have a file `dataset.csv`. You want to pre-process it and store the results into
 #' `dataset.rds` within the `preprocess.R` R script.  After that, `dataset.rds` is then
 #' an input file for `report.Rmd` and `details.Rmd`, which are R-Markdown scripts that generate
