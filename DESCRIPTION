@@ -1,6 +1,6 @@
 Package: rmake
 Type: Package
-Title: Makefile generator for R analytical projects
+Title: Makefile Generator for R Analytical Projects
 Version: 1.0.0
 Author: Michal Burda
 Maintainer: Michal Burda <michal.burda@osu.cz>
@@ -13,4 +13,5 @@ Encoding: UTF-8
 LazyData: true
 Imports: tools, pryr, assertthat, rmarkdown
 Suggests: testthat
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

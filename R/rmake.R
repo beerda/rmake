@@ -16,18 +16,18 @@
 #' \enumerate{
 #'   \item Let us assume that you have \pkg{rmake} package as well as the `make` tool properly installed.
 #'   \item Create a new directory (or an R studio project) and copy your `dataset.csv` into it.
-#'   \item Load \pkg{rmake} package and create skeleton files for it:
+#'   \item Load \pkg{rmake} package and create skeleton files for it: \cr
 #'     `library(rmake)` \cr
-#'     `rmakeSkeleton()` \cr
+#'     `rmakeSkeleton()` \cr\cr
 #'     `Makefile.R` and `Makefile` will be created.
 #'   \item Create your file `preprocess.R`, `report.Rmd` and `details.Rmd`.
-#'   \item Edit `Makefile.R` as follows:
+#'   \item Edit `Makefile.R` as follows: \cr
 #'     `library(rmake)` \cr
 #'     `job <- list(` \cr
 #'     `    rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),` \cr
 #'     `    markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),` \cr
 #'     `    markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')` \cr
-#'     `)` \cr
+#'     `)` \cr\cr
 #'     This will create three build rules: processing of `preprocess.R` and execution of `report.Rmd`
 #'     and `details.Rmd` in order to generate resulting PDF files.
 #'   \item Run `make` or build your project in R Studio (Build/Build all).

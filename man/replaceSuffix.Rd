@@ -9,14 +9,14 @@ replaceSuffix(fileName, newSuffix)
 \arguments{
 \item{fileName}{A character vector with original filenames}
 
-\item{newSuffix}{A new extension to replace old extensions in file names `fileName`}
+\item{newSuffix}{A new extension to replace old extensions in file names \code{fileName}}
 }
 \value{
-A character vector with new file names with old extensions replaced with `newSuffix`
+A character vector with new file names with old extensions replaced with \code{newSuffix}
 }
 \description{
-This helper function takes a file name `fileName`, removes an extension (a suffix)
-from it and adds a new extension `newSuffix`.
+This helper function takes a file name \code{fileName}, removes an extension (a suffix)
+from it and adds a new extension \code{newSuffix}.
 }
 \author{
 Michal Burda

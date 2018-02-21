@@ -11,26 +11,26 @@ offlineRule(target, message, depends = NULL, task = "all")
 command}
 
 \item{message}{An error message to be issued if targets are older than dependencies
-from `depends`}
+from \code{depends}}
 
 \item{depends}{A character vector of file names the targets depend on}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to
-group rules. Anything different from `'all'` will
-cause creation of a new task depending on the given rule. Executing `make taskname`
+group rules. Anything different from \code{'all'} will
+cause creation of a new task depending on the given rule. Executing \code{make taskname}
 will then force building of this rule.}
 }
 \value{
-Instance of S3 class `rmake.rule`
+Instance of S3 class \code{rmake.rule}
 }
 \description{
 Instead of building the target, this rule simply issues the given error message.
-This rule is useful for cases, where the target `target` depends on `depends`, but
-has to be updated by some manual process. So if `target` is older than any of its
-dependencies, `make` will throw an error until the user manualy updates the target.
+This rule is useful for cases, where the target \code{target} depends on \code{depends}, but
+has to be updated by some manual process. So if \code{target} is older than any of its
+dependencies, \code{make} will throw an error until the user manualy updates the target.
 }
 \seealso{
-[rule()], [makefile()]
+\code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}
 }
 \author{
 Michal Burda

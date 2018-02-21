@@ -2,16 +2,16 @@
 % Please edit documentation in R/rmakeSkeleton.R
 \name{rmakeSkeleton}
 \alias{rmakeSkeleton}
-\title{Prepare existing project for building with *rmake*.}
+\title{Prepare existing project for building with \emph{rmake}.}
 \usage{
 rmakeSkeleton()
 }
 \description{
-This function creates a `Makefile.R` with an empty *rmake* project
-and generates a basic `Makefile` from it.
+This function creates a \code{Makefile.R} with an empty \emph{rmake} project
+and generates a basic \code{Makefile} from it.
 }
 \seealso{
-[makefile()], [rule()]
+\code{\link[=makefile]{makefile()}}, \code{\link[=rule]{rule()}}
 }
 \author{
 Michal Burda

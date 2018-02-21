@@ -10,17 +10,17 @@ is.rule(x)
 \item{x}{An argument to be tested}
 }
 \value{
-`TRUE` if `x` is a valid rule object and `FALSE` otherwise.
+\code{TRUE} if \code{x} is a valid rule object and \code{FALSE} otherwise.
 }
 \description{
-Function tests whether `x` is a valid rule object, i.e., whether
-it is list a list and inherits from the `rmake.rule` S3 class. Instances
-of `rule` represent an atomic building unit, i.e. a command that
+Function tests whether \code{x} is a valid rule object, i.e., whether
+it is list a list and inherits from the \code{rmake.rule} S3 class. Instances
+of \code{rule} represent an atomic building unit, i.e. a command that
 has to be executed, which optionally depends on some files or other
-rules -- see [rule()] for more details.
+rules -- see \code{\link[=rule]{rule()}} for more details.
 }
 \seealso{
-[rule()], [makefile()], [rRule()], [markdownRule()], [offlineRule()]
+\code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}, \code{\link[=rRule]{rRule()}}, \code{\link[=markdownRule]{markdownRule()}}, \code{\link[=offlineRule]{offlineRule()}}
 }
 \author{
 Michal Burda

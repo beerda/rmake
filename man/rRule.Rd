@@ -11,30 +11,30 @@ rRule(target, script, depends = NULL, params = NULL, task = "all")
 
 \item{script}{Name of the R script to be executed}
 
-\item{depends}{A vector of file names that the R script depends on, or `NULL`.}
+\item{depends}{A vector of file names that the R script depends on, or \code{NULL}.}
 
-\item{params}{`NULL` or a list of R values that become available within the `script` in
-a `params` variable.}
+\item{params}{\code{NULL} or a list of R values that become available within the \code{script} in
+a \code{params} variable.}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to
-group rules. Anything different from `'all'` will
-cause creation of a new task depending on the given rule. Executing `make taskname`
+group rules. Anything different from \code{'all'} will
+cause creation of a new task depending on the given rule. Executing \code{make taskname}
 will then force building of this rule.}
 }
 \value{
-Instance of S3 class `rmake.rule`
+Instance of S3 class \code{rmake.rule}
 }
 \description{
 This rule is for execution of R scripts in order to create various file outputs.
 }
 \details{
 In detail, this rule executes the following command in a separate R process:
-`params <- params; source(script)`
+\code{params <- params; source(script)}
 
-Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
+Issuing \code{make clean} from the shell causes removal of all files specified in \code{target} parameter.
 }
 \seealso{
-[rule()], [makefile()], [markdownRule()]
+\code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}, \code{\link[=markdownRule]{markdownRule()}}
 }
 \author{
 Michal Burda

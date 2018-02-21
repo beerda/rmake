@@ -2,61 +2,61 @@
 % Please edit documentation in R/makefile.R
 \name{makefile}
 \alias{makefile}
-\title{Generate Makefile from given list of rules (`job`).}
+\title{Generate Makefile from given list of rules (\code{job}).}
 \usage{
 makefile(job = list(), fileName = "Makefile", makeScript = "Makefile.R",
   vars = NULL, all = TRUE, tasks = TRUE, clean = TRUE,
   makefile = TRUE)
 }
 \arguments{
-\item{job}{A list of rules (i.e. of instances of the S3 class `rmake.rule` - see [rule()])}
+\item{job}{A list of rules (i.e. of instances of the S3 class \code{rmake.rule} - see \code{\link[=rule]{rule()}})}
 
-\item{fileName}{A file to write to. If `NULL`, the result is returned as a character vector instead of
+\item{fileName}{A file to write to. If \code{NULL}, the result is returned as a character vector instead of
 writing to a file.}
 
 \item{makeScript}{A name of the file that calls this function (in order to generate
-the `makefile` rule)}
+the \code{makefile} rule)}
 
 \item{vars}{A named character vector of shell variables that will be declared in the resulting Makefile
-(additionally to `[defaultVars]`)}
+(additionally to \code{[defaultVars]})}
 
-\item{all}{`TRUE` if the `all` rule should be automatically created and added: created `all` rule
-has dependencies to all the other rules, which causes that everything is built if `make all` is executed
+\item{all}{\code{TRUE} if the \code{all} rule should be automatically created and added: created \code{all} rule
+has dependencies to all the other rules, which causes that everything is built if \code{make all} is executed
 in shell's command line.}
 
-\item{tasks}{`TRUE` if "task" rules should be automatically created and added -- see [rule()] for
+\item{tasks}{\code{TRUE} if "task" rules should be automatically created and added -- see \code{\link[=rule]{rule()}} for
 more details.}
 
-\item{clean}{`TRUE` if the `clean` rule should be automatically created and added}
+\item{clean}{\code{TRUE} if the \code{clean} rule should be automatically created and added}
 
-\item{makefile}{`TRUE` if the `Makefile` rule should be automatically created and added: this rule
-causes that any change in the R script - that generates the `Makefile` (i.e. that calls [makefile()]) -
+\item{makefile}{\code{TRUE} if the \code{Makefile} rule should be automatically created and added: this rule
+causes that any change in the R script - that generates the \code{Makefile} (i.e. that calls \code{\link[=makefile]{makefile()}}) -
 issues the re-generation of the Makefile in the beginning of any build.}
 }
 \value{
-If `fileName` is `NULL`, the function returns a character vector with the contents of the
-Makefile. Instead, the content is written to the given `fileName`.
+If \code{fileName} is \code{NULL}, the function returns a character vector with the contents of the
+Makefile. Instead, the content is written to the given \code{fileName}.
 }
 \description{
-In the (GNU) `make` jargon, *rule* is a sequence of commands to build a result. In this package, rule
+In the (GNU) \code{make} jargon, \emph{rule} is a sequence of commands to build a result. In this package, rule
 should be understood similarly: It is a command or a sequence of command that optionally produces some
 files and depends on some other files (such as data files, scripts) or other rules. Moreover, a rule
 contain a command for cleanup, i.e. for removal of generated files.
 }
 \details{
-The [makefile()] function takes a list of rules (see [rule()]) and generates a `Makefile` from them.
-Additionally, `all` and `clean` rules are optionally generated too, which can be executed from shell
-by issuing `make all` or `make clean` command, respectively, in order to build everything or erase all
+The \code{\link[=makefile]{makefile()}} function takes a list of rules (see \code{\link[=rule]{rule()}}) and generates a \code{Makefile} from them.
+Additionally, \code{all} and \code{clean} rules are optionally generated too, which can be executed from shell
+by issuing \code{make all} or \code{make clean} command, respectively, in order to build everything or erase all
 generated files.
 
 If there is a need to group some rules into a group, it can be done either via dependencies or by using
-the `task` mechanism. Each rule may get assigned one or more tasks (see `task` in [rule()]). Each
-task is then created as a standalone rule depending on assigned rules. That way, executing `make task_name`
-will build all rules with assigned task `task_name`. By default, all rules are assigned to task `all`,
-which allows `make all` to build everything.
+the \code{task} mechanism. Each rule may get assigned one or more tasks (see \code{task} in \code{\link[=rule]{rule()}}). Each
+task is then created as a standalone rule depending on assigned rules. That way, executing \code{make task_name}
+will build all rules with assigned task \code{task_name}. By default, all rules are assigned to task \code{all},
+which allows \code{make all} to build everything.
 }
 \seealso{
-[rule()], [rmakeSkeleton()]
+\code{\link[=rule]{rule()}}, \code{\link[=rmakeSkeleton]{rmakeSkeleton()}}
 }
 \author{
 Michal Burda

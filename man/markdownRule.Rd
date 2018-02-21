@@ -12,22 +12,22 @@ markdownRule(target, script, depends = NULL, format = "all",
 
 \item{script}{Name of the markdown file to be rendered}
 
-\item{depends}{A vector of file names that the markdown script depends on, or `NULL`.}
+\item{depends}{A vector of file names that the markdown script depends on, or \code{NULL}.}
 
-\item{format}{Requested format of the result. Parameter is passed as `format` argument
-to [rmarkdown::render()]. Allowed values are: 'all', 'html_document', 'pdf_document',
+\item{format}{Requested format of the result. Parameter is passed as \code{format} argument
+to \code{\link[rmarkdown:render]{rmarkdown::render()}}. Allowed values are: 'all', 'html_document', 'pdf_document',
 'word_document', 'odt_document', 'rtf_document', or 'md_document'.}
 
-\item{params}{`NULL` or a list of R values that become available within the `script` in
-a `params` variable.}
+\item{params}{\code{NULL} or a list of R values that become available within the \code{script} in
+a \code{params} variable.}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to
-group rules. Anything different from `'all'` will
-cause creation of a new task depending on the given rule. Executing `make taskname`
+group rules. Anything different from \code{'all'} will
+cause creation of a new task depending on the given rule. Executing \code{make taskname}
 will then force building of this rule.}
 }
 \value{
-Instance of S3 class `rmake.rule`
+Instance of S3 class \code{rmake.rule}
 }
 \description{
 This rule is for execution of Markdown rendering in order to create text file
@@ -37,10 +37,10 @@ of various supported formats such as (PDF, DOCX, etc.).
 This rule executes the following command in a separate R process:
 `params <- params; rmarkdown::render(script, output_format=format, output_file=target)``
 
-Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
+Issuing \code{make clean} from the shell causes removal of all files specified in \code{target} parameter.
 }
 \seealso{
-[rule()], [makefile()], [rRule()]
+\code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}, \code{\link[=rRule]{rRule()}}
 }
 \author{
 Michal Burda
