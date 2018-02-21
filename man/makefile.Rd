@@ -2,34 +2,34 @@
 % Please edit documentation in R/makefile.R
 \name{makefile}
 \alias{makefile}
-\title{Generate Makefile from given list of recipes (`job`).}
+\title{Generate Makefile from given list of rules (`job`).}
 \usage{
 makefile(job = list(), fileName = "Makefile", makeScript = "Makefile.R",
   vars = NULL, all = TRUE, tasks = TRUE, clean = TRUE,
   makefile = TRUE)
 }
 \arguments{
-\item{job}{A list of recipes (i.e. of instances of the S3 class `recipe` - see [recipe()])}
+\item{job}{A list of rules (i.e. of instances of the S3 class `rmake.rule` - see [rule()])}
 
 \item{fileName}{A file to write to. If `NULL`, the result is returned as a character vector instead of
 writing to a file.}
 
 \item{makeScript}{A name of the file that calls this function (in order to generate
-the `makefile` recipe)}
+the `makefile` rule)}
 
 \item{vars}{A named character vector of shell variables that will be declared in the resulting Makefile
 (additionally to `[defaultVars]`)}
 
-\item{all}{`TRUE` if the `all` recipe should be automatically created and added: created `all` recipe
-has dependencies to all the other recipes, which causes that everything is built if `make all` is executed
+\item{all}{`TRUE` if the `all` rule should be automatically created and added: created `all` rule
+has dependencies to all the other rules, which causes that everything is built if `make all` is executed
 in shell's command line.}
 
-\item{tasks}{`TRUE` if "task" recipes should be automatically created and added -- see [recipe()] for
+\item{tasks}{`TRUE` if "task" rules should be automatically created and added -- see [rule()] for
 more details.}
 
-\item{clean}{`TRUE` if the `clean` recipe should be automatically created and added}
+\item{clean}{`TRUE` if the `clean` rule should be automatically created and added}
 
-\item{makefile}{`TRUE` if the `Makefile` recipe should be automatically created and added: this recipe
+\item{makefile}{`TRUE` if the `Makefile` rule should be automatically created and added: this rule
 causes that any change in the R script - that generates the `Makefile` (i.e. that calls [makefile()]) -
 issues the re-generation of the Makefile in the beginning of any build.}
 }
@@ -38,25 +38,25 @@ If `fileName` is `NULL`, the function returns a character vector with the conten
 Makefile. Instead, the content is written to the given `fileName`.
 }
 \description{
-In the (GNU) `make` jargon, *recipe* is a sequence of commands to build a result. In this package, recipe
+In the (GNU) `make` jargon, *rule* is a sequence of commands to build a result. In this package, rule
 should be understood similarly: It is a command or a sequence of command that optionally produces some
-files and depends on some other files (such as data files, scripts) or other recipes. Moreover, a recipe
+files and depends on some other files (such as data files, scripts) or other rules. Moreover, a rule
 contain a command for cleanup, i.e. for removal of generated files.
 }
 \details{
-The [makefile()] function takes a list of recipes (see [recipe()]) and generates a `Makefile` from them.
-Additionally, `all` and `clean` recipes are optionally generated too, which can be executed from shell
+The [makefile()] function takes a list of rules (see [rule()]) and generates a `Makefile` from them.
+Additionally, `all` and `clean` rules are optionally generated too, which can be executed from shell
 by issuing `make all` or `make clean` command, respectively, in order to build everything or erase all
 generated files.
 
-If there is a need to group some recipes into a group, it can be done either via dependencies or by using
-the `task` mechanism. Each recipe may get assigned one or more tasks (see `task` in [recipe()]). Each
-task is then created as a standalone recipe depending on assigned recipes. That way, executing `make task_name`
-will build all recipes with assigned task `task_name`. By default, all recipes are assigned to task `all`,
+If there is a need to group some rules into a group, it can be done either via dependencies or by using
+the `task` mechanism. Each rule may get assigned one or more tasks (see `task` in [rule()]). Each
+task is then created as a standalone rule depending on assigned rules. That way, executing `make task_name`
+will build all rules with assigned task `task_name`. By default, all rules are assigned to task `all`,
 which allows `make all` to build everything.
 }
 \seealso{
-[recipe()], [rmakeSkeleton()]
+[rule()], [rmakeSkeleton()]
 }
 \author{
 Michal Burda

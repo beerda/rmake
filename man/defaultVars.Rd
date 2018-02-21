@@ -11,7 +11,7 @@ defaultVars
 \description{
 `defaultVars` is a reserved variable, a named vector that defines
 Makefile variables, i.e. shell variables that will exist during
-the execution of Makefile recipes. The content of this variable
+the execution of Makefile rules. The content of this variable
 is written into the resulting Makefile withen the execution of
 the [makefile()] function.
 }

@@ -10,7 +10,7 @@ test_that('simple R script', {
   writeToDepFile(dep2)
   createScriptFile(r, out)
   createMakefile('library(rmake)',
-                 paste0('job <- list(rRecipe("', out, '", "', r, '", c("', dep1, '", "', dep2, '")))'),
+                 paste0('job <- list(rRule("', out, '", "', r, '", c("', dep1, '", "', dep2, '")))'),
                  'makefile(job)')
 
   expect_true(file.exists(dep1))

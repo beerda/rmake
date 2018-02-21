@@ -1,9 +1,9 @@
-#' Recipe for building text documents from Markdown files
+#' Rule for building text documents from Markdown files
 #'
-#' This recipe is for execution of Markdown rendering in order to create text file
+#' This rule is for execution of Markdown rendering in order to create text file
 #' of various supported formats such as (PDF, DOCX, etc.).
 #'
-#' This recipe executes the following command in a separate R process:
+#' This rule executes the following command in a separate R process:
 #' `params <- params; rmarkdown::render(script, output_format=format, output_file=target)``
 #'
 #' Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
@@ -17,20 +17,20 @@
 #' @param params `NULL` or a list of R values that become available within the `script` in
 #' a `params` variable.
 #' @param task A character vector of parent task names. The mechanism of tasks allows to
-#' group recipes. Anything different from `'all'` will
-#' cause creation of a new task depending on the given recipe. Executing `make taskname`
-#' will then force building of this recipe.
-#' @return Instance of S3 class `recipe`
-#' @seealso [recipe()], [makefile()], [rRecipe()]
+#' group rules. Anything different from `'all'` will
+#' cause creation of a new task depending on the given rule. Executing `make taskname`
+#' will then force building of this rule.
+#' @return Instance of S3 class `rmake.rule`
+#' @seealso [rule()], [makefile()], [rRule()]
 #' @author Michal Burda
 #' @export
 #' @importFrom rmarkdown render
-markdownRecipe <- function(target,
-                           script,
-                           depends=NULL,
-                           format='all',
-                           params=NULL,
-                           task='all') {
+markdownRule <- function(target,
+                         script,
+                         depends=NULL,
+                         format='all',
+                         params=NULL,
+                         task='all') {
   assert_that(is.character(target))
   assert_that(is.string(script))
   assert_that(is.null(depends) || is.character(depends))
@@ -45,12 +45,12 @@ markdownRecipe <- function(target,
   p <- params
   rm(params)
 
-  recipe(target=target,
-         depends=allDeps,
-         build=inShell({
-           params <- p
-           rmarkdown::render(script, output_format=format, output_file=target)
-         }),
-         clean=paste0('$(RM) ', paste0(target, collapse=' ')),
-         task=task)
+  rule(target=target,
+       depends=allDeps,
+       build=inShell({
+         params <- p
+         rmarkdown::render(script, output_format=format, output_file=target)
+       }),
+       clean=paste0('$(RM) ', paste0(target, collapse=' ')),
+       task=task)
 }

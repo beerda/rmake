@@ -1,7 +1,7 @@
 source('sanitizeCovr.R')
 
-test_that('1 recipe makefile', {
-  job <- list(recipe(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
+test_that('1 rule makefile', {
+  job <- list(rule(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
   res <- makefile(job, fileName=NULL)
 
   res <- sanitizeCovr(res)
@@ -22,7 +22,7 @@ test_that('1 recipe makefile', {
 })
 
 test_that('not all in makefile', {
-  job <- list(recipe(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
+  job <- list(rule(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
   res <- makefile(job, fileName=NULL, all=FALSE)
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
@@ -39,7 +39,7 @@ test_that('not all in makefile', {
 })
 
 test_that('not clean in makefile', {
-  job <- list(recipe(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
+  job <- list(rule(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
   res <- makefile(job, fileName=NULL, clean=FALSE)
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
@@ -56,7 +56,7 @@ test_that('not clean in makefile', {
 })
 
 test_that('not Makefile in makefile', {
-  job <- list(recipe(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
+  job <- list(rule(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
   res <- makefile(job, fileName=NULL, makefile=FALSE)
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
@@ -71,7 +71,7 @@ test_that('not Makefile in makefile', {
 })
 
 test_that('custom vars in makefile', {
-  job <- list(recipe(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
+  job <- list(rule(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
   res <- makefile(job, fileName=NULL, vars=c(CPP='gcc'))
   res <- sanitizeCovr(res)
   res <- res[seq_len(which(res == ''))]
@@ -94,7 +94,7 @@ test_that('custom vars in makefile', {
 
 
 test_that('redefined vars in makefile', {
-  job <- list(recipe(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
+  job <- list(rule(target='target.Rdata', depends=c('dep1', 'dep2'), build='buildCmd', clean='cleanCmd'))
   res <- makefile(job, fileName=NULL, vars=c(R='MyR', CPP='gcc'))
   res <- sanitizeCovr(res)
   res <- res[seq_len(which(res == ''))]
@@ -115,8 +115,8 @@ test_that('redefined vars in makefile', {
   }
 })
 
-test_that('multiple target recipe makefile', {
-  job <- list(recipe(target=c('target.pdf', 'target.docx'),
+test_that('multiple target rule makefile', {
+  job <- list(rule(target=c('target.pdf', 'target.docx'),
                      depends=c('dep1', 'dep2'),
                      build='buildCmd',
                      clean='cleanCmd'))
@@ -139,17 +139,17 @@ test_that('multiple target recipe makefile', {
 })
 
 test_that('makefile with tasks', {
-  job <- list(recipe(target=c('target1.pdf', 'target1.docx'),
+  job <- list(rule(target=c('target1.pdf', 'target1.docx'),
                      depends=c('dep1.1', 'dep1.2'),
                      build='buildCmd1',
                      clean='cleanCmd1',
                      task='task1'),
-              recipe(target=c('target2.pdf', 'target2.docx'),
+              rule(target=c('target2.pdf', 'target2.docx'),
                      depends=c('dep2.1', 'dep2.2'),
                      build='buildCmd2',
                      clean='cleanCmd2',
                      task='task2'),
-              recipe(target=c('target3.pdf', 'target3.docx'),
+              rule(target=c('target3.pdf', 'target3.docx'),
                      depends=c('dep3.1', 'dep3.2'),
                      build='buildCmd3',
                      clean='cleanCmd3'))

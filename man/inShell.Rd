@@ -16,11 +16,11 @@ interpreter
 \description{
 The function takes R commands, deparses them, substitutes existing variables, and converts
 everything to character strings, from which a shell command is created that sends the given
-R code to the R interpreter. Function is used internally to print the commands of R recipes
+R code to the R interpreter. Function is used internally to print the commands of R rules
 into `Makefile`.
 }
 \seealso{
-[rRecipe()], [markdownRecipe()]
+[rRule()], [markdownRule()]
 }
 \author{
 Michal Burda
