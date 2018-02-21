@@ -8,7 +8,8 @@
 #' @seealso [makefile()]
 #' @author Michal Burda
 #' @export
-defaultVars <- c(R='"$(R_HOME)/bin$(R_ARCH)/Rscript"',
+defaultVars <- c(SHELL='/bin/sh',
+                 R='"$(R_HOME)/bin$(R_ARCH)/Rscript"',
                  RM=ifelse(.Platform$OS.type == 'unix', 'rm', 'del'))
 
 

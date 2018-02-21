@@ -4,7 +4,7 @@
 \name{defaultVars}
 \alias{defaultVars}
 \title{Variables used within Makefile generating process}
-\format{An object of class \code{character} of length 2.}
+\format{An object of class \code{character} of length 3.}
 \usage{
 defaultVars
 }
