@@ -31,7 +31,7 @@ within the ```preprocess.R``` R script.  After that, ```dataset.rds``` is then a
 ```report.Rmd``` and ```details.Rmd```, which are R-Markdown scripts that generate ```report.pdf``` and
 ```details.pdf```. The whole project can be initialized with *rmake* as follows:
 
-1. Let us assume that you have *rmake* installed.
+1. Let us assume that you have *rmake* package as well as the ```make``` tool properly installed.
 2. Create a new directory (or an R studio project) and copy your ```dataset.csv``` into it.
 3. Load *rmake* and create skeleton files for *rmake*:
    ``` r
