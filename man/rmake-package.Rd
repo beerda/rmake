@@ -26,8 +26,8 @@ an input file for \code{report.Rmd} and \code{details.Rmd}, which are R-Markdown
 \item Create a new directory (or an R studio project) and copy your \code{dataset.csv} into it.
 \item Load \pkg{rmake} package and create skeleton files for it: \cr
 \code{library(rmake)} \cr
-\code{rmakeSkeleton()} \cr\cr
-\code{Makefile.R} and \code{Makefile} will be created.
+\code{rmakeSkeleton('.')} \cr\cr
+\code{Makefile.R} and \code{Makefile} will be created in current directory (\code{'.'}).
 \item Create your file \code{preprocess.R}, \code{report.Rmd} and \code{details.Rmd}.
 \item Edit \code{Makefile.R} as follows: \cr
 \code{library(rmake)} \cr

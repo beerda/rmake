@@ -18,8 +18,8 @@
 #'   \item Create a new directory (or an R studio project) and copy your `dataset.csv` into it.
 #'   \item Load \pkg{rmake} package and create skeleton files for it: \cr
 #'     `library(rmake)` \cr
-#'     `rmakeSkeleton()` \cr\cr
-#'     `Makefile.R` and `Makefile` will be created.
+#'     `rmakeSkeleton('.')` \cr\cr
+#'     `Makefile.R` and `Makefile` will be created in current directory (`'.'`).
 #'   \item Create your file `preprocess.R`, `report.Rmd` and `details.Rmd`.
 #'   \item Edit `Makefile.R` as follows: \cr
 #'     `library(rmake)` \cr

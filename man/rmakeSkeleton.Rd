@@ -4,15 +4,18 @@
 \alias{rmakeSkeleton}
 \title{Prepare existing project for building with \emph{rmake}.}
 \usage{
-rmakeSkeleton()
+rmakeSkeleton(path)
+}
+\arguments{
+\item{path}{Path to the target directory where to create files. Use "." for the current directory.}
 }
 \description{
 This function creates a \code{Makefile.R} with an empty \emph{rmake} project
 and generates a basic \code{Makefile} from it.
 }
 \examples{
-# creates/overrides Makefile.R and Makefile
-rmakeSkeleton()
+# creates/overrides Makefile.R and Makefile in a temporary directory
+rmakeSkeleton(path=tempdir())
 }
 \seealso{
 \code{\link[=makefile]{makefile()}}, \code{\link[=rule]{rule()}}
