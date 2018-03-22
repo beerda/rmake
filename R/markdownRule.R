@@ -31,10 +31,9 @@
 #' # generate the content of a makefile (as character vector)
 #' makefile(list(r))
 #'
-#' \dontrun{
-#' # generate real file Makefile
-#' makefile(list(r), "Makefile")
-#' }
+#' # generate to file
+#' tmp <- tempdir()
+#' makefile(list(r), file.path(tmp, "Makefile"))
 #' @export
 #' @importFrom rmarkdown render
 markdownRule <- function(target,

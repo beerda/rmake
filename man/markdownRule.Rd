@@ -47,10 +47,9 @@ r <- markdownRule(target='report.pdf',
 # generate the content of a makefile (as character vector)
 makefile(list(r))
 
-\dontrun{
-# generate real file Makefile
-makefile(list(r), "Makefile")
-}
+# generate to file
+tmp <- tempdir()
+makefile(list(r), file.path(tmp, "Makefile"))
 }
 \seealso{
 \code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}, \code{\link[=rRule]{rRule()}}

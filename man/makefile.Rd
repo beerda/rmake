@@ -65,10 +65,9 @@ job <- list(
 # generate Makefile (output as a character vector)
 makefile(job)
 
-\dontrun{
-# generate physical file with name "Makefile"
-makefile(job, "Makefile")
-}
+# generate to file
+tmp <- tempdir()
+makefile(job, file.path(tmp, "Makefile"))
 }
 \seealso{
 \code{\link[=rule]{rule()}}, \code{\link[=rmakeSkeleton]{rmakeSkeleton()}}

@@ -25,10 +25,9 @@
 #' # generate the content of a makefile (as character vector)
 #' makefile(list(r))
 #'
-#' \dontrun{
-#' # generate real file Makefile
-#' makefile(list(r), "Makefile")
-#' }
+#' # generate to file
+#' tmp <- tempdir()
+#' makefile(list(r), file.path(tmp, "Makefile"))
 #' @export
 offlineRule <- function(target, message, depends=NULL, task='all') {
   assert_that(is.character(target))
