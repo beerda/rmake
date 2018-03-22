@@ -17,6 +17,18 @@
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()]
 #' @author Michal Burda
+#' @examples
+#' r <- offlineRule(target='offlinedata.csv',
+#'                  message='Please re-generate manually offlinedata.csv',
+#'                  depends=c('source1.csv', 'source2.csv'))
+#'
+#' # generate the content of a makefile (as character vector)
+#' makefile(list(r))
+#'
+#' \dontrun{
+#' # generate real file Makefile
+#' makefile(list(r), "Makefile")
+#' }
 #' @export
 offlineRule <- function(target, message, depends=NULL, task='all') {
   assert_that(is.character(target))

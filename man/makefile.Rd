@@ -55,6 +55,21 @@ task is then created as a standalone rule depending on assigned rules. That way,
 will build all rules with assigned task \code{task_name}. By default, all rules are assigned to task \code{all},
 which allows \code{make all} to build everything.
 }
+\examples{
+# create some jobs
+job <- list(
+    rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),
+    markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),
+    markdownRule('details.pdf', 'details.Rmd', 'dataset.rds'))
+
+# generate Makefile (output as a character vector)
+makefile(job)
+
+\dontrun{
+# generate physical file with name "Makefile"
+makefile(job, "Makefile")
+}
+}
 \seealso{
 \code{\link[=rule]{rule()}}, \code{\link[=rmakeSkeleton]{rmakeSkeleton()}}
 }

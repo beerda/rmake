@@ -41,8 +41,22 @@ by executing \code{make task_name} on the command line, which forces to rebuild 
 task \code{'task_name'}. By default, all rules are assigned to task \code{all},
 which causes \code{make all} command to build everything.
 }
+\examples{
+r <- rule(target='something.abc',
+          depends=c('file.a', 'file.b', 'file.c'),
+          build='myCompiler file.a file.b file.c -o something.abc',
+          clean='$(RM) something.abc')
+
+# generate the content of a makefile (as character vector)
+makefile(list(r))
+
+\dontrun{
+# generate real file Makefile
+makefile(list(r), "Makefile")
+}
+}
 \seealso{
-\code{\link[=makefile]{makefile()}}
+\code{\link[=makefile]{makefile()}}, \code{\link[=inShell]{inShell()}}
 }
 \author{
 Michal Burda

@@ -19,6 +19,18 @@
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()], [markdownRule()]
 #' @author Michal Burda
+#' @examples
+#' r <- rRule(target='cleandata.csv',
+#'            script='clean.R',
+#'            depends=c('data1.csv', 'data2.csv'))
+#'
+#' # generate the content of a makefile (as character vector)
+#' makefile(list(r))
+#'
+#' \dontrun{
+#' # generate real file Makefile
+#' makefile(list(r), "Makefile")
+#' }
 #' @export
 rRule <- function(target, script, depends=NULL, params=NULL, task='all') {
   assert_that(is.character(target))

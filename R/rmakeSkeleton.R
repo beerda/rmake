@@ -5,6 +5,9 @@
 #'
 #' @seealso [makefile()], [rule()]
 #' @author Michal Burda
+#' @examples
+#' # creates/overrides Makefile.R and Makefile
+#' rmakeSkeleton()
 #' @export
 rmakeSkeleton <- function() {
   cat('library(rmake)\n\njob <- list()\n\nmakefile(job, "Makefile")\n', file='Makefile.R')

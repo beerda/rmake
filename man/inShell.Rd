@@ -19,6 +19,13 @@ everything to character strings, from which a shell command is created that send
 R code to the R interpreter. Function is used internally to print the commands of R rules
 into \code{Makefile}.
 }
+\examples{
+inShell({
+  x <- 1
+  y <- 2
+  print(x+y)
+})
+}
 \seealso{
 \code{\link[=rRule]{rRule()}}, \code{\link[=markdownRule]{markdownRule()}}
 }

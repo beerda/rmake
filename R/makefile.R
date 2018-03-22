@@ -59,6 +59,20 @@ defaultVars <- c(SHELL='/bin/sh',
 #' Makefile. Instead, the content is written to the given `fileName`.
 #' @seealso [rule()], [rmakeSkeleton()]
 #' @author Michal Burda
+#' @examples
+#' # create some jobs
+#' job <- list(
+#'     rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),
+#'     markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),
+#'     markdownRule('details.pdf', 'details.Rmd', 'dataset.rds'))
+#'
+#' # generate Makefile (output as a character vector)
+#' makefile(job)
+#'
+#' \dontrun{
+#' # generate physical file with name "Makefile"
+#' makefile(job, "Makefile")
+#' }
 #' @export
 #' @import assertthat
 makefile <- function(job=list(),

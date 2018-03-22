@@ -29,6 +29,19 @@ This rule is useful for cases, where the target \code{target} depends on \code{d
 has to be updated by some manual process. So if \code{target} is older than any of its
 dependencies, \code{make} will throw an error until the user manualy updates the target.
 }
+\examples{
+r <- offlineRule(target='offlinedata.csv',
+                 message='Please re-generate manually offlinedata.csv',
+                 depends=c('source1.csv', 'source2.csv'))
+
+# generate the content of a makefile (as character vector)
+makefile(list(r))
+
+\dontrun{
+# generate real file Makefile
+makefile(list(r), "Makefile")
+}
+}
 \seealso{
 \code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}
 }

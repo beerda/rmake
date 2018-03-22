@@ -10,6 +10,12 @@
 #' interpreter
 #' @author Michal Burda
 #' @seealso [rRule()], [markdownRule()]
+#' @examples
+#' inShell({
+#'   x <- 1
+#'   y <- 2
+#'   print(x+y)
+#' })
 #' @export
 #' @importFrom pryr dots
 #' @importFrom pryr substitute_q

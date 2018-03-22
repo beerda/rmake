@@ -18,6 +18,10 @@ A character vector with new file names with old extensions replaced with \code{n
 This helper function takes a file name \code{fileName}, removes an extension (a suffix)
 from it and adds a new extension \code{newSuffix}.
 }
+\examples{
+replaceSuffix('filename.Rmd', '.pdf')          # 'filename.pdf'
+replaceSuffix(c('a.x', 'b.y', 'c.z'), '.csv')  # 'a.csv', 'b.csv', 'c.csv'
+}
 \author{
 Michal Burda
 }

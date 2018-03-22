@@ -7,6 +7,9 @@
 #' @param newSuffix A new extension to replace old extensions in file names `fileName`
 #' @return A character vector with new file names with old extensions replaced with `newSuffix`
 #' @author Michal Burda
+#' @examples
+#' replaceSuffix('filename.Rmd', '.pdf')          # 'filename.pdf'
+#' replaceSuffix(c('a.x', 'b.y', 'c.z'), '.csv')  # 'a.csv', 'b.csv', 'c.csv'
 #' @export
 #' @importFrom tools file_path_sans_ext
 replaceSuffix <-  function(fileName, newSuffix) {

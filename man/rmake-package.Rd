@@ -35,7 +35,8 @@ an input file for \code{report.Rmd} and \code{details.Rmd}, which are R-Markdown
 \code{rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),} \cr
 \code{markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),} \cr
 \code{markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')} \cr
-\code{)} \cr\cr
+\code{)} \cr
+\code{makefile(job, "Makefile")}\cr\cr
 This will create three build rules: processing of \code{preprocess.R} and execution of \code{report.Rmd}
 and \code{details.Rmd} in order to generate resulting PDF files.
 \item Run \code{make} or build your project in R Studio (Build/Build all).

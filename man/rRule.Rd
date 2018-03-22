@@ -33,6 +33,19 @@ In detail, this rule executes the following command in a separate R process:
 
 Issuing \code{make clean} from the shell causes removal of all files specified in \code{target} parameter.
 }
+\examples{
+r <- rRule(target='cleandata.csv',
+           script='clean.R',
+           depends=c('data1.csv', 'data2.csv'))
+
+# generate the content of a makefile (as character vector)
+makefile(list(r))
+
+\dontrun{
+# generate real file Makefile
+makefile(list(r), "Makefile")
+}
+}
 \seealso{
 \code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}, \code{\link[=markdownRule]{markdownRule()}}
 }

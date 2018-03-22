@@ -23,6 +23,18 @@
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()], [rRule()]
 #' @author Michal Burda
+#' @examples
+#' r <- markdownRule(target='report.pdf',
+#'                   script='report.Rmd',
+#'                   depends=c('data1.csv', 'data2.csv'))
+#'
+#' # generate the content of a makefile (as character vector)
+#' makefile(list(r))
+#'
+#' \dontrun{
+#' # generate real file Makefile
+#' makefile(list(r), "Makefile")
+#' }
 #' @export
 #' @importFrom rmarkdown render
 markdownRule <- function(target,

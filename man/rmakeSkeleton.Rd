@@ -10,6 +10,10 @@ rmakeSkeleton()
 This function creates a \code{Makefile.R} with an empty \emph{rmake} project
 and generates a basic \code{Makefile} from it.
 }
+\examples{
+# creates/overrides Makefile.R and Makefile
+rmakeSkeleton()
+}
 \seealso{
 \code{\link[=makefile]{makefile()}}, \code{\link[=rule]{rule()}}
 }
