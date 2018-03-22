@@ -4,7 +4,7 @@
 \alias{makefile}
 \title{Generate Makefile from given list of rules (\code{job}).}
 \usage{
-makefile(job = list(), fileName = "Makefile", makeScript = "Makefile.R",
+makefile(job = list(), fileName = NULL, makeScript = "Makefile.R",
   vars = NULL, all = TRUE, tasks = TRUE, clean = TRUE,
   makefile = TRUE)
 }

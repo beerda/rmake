@@ -24,18 +24,18 @@ an input file for \code{report.Rmd} and \code{details.Rmd}, which are R-Markdown
 \enumerate{
 \item Let us assume that you have \pkg{rmake} package as well as the \code{make} tool properly installed.
 \item Create a new directory (or an R studio project) and copy your \code{dataset.csv} into it.
-\item Load \pkg{rmake} package and create skeleton files for it:
+\item Load \pkg{rmake} package and create skeleton files for it: \cr
 \code{library(rmake)} \cr
-\code{rmakeSkeleton()} \cr
+\code{rmakeSkeleton()} \cr\cr
 \code{Makefile.R} and \code{Makefile} will be created.
 \item Create your file \code{preprocess.R}, \code{report.Rmd} and \code{details.Rmd}.
-\item Edit \code{Makefile.R} as follows:
+\item Edit \code{Makefile.R} as follows: \cr
 \code{library(rmake)} \cr
 \code{job <- list(} \cr
 \code{rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),} \cr
 \code{markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),} \cr
 \code{markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')} \cr
-\code{)} \cr
+\code{)} \cr\cr
 This will create three build rules: processing of \code{preprocess.R} and execution of \code{report.Rmd}
 and \code{details.Rmd} in order to generate resulting PDF files.
 \item Run \code{make} or build your project in R Studio (Build/Build all).

@@ -7,6 +7,6 @@
 #' @author Michal Burda
 #' @export
 rmakeSkeleton <- function() {
-  cat('library(rmake)\n\njob <- list()\n\nmakefile(job)\n', file='Makefile.R')
-  makefile()
+  cat('library(rmake)\n\njob <- list()\n\nmakefile(job, "Makefile")\n', file='Makefile.R')
+  makefile(list(), 'Makefile')
 }

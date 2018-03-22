@@ -17,7 +17,7 @@ test_that('tasks', {
   createMakefile('library(rmake)',
                  paste0('job <- list(rRule(target="', out1, '", script="', r1, '", depends=c("', dep11, '", "', dep12, '"), task="task1"),',
                         '            rRule(target="', out2, '", script="', r2, '", depends="', dep2, '", task="task2"))'),
-                 'makefile(job)')
+                 'makefile(job, "Makefile")')
 
   expect_true(file.exists(dep11))
   expect_true(file.exists(dep12))

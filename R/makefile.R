@@ -62,7 +62,7 @@ defaultVars <- c(SHELL='/bin/sh',
 #' @export
 #' @import assertthat
 makefile <- function(job=list(),
-                     fileName='Makefile',
+                     fileName=NULL,
                      makeScript='Makefile.R',
                      vars=NULL,
                      all=TRUE,

@@ -11,7 +11,7 @@ test_that('simple R script', {
   createScriptFile(r, out)
   createMakefile('library(rmake)',
                  paste0('job <- list(rRule("', out, '", "', r, '", c("', dep1, '", "', dep2, '")))'),
-                 'makefile(job)')
+                 'makefile(job, "Makefile")')
 
   expect_true(file.exists(dep1))
   expect_true(file.exists(dep2))

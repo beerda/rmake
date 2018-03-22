@@ -27,7 +27,8 @@
 #'     `    rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),` \cr
 #'     `    markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),` \cr
 #'     `    markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')` \cr
-#'     `)` \cr\cr
+#'     `)` \cr
+#'     `makefile(job, "Makefile")`\cr\cr
 #'     This will create three build rules: processing of `preprocess.R` and execution of `report.Rmd`
 #'     and `details.Rmd` in order to generate resulting PDF files.
 #'   \item Run `make` or build your project in R Studio (Build/Build all).
