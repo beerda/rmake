@@ -5,7 +5,7 @@
 \title{Rule for building text documents from Markdown files}
 \usage{
 markdownRule(target, script, depends = NULL, format = "all",
-  params = NULL, task = "all")
+  params = list(), task = "all")
 }
 \arguments{
 \item{target}{Name of the output file to be created}
@@ -18,7 +18,7 @@ markdownRule(target, script, depends = NULL, format = "all",
 to \code{\link[rmarkdown:render]{rmarkdown::render()}}. Allowed values are: 'all', 'html_document', 'pdf_document',
 'word_document', 'odt_document', 'rtf_document', or 'md_document'.}
 
-\item{params}{\code{NULL} or a list of R values that become available within the \code{script} in
+\item{params}{A list of R values that become available within the \code{script} in
 a \code{params} variable.}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to

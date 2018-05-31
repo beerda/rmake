@@ -10,7 +10,7 @@
 #' @param target Name of output files to be created
 #' @param script Name of the R script to be executed
 #' @param depends A vector of file names that the R script depends on, or `NULL`.
-#' @param params `NULL` or a list of R values that become available within the `script` in
+#' @param params A list of R values that become available within the `script` in
 #' a `params` variable.
 #' @param task A character vector of parent task names. The mechanism of tasks allows to
 #' group rules. Anything different from `'all'` will
@@ -31,10 +31,11 @@
 #' tmp <- tempdir()
 #' makefile(list(r), file.path(tmp, "Makefile"))
 #' @export
-rRule <- function(target, script, depends=NULL, params=NULL, task='all') {
+rRule <- function(target, script, depends=NULL, params=list(), task='all') {
   assert_that(is.character(target))
   assert_that(is.string(script))
   assert_that(is.null(depends) || is.character(depends))
+  assert_that(is.list(params))
   assert_that(is.character(task))
 
   p <- params

@@ -14,7 +14,7 @@
 #' @param format Requested format of the result. Parameter is passed as `format` argument
 #' to [rmarkdown::render()]. Allowed values are: 'all', 'html_document', 'pdf_document',
 #' 'word_document', 'odt_document', 'rtf_document', or 'md_document'.
-#' @param params `NULL` or a list of R values that become available within the `script` in
+#' @param params A list of R values that become available within the `script` in
 #' a `params` variable.
 #' @param task A character vector of parent task names. The mechanism of tasks allows to
 #' group rules. Anything different from `'all'` will
@@ -40,12 +40,13 @@ markdownRule <- function(target,
                          script,
                          depends=NULL,
                          format='all',
-                         params=NULL,
+                         params=list(),
                          task='all') {
   assert_that(is.character(target))
   assert_that(is.string(script))
   assert_that(is.null(depends) || is.character(depends))
   assert_that(is.character(format))
+  assert_that(is.list(params))
   assert_that(is.character(task))
 
   format <- match.arg(format,
