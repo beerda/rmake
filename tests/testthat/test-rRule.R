@@ -8,7 +8,7 @@ test_that('single target rRule', {
   expect_equal(r$clean, '$(RM) target.Rdata')
   expect_equal(sanitizeCovr(r$build),
                c('$(R) -e \'{\' \\',
-                 '-e \'    params <- list()\' \\',
+                 '-e \'    params <- structure(list(.target = \"target.Rdata\", .script = \"script.R\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\',
                  '-e \'    source("script.R")\' \\',
                  '-e \'}\''))
 })
@@ -24,7 +24,7 @@ test_that('multiple target rRule', {
   expect_equal(r$clean, '$(RM) target.Rdata target2.Rdata')
   expect_equal(sanitizeCovr(r$build),
                c('$(R) -e \'{\' \\',
-                 '-e \'    params <- list()\' \\',
+                 '-e \'    params <- structure(list(.target = c(\"target.Rdata\", \"target2.Rdata\"), .script = \"script.R\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\',
                  '-e \'    source("script.R")\' \\',
                  '-e \'}\''))
 })

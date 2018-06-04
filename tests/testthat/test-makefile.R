@@ -16,7 +16,7 @@ test_that('1 rule makefile', {
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
                       '\t$(R) -e \'{\' \\',
-                      '\t-e \'    params <- list()\' \\',
+                      '\t-e \'    params <- structure(list(.target = \"Makefile\", .script = \"Makefile.R\", .depends = NULL, .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\',
                       '\t-e \'    source("Makefile.R")\' \\',
                       '\t-e \'}\''))
 })
@@ -33,7 +33,7 @@ test_that('not all in makefile', {
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
                       '\t$(R) -e \'{\' \\',
-                      '\t-e \'    params <- list()\' \\',
+                      '\t-e \'    params <- structure(list(.target = \"Makefile\", .script = \"Makefile.R\", .depends = NULL, .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\',
                       '\t-e \'    source("Makefile.R")\' \\',
                       '\t-e \'}\''))
 })
@@ -50,7 +50,7 @@ test_that('not clean in makefile', {
                       '\tbuildCmd',
                       'Makefile: Makefile.R',
                       '\t$(R) -e \'{\' \\',
-                      '\t-e \'    params <- list()\' \\',
+                      '\t-e \'    params <- structure(list(.target = \"Makefile\", .script = \"Makefile.R\", .depends = NULL, .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\',
                       '\t-e \'    source("Makefile.R")\' \\',
                       '\t-e \'}\''))
 })
@@ -133,7 +133,7 @@ test_that('multiple target rule makefile', {
                       '\tcleanCmd',
                       'Makefile: Makefile.R',
                       '\t$(R) -e \'{\' \\',
-                      '\t-e \'    params <- list()\' \\',
+                      '\t-e \'    params <- structure(list(.target = \"Makefile\", .script = \"Makefile.R\", .depends = NULL, .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\',
                       '\t-e \'    source("Makefile.R")\' \\',
                       '\t-e \'}\''))
 })
@@ -178,7 +178,7 @@ test_that('makefile with tasks', {
                       '\tcleanCmd3',
                       'Makefile: Makefile.R',
                       '\t$(R) -e \'{\' \\',
-                      '\t-e \'    params <- list()\' \\',
+                      '\t-e \'    params <- structure(list(.target = \"Makefile\", .script = \"Makefile.R\", .depends = NULL, .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\',
                       '\t-e \'    source("Makefile.R")\' \\',
                       '\t-e \'}\''))
 })

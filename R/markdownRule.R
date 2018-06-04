@@ -59,7 +59,13 @@ markdownRule <- function(target,
                         'odt_document', 'rtf_document', 'md_document'),
                       several.ok=TRUE)
   allDeps <- c(script, depends)
-  p <- params
+
+  p <- c(list(.target=target,
+              .script=script,
+              .depends=depends,
+              .format=format,
+              .task=task),
+         params)
   rm(params)
 
   rule(target=target,

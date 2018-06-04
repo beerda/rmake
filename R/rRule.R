@@ -42,8 +42,13 @@ rRule <- function(target, script, depends=NULL, params=list(), task='all') {
   assert_that(is.list(params))
   assert_that(is.character(task))
 
-  p <- params
+  p <- c(list(.target=target,
+              .script=script,
+              .depends=depends,
+              .task=task),
+         params)
   rm(params)
+
   rule(target=target,
        depends=c(script, depends),
        build=inShell({
