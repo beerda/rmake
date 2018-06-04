@@ -6,6 +6,11 @@
 #' This rule executes the following command in a separate R process:
 #' `params <- params; rmarkdown::render(script, output_format=format, output_file=target)``
 #'
+#' That is, parameters given in the `params` argument are stored into the global variable
+#' and then the `script` is rendered with rmarkdown. That is, the re-generation of the
+#' `Makefile` with any change to `params` will not cause the re-execution of the recipe unless
+#' any other script dependencies change.
+#'
 #' Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
 #'
 #' @param target Name of the output file to be created

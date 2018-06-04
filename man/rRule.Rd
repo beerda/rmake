@@ -31,6 +31,10 @@ This rule is for execution of R scripts in order to create various file outputs.
 In detail, this rule executes the following command in a separate R process:
 \code{params <- params; source(script)}
 
+That is, parameters given in the \code{params} argument are stored into the global variable
+and then the \code{script} is sourced. That is, the re-generation of the \code{Makefile} with any change
+to \code{params} will not cause the re-execution of the recipe unless any other script dependencies change.
+
 Issuing \code{make clean} from the shell causes removal of all files specified in \code{target} parameter.
 }
 \examples{

@@ -5,6 +5,10 @@
 #' In detail, this rule executes the following command in a separate R process:
 #' `params <- params; source(script)`
 #'
+#' That is, parameters given in the `params` argument are stored into the global variable
+#' and then the `script` is sourced. That is, the re-generation of the `Makefile` with any change
+#' to `params` will not cause the re-execution of the recipe unless any other script dependencies change.
+#'
 #' Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
 #'
 #' @param target Name of output files to be created
