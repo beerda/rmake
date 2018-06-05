@@ -25,10 +25,16 @@ inShell <- function(...) {
     substitute_q(e, f)
   })
   #exprs <- as.character(exprs)
+
+  ctrl <- c('keepInteger', 'showAttributes', 'useSource', 'warnIncomplete', 'keepNA')
+  if (getRversion() > '3.4.4') {
+    ctrl <- c(ctrl, 'niceNames')
+  }
+
   exprs <- lapply(exprs, function(e) {
     deparse(e,
             width.cutoff=500L,
-            control=c('keepInteger', 'showAttributes', 'useSource', 'warnIncomplete', 'keepNA'))
+            control=ctrl)
   })
   exprs <- unlist(exprs)
   if (length(exprs) > 0) {
@@ -41,3 +47,4 @@ inShell <- function(...) {
   }
   exprs
 }
+
