@@ -30,12 +30,12 @@ inShell <- function(...) {
   if (getRversion() > '3.4.4') {
     ctrl <- c(ctrl, 'niceNames')
   }
-
   exprs <- lapply(exprs, function(e) {
     deparse(e,
             width.cutoff=500L,
             control=ctrl)
   })
+
   exprs <- unlist(exprs)
   if (length(exprs) > 0) {
     last <- length(exprs)
