@@ -125,6 +125,27 @@ makefile <- function(job=list(),
                             phony=TRUE)
       job <- c(job, list(cleanRule))
     }
+
+    # generate clean_<task> rules
+    if (tasks) {
+      uniqueTaskNames <- unique(unlist(lapply(job, function(rule) rule$task)))
+      for (task in uniqueTaskNames) {
+        if (task != 'all') {
+          cleans <- unique(unlist(lapply(job, function(rule) {
+            if (task %in% rule$task) {
+              return(rule$clean)
+            } else {
+              return(NULL)
+            }
+          })))
+          taskCleanRule <- rule(target=paste0('clean_', task),
+                               depends=NULL,
+                               build=cleans,
+                               phony=TRUE)
+          job <- c(job, list(taskCleanRule))
+        }
+      }
+    }
   }
 
   if (makefile) {
