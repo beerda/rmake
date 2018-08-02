@@ -8,7 +8,7 @@
 \description{
 \pkg{rmake} creates and maintains a build process for complex analytic tasks in R.
 Package allows to easily generate Makefile for the (GNU) 'make' tool, which drives the build process
-by (paralelly) executing build commands in order to update results accordingly to given dependencies
+by (in parallel) executing build commands in order to update results accordingly to given dependencies
 on changed data or updated source files.
 }
 \details{

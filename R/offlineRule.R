@@ -3,7 +3,7 @@
 #' Instead of building the target, this rule simply issues the given error message.
 #' This rule is useful for cases, where the target `target` depends on `depends`, but
 #' has to be updated by some manual process. So if `target` is older than any of its
-#' dependencies, `make` will throw an error until the user manualy updates the target.
+#' dependencies, `make` will throw an error until the user manually updates the target.
 #'
 #' @param target A character vector of target file names of the manual (offline) build
 #' command
