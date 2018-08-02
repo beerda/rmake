@@ -21,6 +21,13 @@ defaultVars <- c(SHELL='/bin/sh',
 }
 
 
+.allTasks <- function(job) {
+  tasks <- lapply(job, function(rule) rule$task)
+  tasks <- unlist(tasks)
+  unique(c('all', tasks))
+}
+
+
 #' Generate Makefile from given list of rules (`job`).
 #'
 #' In the (GNU) `make` jargon, *rule* is a sequence of commands to build a result. In this package, rule
@@ -97,13 +104,21 @@ makefile <- function(job=list(),
   assert_that(is.flag(clean))
   assert_that(is.flag(makefile))
 
+  makefileName <- NULL
+  if (makefile) {
+    makefileName <- fileName
+    if (is.null(makefileName)) {
+      makefileName <- 'Makefile'
+    }
+  }
+
   if (tasks) {
     uniqueTaskNames <- unique(unlist(lapply(job, function(rule) rule$task)))
     for (task in rev(uniqueTaskNames)) {
       if (task != 'all') {
         taskRule <- rule(target=task,
-                             depends=.taskDependencies(job, task),
-                             phony=TRUE)
+                         depends=c(makefileName, .taskDependencies(job, task)),
+                         phony=TRUE)
         job <- c(list(taskRule), job)
       }
     }
@@ -111,8 +126,8 @@ makefile <- function(job=list(),
 
   if (all) {
     allRule <- rule(target='all',
-                        depends=.taskDependencies(job, 'all'),
-                        phony=TRUE)
+                    depends=c(makefileName, .taskDependencies(job, 'all')),
+                    phony=TRUE)
     job <- c(list(allRule), job)
   }
 
@@ -149,11 +164,7 @@ makefile <- function(job=list(),
   }
 
   if (makefile) {
-    target <- fileName
-    if (is.null(target)) {
-      target <- 'Makefile'
-    }
-    makefileRule <- rRule(target=target, script=makeScript)
+    makefileRule <- rRule(target=makefileName, script=makeScript)
     job <- c(job, list(makefileRule))
   }
 

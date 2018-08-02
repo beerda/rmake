@@ -7,7 +7,7 @@ test_that('1 rule makefile', {
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
   expect_equal(res, c('.PHONY: all',
-                      'all: target.Rdata',
+                      'all: Makefile target.Rdata',
                       '\t',
                       'target.Rdata: dep1 dep2',
                       '\tbuildCmd',
@@ -48,7 +48,7 @@ test_that('not clean in makefile', {
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
   expect_equal(res, c('.PHONY: all',
-                      'all: target.Rdata',
+                      'all: Makefile target.Rdata',
                       '\t',
                       'target.Rdata: dep1 dep2',
                       '\tbuildCmd',
@@ -130,7 +130,7 @@ test_that('multiple target rule makefile', {
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
   expect_equal(res, c('.PHONY: all',
-                      'all: target.pdf target.docx',
+                      'all: Makefile target.pdf target.docx',
                       '\t',
                       'target%pdf target%docx: dep1 dep2',
                       '\tbuildCmd',
@@ -165,13 +165,13 @@ test_that('makefile with tasks', {
   res <- sanitizeCovr(res)
   res <- res[-seq_len(which(res == ''))]
   expect_equal(res, c('.PHONY: all',
-                      'all: task1 task2 target3.pdf target3.docx',
+                      'all: Makefile task1 task2 target3.pdf target3.docx',
                       '\t',
                       '.PHONY: task1',
-                      'task1: target1.pdf target1.docx',
+                      'task1: Makefile target1.pdf target1.docx',
                       '\t',
                       '.PHONY: task2',
-                      'task2: target2.pdf target2.docx',
+                      'task2: Makefile target2.pdf target2.docx',
                       '\t',
                       'target1%pdf target1%docx: dep1.1 dep1.2',
                       '\tbuildCmd1',
