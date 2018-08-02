@@ -29,6 +29,9 @@ test_that('tasks', {
 
   res <- runSystem('make')
   expect_false(inherits(res, 'try-error'))
+  res <- runSystem('make')
+  expect_false(inherits(res, 'try-error'))
+
   expect_true(file.exists(out1))
   expect_true(file.exists(out2))
   expect_true(contentGreater(out1, dep11))

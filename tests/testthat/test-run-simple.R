@@ -20,6 +20,9 @@ test_that('simple R script', {
 
   res <- runSystem('make')
   expect_false(inherits(res, 'try-error'))
+  res <- runSystem('make')
+  expect_false(inherits(res, 'try-error'))
+
   expect_true(file.exists(out))
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
