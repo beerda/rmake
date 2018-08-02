@@ -5,8 +5,8 @@
 \alias{rmake.rule}
 \title{General creator of an instance of the S3 \code{rmake.rule} class}
 \usage{
-rule(target, depends = NULL, build = NULL, clean = NULL, task = "all",
-  phony = FALSE)
+rule(target, depends = NULL, build = NULL, clean = NULL,
+  task = "all", phony = FALSE)
 }
 \arguments{
 \item{target}{A character vector of target file names that are created by the given build command}
