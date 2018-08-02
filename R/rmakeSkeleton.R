@@ -12,6 +12,8 @@
 #' @export
 rmakeSkeleton <- function(path) {
   assert_that(is.character(path) && is.scalar(path))
+  olddir <- setwd(path)
   cat('library(rmake)\n\njob <- list()\n\nmakefile(job, "Makefile")\n', file='Makefile.R')
-  makefile(list(), file.path(path, 'Makefile'))
+  makefile(list(), 'Makefile')
+  setwd(olddir)
 }
