@@ -105,6 +105,10 @@
   i <- 2L
   while (i < length(chain)) {
     f <- chain[[i]]
+    if (!is.call(f)) {
+      stop(paste0(deparse(chain[[i]]), ' is not a call'),
+           call.=FALSE)
+    }
     f$depends <- chain[[i-1]]
     f$target <- chain[[i+1]]
     rule <- eval(f)
