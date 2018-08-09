@@ -27,10 +27,8 @@ test_that('tasks', {
   expect_true(file.exists(r1))
   expect_true(file.exists(r2))
 
-  res <- runSystem('make')
-  expect_false(inherits(res, 'try-error'))
-  res <- runSystem('make')
-  expect_false(inherits(res, 'try-error'))
+  make()
+  make()
 
   expect_true(file.exists(out1))
   expect_true(file.exists(out2))
@@ -46,8 +44,8 @@ test_that('tasks', {
   expect_false(contentGreater(out1, dep12))
   expect_false(contentGreater(out2, dep2))
 
-  res <- runSystem('make', 'task1')
-  expect_false(inherits(res, 'try-error'))
+  make('task1')
+
   expect_true(contentGreater(out1, dep11))
   expect_true(contentGreater(out1, dep12))
   expect_false(contentGreater(out2, dep2))
@@ -60,8 +58,8 @@ test_that('tasks', {
   expect_false(contentGreater(out1, dep12))
   expect_false(contentGreater(out2, dep2))
 
-  res <- runSystem('make', 'task2')
-  expect_false(inherits(res, 'try-error'))
+  make('task2')
+
   expect_false(contentGreater(out1, dep11))
   expect_false(contentGreater(out1, dep12))
   expect_true(contentGreater(out2, dep2))
@@ -74,8 +72,8 @@ test_that('tasks', {
   expect_false(contentGreater(out1, dep12))
   expect_false(contentGreater(out2, dep2))
 
-  res <- runSystem('make')
-  expect_false(inherits(res, 'try-error'))
+  make()
+
   expect_true(contentGreater(out1, dep11))
   expect_true(contentGreater(out1, dep12))
   expect_true(contentGreater(out2, dep2))

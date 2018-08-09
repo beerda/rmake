@@ -18,10 +18,8 @@ test_that('simple R script', {
   expect_false(file.exists(out))
   expect_true(file.exists(r))
 
-  res <- runSystem('make')
-  expect_false(inherits(res, 'try-error'))
-  res <- runSystem('make')
-  expect_false(inherits(res, 'try-error'))
+  make()
+  make()
 
   expect_true(file.exists(out))
   expect_true(contentGreater(out, dep1))
@@ -32,8 +30,8 @@ test_that('simple R script', {
   expect_false(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 
-  res <- runSystem('make')
-  expect_false(inherits(res, 'try-error'))
+  make()
+
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 
@@ -42,8 +40,8 @@ test_that('simple R script', {
   expect_true(contentGreater(out, dep1))
   expect_false(contentGreater(out, dep2))
 
-  res <- runSystem('make')
-  expect_false(inherits(res, 'try-error'))
+  make()
+
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 })
