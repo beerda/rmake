@@ -37,14 +37,14 @@ within the ```preprocess.R``` R script.  After that, ```dataset.rds``` is then a
 3. Load *rmake* and create skeleton files for *rmake*:
    ``` r
    library(rmake)
-   rmakeSkeleton()
+   rmakeSkeleton('.')
    ```
    ```Makefile.R``` and ```Makefile``` will be created.
 4. Create your file ```preprocess.R```, ```report.Rmd``` and ```details.Rmd```.
 5. Edit ```Makefile.R``` as follows:
    ``` r
    library(rmake)
-   job <- c('dataset.csv' %>>% rRule('preprocess.R') %>>% 'dataset.rds' %>>% markdownRule('report.Rmd) %>>% 'report.pdf',
+   job <- c('dataset.csv' %>>% rRule('preprocess.R') %>>% 'dataset.rds' %>>% markdownRule('report.Rmd') %>>% 'report.pdf',
             'dataset.rds' %>>% markdownRule('details.Rmd') %>>% 'details.pdf')
    )
    makefile(job, 'Makefile')
