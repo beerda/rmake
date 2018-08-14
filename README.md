@@ -14,6 +14,7 @@ To install *rmake*, simply issue the following command within your R session:
 
 ``` r
 install.packages("devtools")
+library(devtools)
 devtools::install_github("beerda/rmake")
 ```
 
@@ -40,21 +41,19 @@ within the ```preprocess.R``` R script.  After that, ```dataset.rds``` is then a
    ```
    ```Makefile.R``` and ```Makefile``` will be created.
 4. Create your file ```preprocess.R```, ```report.Rmd``` and ```details.Rmd```.
-4. Edit ```Makefile.R``` as follows:
+5. Edit ```Makefile.R``` as follows:
    ``` r
    library(rmake)
-   job <- list(
-       rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),
-       markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),
-       markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')
+   job <- c('dataset.csv' %>>% rRule('preprocess.R') %>>% 'dataset.rds' %>>% markdownRule('report.Rmd) %>>% 'report.pdf',
+            'dataset.rds' %>>% markdownRule('details.Rmd') %>>% 'details.pdf')
    )
+   makefile(job, 'Makefile')
    ```
    This will create three build rules: processing of ```preprocess.R``` and execution of ```report.Rmd``` and ```details.Rmd```
    in order to generate resulting PDF files.
-5. Run ```make``` or build your project in R Studio (Build/Build all). This will automatically re-generate ```Makefile```
+6. Run ```make``` or build your project in R Studio (Build/Build all). This will automatically re-generate ```Makefile```
    and execute ```preprocess.R``` and the generation of ```report.Rmd``` and ```details.Rmd``` accordingly to the changes
    made to source files.
-6. Enjoy.
 
 
 
