@@ -1,12 +1,12 @@
 .getter <- function(name) {
-  function(job) {
+  function(x) {
     res <- NULL
-    if (is.rule(job)) {
-      res <- job[[name]]
+    if (is.rule(x)) {
+      res <- x[[name]]
     } else {
-      assert_that(is.list(job))
-      assert_that(all(vapply(job, is.rule, logical(1))))
-      res <- unlist(lapply(job, function(r) r[[name]]))
+      assert_that(is.list(x))
+      assert_that(all(vapply(x, is.rule, logical(1))))
+      res <- unlist(lapply(x, function(r) r[[name]]))
     }
     unique(res)
   }
@@ -21,8 +21,8 @@
 #'
 #'  `terminals()` returns only such targets that are not prerequisites to any other rule.
 #'
-#' @param job An instance of the `rmake.rule` class or a list of such instances
-#' @return A character vector of unique values of the selected property obtained from all rules in `job`
+#' @param x An instance of the `rmake.rule` class or a list of such instances
+#' @return A character vector of unique values of the selected property obtained from all rules in `x`
 #' @seealso [rule()]
 #' @author Michal Burda
 #' @examples
@@ -52,6 +52,6 @@ tasks <- .getter('task')
 
 #' @rdname prerequisites
 #' @export
-terminals <- function(job) {
-  setdiff(targets(job), prerequisites(job))
+terminals <- function(x) {
+  setdiff(targets(x), prerequisites(x))
 }

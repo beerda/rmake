@@ -8,19 +8,19 @@
 \alias{terminals}
 \title{Return given set of properties of all rules in a list}
 \usage{
-prerequisites(job)
+prerequisites(x)
 
-targets(job)
+targets(x)
 
-tasks(job)
+tasks(x)
 
-terminals(job)
+terminals(x)
 }
 \arguments{
-\item{job}{An instance of the \code{rmake.rule} class or a list of such instances}
+\item{x}{An instance of the \code{rmake.rule} class or a list of such instances}
 }
 \value{
-A character vector of unique values of the selected property obtained from all rules in \code{job}
+A character vector of unique values of the selected property obtained from all rules in \code{x}
 }
 \description{
 \code{targets()} returns a character vector of all unique values of \code{target} properties,
