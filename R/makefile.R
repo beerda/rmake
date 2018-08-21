@@ -28,6 +28,31 @@ defaultVars <- c(SHELL='/bin/sh',
 }
 
 
+.validate <- function(job) {
+  assert_that(is.list(job))
+  assert_that(all(vapply(job, is.rule, logical(1))))
+
+  # search for duplicate targets
+  targets <- lapply(job, function(r) r$target)
+  dupl <- duplicated(targets)
+  if (any(dupl)) {
+    dupl <- unique(targets[dupl])
+    stop(paste0('Duplicate targets found: ', paste(dupl, collapse=', ')))
+  }
+
+  # search for non-evaluated variables
+  chars <- lapply(job, function(r) {
+    unlist(r[sapply(r, is.character)])
+  })
+  chars <- as.vector(unlist(chars))
+  vars <- grep('\\$\\[[^]]*\\]', chars, value=TRUE)
+  if (length(vars) > 0L) {
+    stop(paste0('Non-evaluated rmake variables found in: ',
+                paste(unique(vars), collapse=', ')))
+  }
+}
+
+
 #' Generate Makefile from given list of rules (`job`).
 #'
 #' In the (GNU) `make` jargon, *rule* is a sequence of commands to build a result. In this package, rule
@@ -111,6 +136,8 @@ makefile <- function(job=list(),
       makefileName <- 'Makefile'
     }
   }
+
+  .validate(job)
 
   if (tasks) {
     uniqueTaskNames <- unique(unlist(lapply(job, function(rule) rule$task)))
