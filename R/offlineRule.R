@@ -41,5 +41,6 @@ offlineRule <- function(target, message, depends=NULL, task='all') {
          stop(message)
        }),
        clean=paste0('$(RM) ', paste0(target, collapse=' ')),
-       task=task)
+       task=task,
+       type='offline')
 }

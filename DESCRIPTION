@@ -11,7 +11,7 @@ Description: Creates and maintains a build process for complex analytic tasks in
 License: GPL (>= 3.0)
 Encoding: UTF-8
 LazyData: true
-Imports: tools, pryr, assertthat, rmarkdown
+Imports: tools, pryr, assertthat, rmarkdown, visNetwork
 Suggests: testthat
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0

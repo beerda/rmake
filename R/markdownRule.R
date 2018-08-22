@@ -75,5 +75,6 @@ markdownRule <- function(target,
          rmarkdown::render(script, output_format=format, output_file=target)
        }),
        clean=paste0('$(RM) ', paste0(target, collapse=' ')),
-       task=task)
+       task=task,
+       type='markdown')
 }
