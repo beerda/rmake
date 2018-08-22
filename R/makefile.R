@@ -137,6 +137,7 @@ makefile <- function(job=list(),
     }
   }
 
+  job <- unique(job)
   .validate(job)
 
   if (tasks) {
