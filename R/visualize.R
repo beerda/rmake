@@ -29,6 +29,7 @@ visualize <- function(x) {
     tolower(file_ext(name)) %in% c('r', 'rmd', 'rnw')
   }
 
+  x <- unique(x)
   nodes <- data.frame()
   edges <- data.frame()
   for (i in seq_along(x)) {
