@@ -1,6 +1,7 @@
 #' Visualize dependencies defined by a rule or a list of rules
 #'
 #' @param x An instance of the S3 `rmake.rule` class or a list of such objects
+#' @param legend Whether to draw a legend
 #' @seealso [makefile()], [rule()]
 #' @author Michal Burda
 #' @examples
@@ -18,7 +19,7 @@
 #' @importFrom visNetwork visEdges
 #' @importFrom visNetwork visLegend
 #' @importFrom tools file_ext
-visualize <- function(x) {
+visualize <- function(x, legend=TRUE) {
   if (is.rule(x)) {
     x <- list(x)
   }
@@ -51,9 +52,12 @@ visualize <- function(x) {
 
   g <- visNetwork(nodes, edges)
   g <- visEdges(g, arrows='to')
-  visLegend(g,
-            useGroups=FALSE,
-            addNodes=data.frame(label=c('rule', 'code file', 'data file'),
-                                shape=c('ellipse', 'diamond', 'square'),
-                                color=c('lightblue', 'gray', 'lightgray')))
+  if (legend) {
+    g <- visLegend(g,
+                   useGroups=FALSE,
+                   addNodes=data.frame(label=c('rule', 'code file', 'data file'),
+                                       shape=c('ellipse', 'diamond', 'square'),
+                                       color=c('lightblue', 'gray', 'lightgray')))
+  }
+  g
 }
