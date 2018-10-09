@@ -1,7 +1,7 @@
 Package: rmake
 Type: Package
 Title: Makefile Generator for R Analytical Projects
-Version: 1.1.0
+Version: 1.2.0
 Author: Michal Burda
 Maintainer: Michal Burda <michal.burda@osu.cz>
 Description: Creates and maintains a build process for complex analytic tasks in R.
