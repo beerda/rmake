@@ -59,3 +59,35 @@ test_that('expandTemplate 2', {
                   markdownRule('report.Rnw') %>>% 'report-big-c.pdf')
   expect_equal(res, expected)
 })
+
+
+test_that('expandTemplate character vector', {
+  tmpl <- 'data-$[MAJOR].$[MINOR].csv'
+
+  res <- expandTemplate(tmpl, c(MAJOR=3, MINOR=1))
+  expected <- c('data-3.1.csv')
+  expect_equal(res, expected)
+
+  res <- expandTemplate(tmpl, expand.grid(MAJOR=c(3:4),
+                                          MINOR=c(0:2)))
+  expected <- c('data-3.0.csv',  'data-4.0.csv',
+                'data-3.1.csv', 'data-4.1.csv',
+                'data-3.2.csv', 'data-4.2.csv')
+  expect_equal(res, expected)
+})
+
+
+test_that('expandTemplate character vector 2', {
+  tmpl <-  c('data-$[MAJOR].$[MINOR].csv', 'supply-$[MAJOR].$[MINOR].csv')
+
+  res <- expandTemplate(tmpl, c(MAJOR=3, MINOR=1))
+  expected <- c('data-3.1.csv', 'supply-3.1.csv')
+  expect_equal(res, expected)
+
+  res <- expandTemplate(tmpl, expand.grid(MAJOR=c(3:4),
+                                          MINOR=c(0:2)))
+  expected <- c('data-3.0.csv', 'supply-3.0.csv', 'data-4.0.csv', 'supply-4.0.csv',
+                'data-3.1.csv', 'supply-3.1.csv', 'data-4.1.csv', 'supply-4.1.csv',
+                'data-3.2.csv', 'supply-3.2.csv', 'data-4.2.csv', 'supply-4.2.csv')
+  expect_equal(res, expected)
+})

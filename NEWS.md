@@ -1,3 +1,9 @@
+# rmake 1.2.0
+
+* expandTemplate() now allows character vectors as templates
+
+
+
 # rmake 1.1.0
 
 * added %>>% pipes
