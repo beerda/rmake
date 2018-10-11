@@ -32,9 +32,9 @@ an input file for \code{report.Rmd} and \code{details.Rmd}, which are R-Markdown
 \item Edit \code{Makefile.R} as follows: \cr
 \code{library(rmake)} \cr
 \code{job <- list(} \cr
-\code{rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),} \cr
-\code{markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),} \cr
-\code{markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')} \cr
+\code{    rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),} \cr
+\code{    markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),} \cr
+\code{    markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')} \cr
 \code{)} \cr
 \code{makefile(job, "Makefile")}\cr\cr
 This will create three build rules: processing of \code{preprocess.R} and execution of \code{report.Rmd}
