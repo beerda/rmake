@@ -1,6 +1,7 @@
 # rmake 1.2.0
 
 * expandTemplate() now allows character vectors as templates
+* added introductory vignette
 
 
 
