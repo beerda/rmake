@@ -72,7 +72,7 @@
   library(knitr)
   options(prompt='R> ')
   options(continue='+  ')
-  opts_chunk$set(prompt=TRUE, echo=TRUE)
+  opts_chunk$set(prompt=TRUE, echo=TRUE, comment=NA)
 @
 
 
@@ -91,10 +91,12 @@ allow to write R scripts that generate reports combining text with tables and fi
 Creation of statistical reports is as simple as issuing a single statement from the command line or as clicking an
 icon in an integrated development environment (IDE) such as \emph{RStudio} \citep{rstudio}.
 
-However, if the analyses grow on complexity, the re-execution of the whole process may become demanding a lot of computational
-power. Complex analyses involve typically a lot of pre-processing steps on large data sets and produce multiple outputs in
-various formats. may be tedious and prone to errors. It is very inefficient to re-run over and over again all the pre-processing
-steps to refresh the final report being developed. A caching mechanism provided by \pkg{knitr} is very helpful there,
+However, if the analyses grow on complexity, manual re-execution of the whole process may become tedious and prone
+to errors as well as very demanding from the view of computational power.
+Complex analyses involve typically a lot of pre-processing steps on large data sets, a repetitive execution of commands
+with differing parameters, and producing multiple output files in
+various formats. It is very inefficient to re-run over and over again all the pre-processing
+steps to refresh the final report after any change on it. A caching mechanism provided by \pkg{knitr} is very helpful there,
 but its use is still limited on a single report. It is rational to split a complex analysis into several parts
 and save intermediate results into a file. However, such approach brings another challenge: management of dependencies between
 inputs, outputs and underlying scripts to ensure a refresh of all the results on change of any prerequisite.
@@ -105,12 +107,14 @@ script files. It was primarily created to help program developers to build binar
 used easily to run generation of any types of files. \emph{Make} gets its knowledge of how to build the results from a file
 called the \code{Makefile}, which defines dependencies between files and commands of how to create dependent files
 from their sources. \emph{Make} compares last-change timestamps of the files listed in \code{Makefile} to determine,
-which files (and in what order) have to be refreshed in order to update all of them.
+which files (and in what order) have to be refreshed in order to get all of them updated.
 
 \emph{Make} is also quite popular in the \R{} community, with a direct support e.g. by \emph{RStudio} and other tools.
-It is quite straightforward to write \code{Makefile} manually.  However, for more complex build processes,
+It is quite straightforward to write \code{Makefile} manually and many \R{} users write simple \code{Makefile}s for
+themselves by hand.  However, for more complex build processes,
 manual management of \code{Makefile} may become grueling. The aim of this paper is to present \pkg{rmake},
-an \R{} package providing tools for easy generation of \code{Makefile}s. The main features of \pkg{rmake} are as follows:
+an \R{} package providing tools for easy generation of \code{Makefile}s for statistical and data manipulation tasks in \R.
+The main features of \pkg{rmake} are as follows:
 \begin{itemize}
 \item easy definitions of file dependencies and building commands from within \R{};
 \item high flexibility provided by parameterized execution of \R{} scripts and programmatically generated dependencies between files;
@@ -183,11 +187,11 @@ rmakeSkeleton(".")
 This will create two files in the current directory (``\texttt{.}''): \code{Makefile.R} and \code{Makefile}.
 The first file is an \R{} script intended to generate the second file. In the beginning,
 \code{Makefile.R} contains the following:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 library(rmake)
 job <- list()
 makefile(job, "makefile")
-\end{verbatim}
+@
 Function \code{makefile()} generates \code{Makefile} based on a \code{job} variable, which currently
 contains an empty list.
 Nevertheless, the generated \code{Makefile} contains at least a single rule that ensures
@@ -235,24 +239,24 @@ c,3,3
 \end{verbatim}
 We would like to compute the sums of columns \code{V1} and \code{V2} and store the result into a file
 \code{sums.csv}. Therefore, we create the following script file \code{script.R}:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 d <- read.csv("data.csv")
 sums <- data.frame(ID="sum",
                    V1=sum(d$V1),
                    V2=sum(d$V2))
 write.csv(sums, "sums.csv", row.names=FALSE)
-\end{verbatim}
+@
 The script reads \code{data.csv} into a variable \code{d}, creates a data frame \code{sums} with computed
 sums and writes it to the file \code{sums.csv}.
 
 Now, let us modify the \code{Makefile.R} script to build the \code{sums.csv}
 file automatically whenever either \code{data.csv} or \code{script.R} files change. All that has to be done is to update
 the line of code where the \code{job} variable is created in \code{Makefile.R}:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 library(rmake)
 job <- list(rRule(target="sums.csv", script="script.R", depends="data.csv"))
 makefile(job, "makefile")
-\end{verbatim}
+@
 Function \code{rRule()} creates a new rule for execution of an \R{} script \code{script.R},
 whose target is  \code{sums.csv} and which depends on \code{data.csv}. Whenever any dependency or the script file
 changes, the rule triggers and re-executes the given script in order to build the given target. Let us
@@ -287,7 +291,7 @@ The \code{analysis.Rmd} script depends on the \code{sums.csv} data file. The mar
 an \code{analysis.pdf} file from it.
 Let us now update \code{Makefile.R} so that the PDF file is refreshed everytime either the script or the data change.
 The job creation command should be modified as follows:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 library(rmake)
 job <- list(
   rRule(target="sums.csv", script="script.R", depends="data.csv"),
@@ -295,7 +299,7 @@ job <- list(
                depends="sums.csv")
 )
 makefile(job, "makefile")
-\end{verbatim}
+@
 
 See Fig.~\ref{fig:basicUsageChain} for an illustrative diagram of dependencies.
 After calling
@@ -434,17 +438,17 @@ argument allows rules to group into \emph{tasks} -- see Section~\ref{sec:tasks} 
 
 \subsection{Pre-defined Rule Types}
 
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 rRule(target, script, depends = NULL, params = list(), task = "all")
-\end{verbatim}
+@
 
 The \code{rRule()} rule executes the \R{} script by calling the \code{Rscript} binary from the shell and \code{source}-ing the \code{script} file name. A rule is fired if either any file from \code{depends} or the \code{script} file changes.
 Cleaning removes all \code{target} files.
 
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 markdownRule(target, script, depends = NULL, format = "all",
              params = list(), task = "all")
-\end{verbatim}
+@
 
 The \code{markdownRule()} rule renders a \code{target} document from the source Markdown \code{script} file. The rendering is done by calling the \code{render()} function of the
 \pkg{rmarkdown} package \citep{rmarkdown}.
@@ -454,9 +458,9 @@ The \code{format} argument is passed to the \pkg{rmarkdown}'s \code{render()} fu
 
 Cleaning removes all \code{target} files.
 
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 offlineRule(target, message, depends = NULL, task = "all")
-\end{verbatim}
+@
 
 The \code{offlineRule()} rule provides a way to force some non-automated action within the \emph{Make} build process. It should be used whenever a transformation of prerequisites from the \code{depends} vector into \code{target} files requires a manual action. In case of building, a custom error \code{message} is shown that would instruct the user to perform the task by hand until the \code{target} files get more recent modification timestamps than files in \code{depends} vector. Cleaning removes all \code{target} files.
 
@@ -464,10 +468,10 @@ The \code{offlineRule()} rule provides a way to force some non-automated action 
 \subsection{Custom Rules}
 
 Besides predefined rule types, any custom rule may be added to the build process. The \code{makefile()} function generates \code{Makefile} from a list of instances of S3 class \code{rmake.rule}. To create an object of that type, the following function may be used:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 rule(target, depends = NULL, build = NULL, clean = NULL,
      task = "all", phony = FALSE)
-\end{verbatim}
+@
 
 \code{target} is a character vector of target files that the rules is intended to generate. \code{depends} is a character vector of prerequisite file names. To the contrast with predefined rule types, custom rules should add also script file names into a vector of dependencies, preceding other data files.
 
@@ -490,35 +494,31 @@ r <- rule(target="test.json", depends="test.js", build="node test.js",
 
 
 \emph{Make} variables other than \code{\$(R)} or \code{\$(RM)} may be defined by modifying the \code{defaultVars} global variable, e.g., introduce a new \code{\$(JS)} variable with path to the \proglang{JavaScript} interpreter:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 defaultVars['JS'] <- '/usr/bin/node'
-\end{verbatim}
+@
 
-One can then modify the above-listed rule to use the new \code{\$(JS)} variable:
-\begin{verbatim}
+One can then modify the above-listed rule in \code{Makefile.R} to use the new \code{\$(JS)} variable:
+<<eval=FALSE,prompt=FALSE>>=
 library(rmake)
 defaultVars['JS'] <- '/usr/bin/node'
 job <- list(rule(target='test.json',
                  depends='test.js',
                  build='$(JS) test.js',
-                 clean='$(RM) test.json')
+                 clean='$(RM) test.json'))
 makefile(job, 'Makefile')
-\end{verbatim}
+@
 
 The \pkg{rmake} package provides a useful function to help write rules that execute custom \R{} sequence of commands. The \code{inShell()} function simply takes an \R{} language expression and transforms it into a character vector with a shell command that calls \code{Rscript} and runs that expression:
-\begin{verbatim}
-> inShell({ result <- 1+1; saveRDS(result, 'result.rds') })
-[1] "$(R) -e '{' \\"
-[2] "-e '    result <- 1 + 1' \\"
-[3] "-e '    saveRDS(result, \"result.rds\")' \\"
-[4] "-e '}'"
-\end{verbatim}
+<<>>=
+inShell({ result <- 1+1; saveRDS(result, 'result.rds') })
+@
 That code obtains a result of a simple mathematical operation and stores the result into \code{result.rds}. The \code{inShell()} function may then be used to define a new rule:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 rule(target='result.rds',
      build=inShell({ result <- 1+1; saveRDS(result, 'result.rds') }),
      clean='$(RM) result.rds')
-\end{verbatim}
+@
 However, overuse of \code{inShell()} is not recommended. For normal processing of data, it is far better to store \R{} commands into a separate script file, because then, after any change to the code is made, the \emph{Make} tool can detect it and force update of other depending artifacts. Any rule change at the level of \code{Makefile} will not cause any rebuild of the target. The intended use of \code{inShell()} is to ease the implementation of internals such as in \code{rRule()} or \code{markdownRule()}.
 
 
@@ -533,14 +533,14 @@ For instance:
 $ make all
 \end{verbatim}
 executes all rules grouped into the \code{all} task. Equivalently, we may execute the task from within the \R{} session:
-\begin{verbatim}
-> make('all')
-\end{verbatim}
+<<eval=FALSE>>=
+make('all')
+@
 
 A rule is assigned to a task by specifying task name in the argument of rule creation function. A rule may be a member of more than one task -- simply put all task names in the character vector during the initialization of a rule.
 
 In the following example, several rules are assigned to two tasks:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 library(rmake)
 job <- c(
   'data.csv' %>>% rRule('preprocess.R') %>>% 'data.rds',
@@ -548,19 +548,19 @@ job <- c(
   'data.rds' %>>% markdownRule('final.Rmd', task='final') %>>% 'final.pdf'
 )
 makefile(job, "Makefile")
-\end{verbatim}
+@
 This creates a rule \code{preprocess.R}, which transforms \code{data.csv} into \code{data.rds}, and two markdown rules, \code{preview.Rmd} and \code{final.Rmd}, that are each assigned to its own task named \code{preview} and \code{final}, respectively. Thus invoking
-\begin{verbatim}
-> make('preview')
-\end{verbatim}
+<<eval=FALSE>>=
+make('preview')
+@
 would create \code{data.rds} (because \code{preview.Rmd} depends on it, irrespective of \code{preprocess.R} is a member of \code{all} task) and \code{preview.pdf}, but not \code{final.pdf}. Similarly,
-\begin{verbatim}
-> make('final')
-\end{verbatim}
+<<eval=FALSE>>=
+make('final')
+@
 would generate \code{final.pdf} (possibly with previous build of \code{data.rds}, if it was not done already), but not \code{preview.pdf}. All rules will be triggered by calling
-\begin{verbatim}
-> make('all')
-\end{verbatim}
+<<eval=FALSE>>=
+make('all')
+@
 
 
 
@@ -570,7 +570,7 @@ would generate \code{final.pdf} (possibly with previous build of \code{data.rds}
 The \pkg{rmake} package allows to send parameters to the objective of a rule. Both \code{rRule()} and \code{markdownRule()} functions
 may obtain a list of arbitrary data as the \code{params} argument. The content of the list would be available as the \code{params} global variable from within the script, once it is executed. Through such parameterization, a single \R{} script may be used to produce multiple outputs. An example follows:
 
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 library(rmake)
 job <- c(
   'data.csv' %>>% rRule('fit.R', params=list(alpha=0.1)) %>>% 'out-0.1.rds',
@@ -579,17 +579,17 @@ job <- c(
   'data.csv' %>>% rRule('fit.R', params=list(alpha=0.4)) %>>% 'out-0.4.rds'
 )
 makefile(job, "Makefile")
-\end{verbatim}
+@
 
 We can create the following \code{fit.R} script file to see what is inside of the \code{params} global variable:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 # the fit.R file
 str(params)
-\end{verbatim}
+@
 Executing
-\begin{verbatim}
-> make('all')
-\end{verbatim}
+<<eval=FALSE>>=
+make('all')
+@
 will show the following result:
 \begin{verbatim}
 List of 5
@@ -599,7 +599,19 @@ List of 5
  $ .task   : chr "all"
  $ alpha   : num 0.1
 
-...
+List of 5
+ $ .target : chr "out-0.2.rds"
+ $ .script : chr "fit.R"
+ $ .depends: chr "data.csv"
+ $ .task   : chr "all"
+ $ alpha   : num 0.2
+
+List of 5
+ $ .target : chr "out-0.3.rds"
+ $ .script : chr "fit.R"
+ $ .depends: chr "data.csv"
+ $ .task   : chr "all"
+ $ alpha   : num 0.3
 
 List of 5
  $ .target : chr "out-0.4.rds"
@@ -613,7 +625,7 @@ Indeed, the \code{params} variable contains the \code{alpha} parameter with an e
 dot-named values that correspond to the settings of the rule: \code{.target}, \code{.script}, \code{.depends}, and \code{.task}.
 
 The \code{fit.R} script may work with the \code{params} global variable directly, but it is advisable to use the \code{getParam()} function instead, which throws an error in case the script is executed without \code{params} being defined before:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 # the fit.R file
 library(rmake)
 
@@ -621,16 +633,18 @@ dataName <- getParam('.depends')
 resultName <- getParam('.target')
 alpha <- getParam('alpha')
 
-# now we can use these variables to do the actual work...
+# now we can use these variables to do here some real work...
 
 cat('dataName:', dataName, '\n')
 cat('resultName:', resultName, '\n')
 cat('alpha:', alpha, '\n')
-\end{verbatim}
+@
 
 Executing \code{fit.R} outside the generated \code{Makefile} would trigger a warning message about non-existence of the parameters:
+<<eval=FALSE>>=
+source('fit.R')
+@
 \begin{verbatim}
-> source('fit.R')
 Warning message:
 In getParam(".depends") :
   rmake parameters not found - using default value for ".depends": NA
@@ -645,14 +659,16 @@ resultName: NA
 alpha: NA
 \end{verbatim}
 Meaningful default values may be assigned to the parameters by a second argument of the \code{getParam()} function:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 dataName <- getParam('.depends', 'data.csv')
 resultName <- getParam('.target', 'result.rds')
 alpha <- getParam('alpha', 0.2)
-\end{verbatim}
+@
 The warning does not disappear, but the script has now a chance to run with proper parameters, which may be useful during development and script testing in \emph{RStudio}:
+<<eval=FALSE>>=
+source('fit.R')
+@
 \begin{verbatim}
-> source('fit.R')
 Warning message:
 In getParam(".depends", "data.csv") :
   rmake parameters not found - using default value for ".depends": data.csv
@@ -674,98 +690,62 @@ alpha: 0.2
 More complex analyzes may contain similar rule sequences that repeate multiple times. Think of fitting multiple models differing only in some parameters, stored into files with a similar name. The \pkg{rmake} package provides a templating mechanism to avoid tedious copy\&paste of rule definitions and help quickly creating and easily maintaining the \code{Makefile} generator script.
 
 The idea of rule templates is best presented on the following example. Let us have a lot of CSV data files that all have to be processed and saved in a uniform way. We may create a script that processes all files in a loop, but that would make difficult a selective re-calculation of future changed data. Instead, we might to write a unique \pkg{rmake} rule for each data file:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 job <- c(
   'data-1.csv' %>>% rRule('process.R') %>>% 'result-1.csv',
   'data-2.csv' %>>% rRule('process.R') %>>% 'result-2.csv',
   # ...
   'data-999.csv' %>>% rRule('process.R') %>>% 'result-999.csv'
 )
-\end{verbatim}
+@
 Instead of that, rule templates will simplify the code significantly:
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 tmpl <- 'data-$[NUM].csv' %>>% rRule('process.R') %>>% 'result-$[NUM].csv'
 variants <- data.frame(NUM=1:999)
 job <- expandTemplate(tmpl, variants)
-\end{verbatim}
+@
 
 The \code{expandTemplate()} function simply takes a list of rules, \code{tmpl}, and replaces all appearances of \emph{template variables} in all strings with their values provided by the \code{variants} data frame. The rules in \code{tmpl} are replicated for each row of the \code{variants} data frame. The following example creates rules for each combination of \code{DATA} and \code{TYPE} of the fit:
-\begin{verbatim}
+<<prompt=FALSE>>=
 tmpl <- '$[DATA].csv' %>>%
   rRule('fit-$[TYPE].R') %>>%
   'result-$[DATA]_$[TYPE].csv'
 variants <- expand.grid(DATA=c('dataSimple', 'dataComplex'),
                         TYPE=c('lm', 'rf', 'nnet'))
 job <- expandTemplate(tmpl, variants)
-\end{verbatim}
+@
 The resulting \texttt{job} contains six rules that combine the specified variants as follows:
-\begin{verbatim}
-> print(job)
-[[1]]
-(fit-lm.R, dataSimple.csv) -> R -> (result-dataSimple_lm.csv)
-[[2]]
-(fit-lm.R, dataComplex.csv) -> R -> (result-dataComplex_lm.csv)
-[[3]]
-(fit-rf.R, dataSimple.csv) -> R -> (result-dataSimple_rf.csv)
-[[4]]
-(fit-rf.R, dataComplex.csv) -> R -> (result-dataComplex_rf.csv)
-[[5]]
-(fit-nnet.R, dataSimple.csv) -> R -> (result-dataSimple_nnet.csv)
-[[6]]
-(fit-nnet.R, dataComplex.csv) -> R -> (result-dataComplex_nnet.csv)
-\end{verbatim}
+<<>>=
+print(job)
+@
 
 If duplicated rules are created during the template expansion, they are omitted, as in the following job:
-\begin{verbatim}
+<<prompt=FALSE>>=
 tmpl <- 'data.csv' %>>%
   rRule('pre.R') %>>%  'pre.rds' %>>%
   rRule('comp.R', params=list(alpha='$[NUM]')) %>>% 'result-$[NUM].csv'
 variants <- data.frame(NUM=1:5)
 job <- expandTemplate(tmpl, variants)
-\end{verbatim}
+@
 Expansion of the template would yield in repeating the rule
-\begin{verbatim}
+<<eval=FALSE,prompt=FALSE>>=
 'data.csv' %>>% rRule('pre.R') %>>%  'pre.rds'
-\end{verbatim}
+@
 However, the repeated rules are automatically removed:
-\begin{verbatim}
-> print(job)
-[[1]]
-(pre.R, data.csv) -> R -> (pre.rds)
-[[2]]
-(comp.R, pre.rds) -> R -> (result-1.csv)
-[[3]]
-(comp.R, pre.rds) -> R -> (result-2.csv)
-[[4]]
-(comp.R, pre.rds) -> R -> (result-3.csv)
-[[5]]
-(comp.R, pre.rds) -> R -> (result-4.csv)
-[[6]]
-(comp.R, pre.rds) -> R -> (result-5.csv)
-\end{verbatim}
+<<>>=
+print(job)
+@
 
 On the other hand, (not only) a template expansion may often result in distinct rules producing a duplicated target. Such sequence of rules is prohibited and causes an error message in the \texttt{makefile()} function. The problem is illustrated in the example below.
-\begin{verbatim}
-> tmpl <- 'data-$[TYPE].csv' %>>% markdownRule('report.Rmd') %>>% 'report.pdf'
-> variants <- data.frame(TYPE=c('a', 'b', 'c'))
-> job <- expandTemplate(tmpl, variants)
-> print(job)
-[[1]]
-(report.Rmd, data-a.csv) -> markdown -> (report.pdf)
-[[2]]
-(report.Rmd, data-b.csv) -> markdown -> (report.pdf)
-[[3]]
-(report.Rmd, data-c.csv) -> markdown -> (report.pdf)
-> makefile(job)
-Error in .validate(job) : Duplicate targets found: report.pdf
-\end{verbatim}
-
-
-\section{A Complex Example}
-
-<<>>=
-1+1
+<<error=TRUE>>=
+tmpl <- 'data-$[TYPE].csv' %>>% markdownRule('report.Rmd') %>>% 'report.pdf'
+variants <- data.frame(TYPE=c('a', 'b', 'c'))
+job <- expandTemplate(tmpl, variants)
+print(job)
+makefile(job)
 @
+
+
 
 \section{Conclusion}
 
