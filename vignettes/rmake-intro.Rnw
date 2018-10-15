@@ -26,7 +26,13 @@
 
 %% an abstract and keywords
 \Abstract{
-  The abstract of the article.
+  \R{} is a scripting language for statistical analyses that are \emph{repeatable}, i.e. easily
+  re-computed if data or some data processing step changes. However, if the analyses grow on complexity,
+  their manual re-execution on any change may become tedious and prone to errors. \emph{Make} is a tool
+  for managing the generation of resulting files from source data and script files. \emph{Make} reads
+  dependencies between data and script files from a text file called the \code{Makefile}.
+  The aim of this paper is to present \pkg{rmake}, an \R{} package for easy generation of \code{Makefile}s for
+  statistical and data manipulation projects.
 }
 \Keywords{build process, \code{make}, \code{Makefile}, \R{}}
 \Plainkeywords{build process, make, Makefile, R} %% without formatting
@@ -116,22 +122,33 @@ manual management of \code{Makefile} may become grueling. The aim of this paper 
 an \R{} package providing tools for easy generation of \code{Makefile}s for statistical and data manipulation tasks in \R.
 The main features of \pkg{rmake} are as follows:
 \begin{itemize}
-\item easy definitions of file dependencies and building commands from within \R{};
-\item high flexibility provided by parameterized execution of \R{} scripts and programmatically generated dependencies between files;
-\item support for rules based on execution of \R{} scripts, \R{} markdown files etc.;
-\item parallel execution of building tasks obtained for free thanks to \emph{Make}'s parallel processing features;
-\item support for all platforms including Unix (Linux), MacOS, and MS Windows;
+\item the use of the well-known \emph{Make} tool;
+\item easy definitions of file dependencies in \R{} language;
+\item high flexibility provided by parameterized execution of \R{} scripts and programmatically generated dependencies;
+\item simple and short coding thanks to special \verb|%>>%| pipeline operator and templating mechanism;
+\item support for rules based on execution of \R{} scripts and \R{} markdown files;
+\item extensibility for user-defined rule types;
+\item isolated and parallel execution of building tasks obtained for free thanks to \emph{Make}'s parallel processing features;
+\item support for all platforms including Unix (Linux), MacOS, MS Windows, and Solaris;
 \item compatibility with \emph{RStudio}.
 \end{itemize}
 
 \todo{other makefile generators:}
 https://github.com/GShotwell/easyMake
 
-The rest of the paper is organized as follows. \todo{...}
+The rest of the paper is organized as follows. Section~\ref{sec:installation} lists all necessary steps for correct
+installation and setup of the environment. Section~\ref{sec:basic} describes the basic usage of the \pkg{rmake} package
+including new project initialization, creating the build rules, running the build process, and visualization of
+the file dependencies. Section~\ref{sec:details} provides all details on pre-defined build rules and custom rules
+definition. In Section~\ref{sec:advanced}, the advanced topics of \pkg{rmake} usage are discussed: the mechanism
+of tasks for grouping the rules that have to be executed together, parameterized execution of rules, and rule templates.
+Section~\ref{sec:conclusion} concludes the paper.
+
 
 
 
 \section{Installation}
+\label{sec:installation}
 
 In order to use \pkg{rmake}, the \R{} environment and the \emph{Make} program has to be installed and properly configured.
 On Linux-based systems, it is usually a matter of installing the appropriate distribution packages. On Windows, an installation
@@ -170,6 +187,7 @@ These commands may be added to your home \code{.profile} file for variables to b
 
 
 \section{Basic Usage}
+\label{sec:basic}
 
 \subsection{New Project Initialization}
 
@@ -429,6 +447,7 @@ The \texttt{visualize()} function converts the \texttt{job} into a \pkg{visNetwo
 
 
 \section{Details on Build Rules}
+\label{sec:details}
 
 The \pkg{rmake} package provides several functions to create the most common rule types.
 Each function has a mandatory \code{target} argument for a character vector of names of files
@@ -522,6 +541,9 @@ rule(target='result.rds',
 However, overuse of \code{inShell()} is not recommended. For normal processing of data, it is far better to store \R{} commands into a separate script file, because then, after any change to the code is made, the \emph{Make} tool can detect it and force update of other depending artifacts. Any rule change at the level of \code{Makefile} will not cause any rebuild of the target. The intended use of \code{inShell()} is to ease the implementation of internals such as in \code{rRule()} or \code{markdownRule()}.
 
 
+
+\section{Advanced Usage}
+\label{sec:advanced}
 
 \subsection{Tasks}
 \label{sec:tasks}
@@ -748,6 +770,7 @@ makefile(job)
 
 
 \section{Conclusion}
+\label{sec:conclusion}
 
 
 \bibliography{bibl}
