@@ -136,6 +136,12 @@ The main features of \pkg{rmake} are as follows:
 \todo{other makefile generators:}
 https://github.com/GShotwell/easyMake
 
+A different approach to build complex analytical projects is represented e.g. by the \pkg{drake} package \citep{drake},
+which (unlike to \pkg{rmake}) processes all the tasks within the single \R{} session and which handles all the dependencies
+between \R{} objects by itself. To the opposite, \pkg{rmake} is simply a generator of the \code{Makefile} dependency file,
+which leaves the re-generation of obsolete results on the \emph{Make} utility. A large list of other pipelining projects
+may be found at \code{https://github.com/pditommaso/awesome-pipeline}.
+
 The rest of the paper is organized as follows. Section~\ref{sec:installation} lists all necessary steps for correct
 installation and setup of the environment. Section~\ref{sec:basic} describes the basic usage of the \pkg{rmake} package
 including new project initialization, creating the build rules, running the build process, and visualization of
@@ -771,6 +777,14 @@ makefile(job)
 
 \section{Conclusion}
 \label{sec:conclusion}
+
+The presented \pkg{rmake} package provides an easy but powerful way for managing complex data manipulation processes
+in \R{} using the well-known and broadly adopted \emph{Make} utility. \pkg{rmake} brings tools for generation of the
+\code{Makefile}, in which the file dependencies and build rules are defined. Advanced features of \pkg{rmake} such as
+pipelining (\verb|%>>%|),
+parameterized rules, or rule templates, enable quick definition of that file dependencies.
+
+
 
 
 \bibliography{bibl}
