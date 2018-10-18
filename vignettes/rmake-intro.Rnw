@@ -601,7 +601,8 @@ In the following example, the rules are divided into two tasks:
 library(rmake)
 job <- c(
   "data.csv" %>>% rRule("preprocess.R") %>>% "data.rds",
-  "data.rds" %>>% markdownRule("preview.Rmd", task="preview") %>>% "preview.pdf",
+  "data.rds" %>>% markdownRule("preview.Rmd", task="preview") %>>%
+      "preview.pdf",
   "data.rds" %>>% markdownRule("final.Rmd", task="final") %>>% "final.pdf"
 )
 makefile(job, "Makefile")
@@ -702,6 +703,9 @@ Executing \code{fit.R} outside the generated \code{Makefile} would trigger a war
 source("fit.R")
 @
 \begin{verbatim}
+dataName: NA
+resultName: NA
+alpha: NA
 Warning message:
 In getParam(".depends") :
   rmake parameters not found - using default value for ".depends": NA
@@ -711,9 +715,6 @@ In getParam(".target") :
 Warning message:
 In getParam("alpha") :
   rmake parameters not found - using default value for "alpha": NA
-dataName: NA
-resultName: NA
-alpha: NA
 \end{verbatim}
 Meaningful default values may be assigned to the parameters by a second argument of the \code{getParam()} function:
 <<eval=FALSE,prompt=FALSE>>=
@@ -726,6 +727,9 @@ The warning does not disappear, but the script has now a chance to run with prop
 source("fit.R")
 @
 \begin{verbatim}
+dataName: data.csv
+resultName: result.rds
+alpha: 0.2
 Warning message:
 In getParam(".depends", "data.csv") :
   rmake parameters not found - using default value for ".depends": data.csv
@@ -735,9 +739,6 @@ In getParam(".target", "result.rds") :
 Warning message:
 In getParam("alpha", 0.2) :
   rmake parameters not found - using default value for "alpha": 0.2
-dataName: data.csv
-resultName: result.rds
-alpha: 0.2
 \end{verbatim}
 
 
@@ -797,7 +798,8 @@ print(job)
 
 On the other hand, (not only) a template expansion may often result in distinct rules producing a duplicated target. Such sequence of rules is prohibited and causes an error message in the \code{makefile()} function. The problem is illustrated in the example below.
 <<>>=
-tmpl <- "data-$[TYPE].csv" %>>% markdownRule("report.Rmd") %>>% "report.pdf"
+tmpl <- "data-$[TYPE].csv" %>>% markdownRule("report.Rmd") %>>%
+    "report.pdf"
 variants <- data.frame(TYPE=c("a", "b", "c"))
 job <- expandTemplate(tmpl, variants)
 print(job)
