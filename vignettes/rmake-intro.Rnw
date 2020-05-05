@@ -16,7 +16,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% almost as usual
-\author{Michal Burda\\University of Ostrava}
+\author{Michal Burda\\
+  Institute for Research and Applications of Fuzzy Modeling\\
+  Centre of Excellence IT4Innovations, Division University of Ostrava\\
+  30. dubna 22, 701 03 Ostrava, Czech Republic\\
+  E-mail: \email{Michal.Burda@osu.cz}}
 \title{\pkg{rmake}: A Build Process Manager for Complex Analyses in \R{}}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -26,7 +30,7 @@
 
 %% an abstract and keywords
 \Abstract{
-  \R{} allows to develop \emph{repeatable} statistical analyses, i.e., automatically re-computable analyses
+  \R{} software allows to develop \emph{repeatable} statistical analyses, i.e., automatically re-computable analyses
   if data or some data processing step changes. However, if the analyses grow on complexity,
   their manual re-execution on any change may become tedious and prone to errors. \emph{Make} is a widely accepted
   tool for managing the generation of resulting files from source data and script files. \emph{Make} reads
@@ -34,8 +38,8 @@
   The aim of this paper is to present \pkg{rmake}, an \R{} package for easy generation of \code{Makefile}s for
   statistical and data manipulation projects.
 }
-\Keywords{build process, \code{make}, \code{Makefile}, \R{}}
-\Plainkeywords{build process, make, Makefile, R} %% without formatting
+\Keywords{statistical analyses, build process, \code{make}, \code{Makefile}, \R{}}
+\Plainkeywords{statistical analyses, build process, make, Makefile, R} %% without formatting
 %% at least one keyword must be supplied
 
 %% publication information
