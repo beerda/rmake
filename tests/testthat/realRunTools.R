@@ -14,10 +14,14 @@ createScriptFile <- function(f, out) {
       file=f)
 }
 
-createMakefile <- function(...) {
-  rmakeSkeleton('.')
+createSubdir <- function(name) {
+  dir.create(name)
+}
+
+createMakefile <- function(..., dir='.') {
+  rmakeSkeleton(dir)
   Sys.sleep(1)
-  cat(paste(..., sep='\n'), file='Makefile.R')
+  cat(paste(..., sep='\n'), file=paste0(dir, '/Makefile.R'))
 }
 
 contentGreater <- function(f1, f2) {
