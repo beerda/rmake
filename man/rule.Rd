@@ -5,8 +5,15 @@
 \alias{rmake.rule}
 \title{General creator of an instance of the S3 \code{rmake.rule} class}
 \usage{
-rule(target, depends = NULL, build = NULL, clean = NULL,
-  task = "all", phony = FALSE, type = "")
+rule(
+  target,
+  depends = NULL,
+  build = NULL,
+  clean = NULL,
+  task = "all",
+  phony = FALSE,
+  type = ""
+)
 }
 \arguments{
 \item{target}{A character vector of target file names that are created by the given build command}
@@ -19,7 +26,7 @@ rule(target, depends = NULL, build = NULL, clean = NULL,
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to
 group rules. Anything different from \code{'all'} will
-cause creation of a new task depending on the given rule. Executing \code{make taskname}
+cause creation of a new task depending on the given rule. Executing \verb{make taskname}
 will then force building of this rule.}
 
 \item{phony}{Whether the rule has a \code{PHONY} (i.e. non-file) target. A rule should be marked with
@@ -40,9 +47,9 @@ that targets depend on, and which can be removed by a given \code{clean} command
 \details{
 If there is a need to group some rules together, one can assign them the same task identifier in
 the \code{task} argument. Each rule may get assigned one or more tasks. Tasks may be then built
-by executing \code{make task_name} on the command line, which forces to rebuild all rules assigned to the
+by executing \verb{make task_name} on the command line, which forces to rebuild all rules assigned to the
 task \code{'task_name'}. By default, all rules are assigned to task \code{all},
-which causes \code{make all} command to build everything.
+which causes \verb{make all} command to build everything.
 }
 \examples{
 r <- rule(target='something.abc',

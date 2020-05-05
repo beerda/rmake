@@ -31,11 +31,11 @@ an input file for \code{report.Rmd} and \code{details.Rmd}, which are R-Markdown
 \item Create your file \code{preprocess.R}, \code{report.Rmd} and \code{details.Rmd}.
 \item Edit \code{Makefile.R} as follows: \cr
 \code{library(rmake)} \cr
-\code{job <- list(} \cr
-\code{    rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),} \cr
-\code{    markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),} \cr
+\verb{job <- list(} \cr
+\verb{    rRule('dataset.rds', 'preprocess.R', 'dataset.csv'),} \cr
+\verb{    markdownRule('report.pdf', 'report.Rmd', 'dataset.rds'),} \cr
 \code{    markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')} \cr
-\code{)} \cr
+\verb{)} \cr
 \code{makefile(job, "Makefile")}\cr\cr
 This will create three build rules: processing of \code{preprocess.R} and execution of \code{report.Rmd}
 and \code{details.Rmd} in order to generate resulting PDF files.

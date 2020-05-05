@@ -17,7 +17,7 @@ from \code{depends}}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to
 group rules. Anything different from \code{'all'} will
-cause creation of a new task depending on the given rule. Executing \code{make taskname}
+cause creation of a new task depending on the given rule. Executing \verb{make taskname}
 will then force building of this rule.}
 }
 \value{

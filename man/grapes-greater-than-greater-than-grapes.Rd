@@ -50,6 +50,6 @@ job2 <- list(rRule(target='data.rds', script='preprocess.R', depends='data.csv')
 \code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}
 }
 \author{
-Michal Burda (\code{\%>>\%} operator is derived from the code of the \code{magrittr} package by
+Michal Burda (\verb{\%>>\%} operator is derived from the code of the \code{magrittr} package by
 Stefan Milton Bache and Hadley Wickham)
 }

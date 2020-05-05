@@ -4,8 +4,14 @@
 \alias{markdownRule}
 \title{Rule for building text documents from Markdown files}
 \usage{
-markdownRule(target, script, depends = NULL, format = "all",
-  params = list(), task = "all")
+markdownRule(
+  target,
+  script,
+  depends = NULL,
+  format = "all",
+  params = list(),
+  task = "all"
+)
 }
 \arguments{
 \item{target}{Name of the output file to be created}
@@ -23,7 +29,7 @@ a \code{params} variable.}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to
 group rules. Anything different from \code{'all'} will
-cause creation of a new task depending on the given rule. Executing \code{make taskname}
+cause creation of a new task depending on the given rule. Executing \verb{make taskname}
 will then force building of this rule.}
 }
 \value{
@@ -35,14 +41,14 @@ of various supported formats such as (PDF, DOCX, etc.).
 }
 \details{
 This rule executes the following command in a separate R process:
-\code{params <- params; rmarkdown::render(script, output_format=format, output_file=target)}
+\verb{params <- params; rmarkdown::render(script, output_format=format, output_file=target)}
 
 That is, parameters given in the \code{params} argument are stored into the global variable
 and then the \code{script} is rendered with rmarkdown. That is, the re-generation of the
 \code{Makefile} with any change to \code{params} will not cause the re-execution of the recipe unless
 any other script dependencies change.
 
-Issuing \code{make clean} from the shell causes removal of all files specified in \code{target} parameter.
+Issuing \verb{make clean} from the shell causes removal of all files specified in \code{target} parameter.
 }
 \examples{
 r <- markdownRule(target='report.pdf',

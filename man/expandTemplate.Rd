@@ -26,7 +26,7 @@ If the first argument is a template job (i.e., a list of template rules), or a t
 then a job is created from templates by replacing \code{rmake} variables in templates with values
 of these variables, as specified in the second argument.
 The \code{rmake} variable is a part of a string in the format
-of \code{$[VARIABLE_NAME]}.
+of \verb{$[VARIABLE_NAME]}.
 }
 \details{
 If \code{vars} is a character vector then all variables in \code{vars} are replaced in \code{template} so that
