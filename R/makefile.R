@@ -10,7 +10,7 @@
 #' @export
 defaultVars <- c(SHELL='/bin/sh',
                  R='"$(R_HOME)/bin$(R_ARCH)/Rscript"',
-                 RM=ifelse(.Platform$OS.type == 'unix', 'rm', 'del'))
+                 RM=ifelse(.Platform$OS.type == 'unix', 'rm', 'cmd //C del'))
 
 
 .taskDependencies <- function(job, task) {
