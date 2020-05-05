@@ -2,6 +2,7 @@
 
 * expandTemplate() now allows character vectors as templates
 * added introductory vignette
+* added subdirRule() for compilation of subdirectories
 
 
 
