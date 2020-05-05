@@ -6,9 +6,9 @@ test_that("subdir make", {
   dep1 <- 'dep1.in'
   out1 <- 'result1.out'
   r1 <- 'script1.R'
-  dep1full <- paste0(dir1, '/', dep1)
-  out1full <- paste0(dir1, '/', out1)
-  r1full <- paste0(dir1, '/', r1)
+  dep1full <- file.path(dir1, dep1)
+  out1full <- file.path(dir1, out1)
+  r1full <- file.path(dir1, r1)
 
   createMakefile('library(rmake)',
                  paste0('job <- list(subdirRule(target="', dir1, '"))'),

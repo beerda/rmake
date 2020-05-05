@@ -21,7 +21,7 @@ createSubdir <- function(name) {
 createMakefile <- function(..., dir='.') {
   rmakeSkeleton(dir)
   Sys.sleep(1)
-  cat(paste(..., sep='\n'), file=paste0(dir, '/Makefile.R'))
+  cat(paste(..., sep='\n'), file=file.path(dir, 'Makefile.R'))
 }
 
 contentGreater <- function(f1, f2) {
