@@ -2,6 +2,7 @@
 
 S3method(print,rmake.rule)
 export("%>>%")
+export(copyRule)
 export(defaultVars)
 export(expandTemplate)
 export(getParam)

@@ -86,6 +86,7 @@ test_that('custom vars in makefile', {
                         'SHELL=/bin/sh',
                         'R="$(R_HOME)/bin$(R_ARCH)/Rscript"',
                         'RM=rm',
+                        'CP=cp',
                         'CPP=gcc',
                         ''))
   } else {
@@ -93,6 +94,7 @@ test_that('custom vars in makefile', {
                         'SHELL=/bin/sh',
                         'R="$(R_HOME)/bin$(R_ARCH)/Rscript"',
                         'RM=cmd //C del',
+                        'CP=cmd //C copy',
                         'CPP=gcc',
                         ''))
   }
@@ -109,6 +111,7 @@ test_that('redefined vars in makefile', {
                         'SHELL=/bin/sh',
                         'R=MyR',
                         'RM=rm',
+                        'CP=cp',
                         'CPP=gcc',
                         ''))
   } else {
@@ -116,6 +119,7 @@ test_that('redefined vars in makefile', {
                         'SHELL=/bin/sh',
                         'R=MyR',
                         'RM=cmd //C del',
+                        'CP=cmd //C copy',
                         'CPP=gcc',
                         ''))
   }
