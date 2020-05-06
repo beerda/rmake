@@ -40,7 +40,7 @@ offlineRule <- function(target, message, depends=NULL, task='all') {
        build=inShell({
          stop(message)
        }),
-       clean=paste0('$(RM) ', paste0(target, collapse=' ')),
+       clean=paste0('$(RM) ', paste0(sanitizePath(target), collapse=' ')),
        task=task,
        type='offline')
 }

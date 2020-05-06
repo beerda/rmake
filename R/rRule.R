@@ -55,7 +55,7 @@ rRule <- function(target, script, depends=NULL, params=list(), task='all') {
          params <- p
          source(script)
        }),
-       clean=paste0('$(RM) ', paste0(target, collapse=' ')),
+       clean=paste0('$(RM) ', paste0(sanitizePath(target), collapse=' ')),
        task=task,
        type='R')
 }
