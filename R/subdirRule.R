@@ -5,7 +5,7 @@
 #' value of the `targetTask` argument).
 #'
 #' @param target Name of the subdirectory
-#' @param depends A vector of targets this rule depends on, or `NULL`.
+#' @param depends Must be `NULL`
 #' @param task A character vector of parent task names. The mechanism of tasks allows to group
 #'   rules. Anything different from `'all'` will cause creation of a new task depending on the given
 #'   rule. Executing `make taskname` will then force building of this rule.
@@ -17,7 +17,7 @@
 subdirRule <- function(target, depends=NULL, task='all', targetTask='all') {
   assert_that(is.character(target))
   assert_that(length(target) == 1)
-  assert_that(is.null(depends) || is.character(depends))
+  assert_that(is.null(depends))
   assert_that(is.character(task))
 
   rule(target=target,

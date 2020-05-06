@@ -9,7 +9,7 @@ subdirRule(target, depends = NULL, task = "all", targetTask = "all")
 \arguments{
 \item{target}{Name of the subdirectory}
 
-\item{depends}{A vector of targets this rule depends on, or \code{NULL}.}
+\item{depends}{Must be \code{NULL}}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks allows to group
 rules. Anything different from \code{'all'} will cause creation of a new task depending on the given
