@@ -11,8 +11,8 @@ Description: Creates and maintains a build process for complex analytic tasks in
 License: GPL (>= 3.0)
 Encoding: UTF-8
 LazyData: true
-Imports: tools, pryr, assertthat, rmarkdown, visNetwork
-Suggests: testthat, knitr
+Imports: tools, pryr, assertthat, rmarkdown, visNetwork, knitr
+Suggests: testthat
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
