@@ -12,7 +12,8 @@ makefile(
   all = TRUE,
   tasks = TRUE,
   clean = TRUE,
-  makefile = TRUE
+  makefile = TRUE,
+  depends = NULL
 )
 }
 \arguments{
@@ -39,6 +40,8 @@ more details.}
 \item{makefile}{\code{TRUE} if the \code{Makefile} rule should be automatically created and added: this rule
 causes that any change in the R script - that generates the \code{Makefile} (i.e. that calls \code{\link[=makefile]{makefile()}}) -
 issues the re-generation of the Makefile in the beginning of any build.}
+
+\item{depends}{a character vector of file names that the makefile generating script depends on}
 }
 \value{
 If \code{fileName} is \code{NULL}, the function returns a character vector with the contents of the

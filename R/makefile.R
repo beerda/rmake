@@ -88,6 +88,7 @@ defaultVars <- c(SHELL='/bin/sh',
 #' @param makefile `TRUE` if the `Makefile` rule should be automatically created and added: this rule
 #' causes that any change in the R script - that generates the `Makefile` (i.e. that calls [makefile()]) -
 #' issues the re-generation of the Makefile in the beginning of any build.
+#' @param depends a character vector of file names that the makefile generating script depends on
 #' @return If `fileName` is `NULL`, the function returns a character vector with the contents of the
 #' Makefile. Instead, the content is written to the given `fileName`.
 #' @seealso [rule()], [rmakeSkeleton()]
@@ -114,7 +115,8 @@ makefile <- function(job=list(),
                      all=TRUE,
                      tasks=TRUE,
                      clean=TRUE,
-                     makefile=TRUE) {
+                     makefile=TRUE,
+                     depends=NULL) {
   assert_that(is.list(job))
   assert_that(all(vapply(job, is.rule, logical(1))))
   assert_that(is.null(fileName) || is.string(fileName))
@@ -193,7 +195,7 @@ makefile <- function(job=list(),
   }
 
   if (makefile) {
-    makefileRule <- rRule(target=makefileName, script=makeScript)
+    makefileRule <- rRule(target=makefileName, script=makeScript, depends=depends)
     job <- c(job, list(makefileRule))
   }
 
