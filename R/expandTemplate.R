@@ -62,6 +62,8 @@
 expandTemplate <- function(template, vars) {
   if (is.data.frame(vars)) {
     assert_that(!is.null(colnames(vars)))
+    vars <- lapply(vars, as.character)
+    vars <- as.data.frame(vars)
     vars <- as.matrix(vars)
     mode(vars) <- 'character'
   } else if (is.atomic(vars)) {
