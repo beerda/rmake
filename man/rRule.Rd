@@ -4,7 +4,15 @@
 \alias{rRule}
 \title{Rule for running R scripts}
 \usage{
-rRule(target, script, depends = NULL, params = list(), task = "all")
+rRule(
+  target,
+  script,
+  depends = NULL,
+  params = list(),
+  task = "all",
+  preBuild = NULL,
+  postBuild = NULL
+)
 }
 \arguments{
 \item{target}{Name of output files to be created}
@@ -20,6 +28,10 @@ a \code{params} variable.}
 group rules. Anything different from \code{'all'} will
 cause creation of a new task depending on the given rule. Executing \verb{make taskname}
 will then force building of this rule.}
+
+\item{preBuild}{a character vector of shell commands to be executed before building the target}
+
+\item{postBuild}{a character vector of shell commands to be executed after building the target}
 }
 \value{
 Instance of S3 class \code{rmake.rule}

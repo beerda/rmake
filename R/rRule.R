@@ -20,6 +20,8 @@
 #' group rules. Anything different from `'all'` will
 #' cause creation of a new task depending on the given rule. Executing `make taskname`
 #' will then force building of this rule.
+#' @param preBuild a character vector of shell commands to be executed before building the target
+#' @param postBuild a character vector of shell commands to be executed after building the target
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()], [markdownRule()]
 #' @author Michal Burda
@@ -35,7 +37,7 @@
 #' tmp <- tempdir()
 #' makefile(list(r), file.path(tmp, "Makefile"))
 #' @export
-rRule <- function(target, script, depends=NULL, params=list(), task='all') {
+rRule <- function(target, script, depends=NULL, params=list(), task='all', preBuild=NULL, postBuild=NULL) {
   assert_that(is.character(target))
   assert_that(is.string(script))
   assert_that(is.null(depends) || is.character(depends))
@@ -49,12 +51,14 @@ rRule <- function(target, script, depends=NULL, params=list(), task='all') {
          params)
   rm(params)
 
+  build <-  inShell({
+    params <- p
+    source(script)
+  })
+
   rule(target=target,
        depends=c(script, depends),
-       build=inShell({
-         params <- p
-         source(script)
-       }),
+       build=c(preBuild, build, postBuild),
        clean=paste0('$(RM) ', paste0(sanitizePath(target), collapse=' ')),
        task=task,
        type='R')
