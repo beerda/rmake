@@ -4,14 +4,7 @@
 \alias{markdownRule}
 \title{Rule for building text documents from Markdown files}
 \usage{
-markdownRule(
-  target,
-  script,
-  depends = NULL,
-  format = "all",
-  params = list(),
-  task = "all"
-)
+markdownRule(target, script, depends = NULL, params = list(), task = "all")
 }
 \arguments{
 \item{target}{Name of the output file to be created}
@@ -19,10 +12,6 @@ markdownRule(
 \item{script}{Name of the markdown file to be rendered}
 
 \item{depends}{A vector of file names that the markdown script depends on, or \code{NULL}.}
-
-\item{format}{Requested format of the result. Parameter is passed as \code{format} argument
-to \code{\link[rmarkdown:render]{rmarkdown::render()}}. Allowed values are: 'all', 'html_document', 'pdf_document',
-'word_document', 'odt_document', 'rtf_document', or 'md_document'.}
 
 \item{params}{A list of R values that become available within the \code{script} in
 a \code{params} variable.}

@@ -16,9 +16,6 @@
 #' @param target Name of the output file to be created
 #' @param script Name of the markdown file to be rendered
 #' @param depends A vector of file names that the markdown script depends on, or `NULL`.
-#' @param format Requested format of the result. Parameter is passed as `format` argument
-#' to [rmarkdown::render()]. Allowed values are: 'all', 'html_document', 'pdf_document',
-#' 'word_document', 'odt_document', 'rtf_document', or 'md_document'.
 #' @param params A list of R values that become available within the `script` in
 #' a `params` variable.
 #' @param task A character vector of parent task names. The mechanism of tasks allows to
@@ -41,29 +38,41 @@
 #' makefile(list(r), file.path(tmp, "Makefile"))
 #' @export
 #' @importFrom rmarkdown render
+#' @importFrom tools file_ext
 markdownRule <- function(target,
                          script,
                          depends=NULL,
-                         format='all',
                          params=list(),
                          task='all') {
   assert_that(is.character(target))
   assert_that(is.string(script))
   assert_that(is.null(depends) || is.character(depends))
-  assert_that(is.character(format))
   assert_that(is.list(params))
   assert_that(is.character(task))
 
-  format <- match.arg(format,
-                      c('all', 'html_document', 'pdf_document', 'word_document',
-                        'odt_document', 'rtf_document', 'md_document'),
-                      several.ok=TRUE)
   allDeps <- c(script, depends)
+  formatTable <- list(html='html_document',
+                      htm='html_document',
+                      pdf='pdf_document',
+                      docx='word_document',
+                      doc='word_document',
+                      odt='odt_document',
+                      rtf='rtf_document',
+                      md='md_document')
+  formats <- list();
+  for (tt in target) {
+    ext <- file_ext(tt)
+    fmt <- formatTable[[ext]]
+    if (is.null(fmt)) {
+      stop('Cannot determine document format from file extension: ', ext,
+           '. Allowed extensions are: ', paste0(names(formatTable), collapse=', '))
+    }
+    formats[[tt]] <- fmt
+  }
 
   p <- c(list(.target=target,
               .script=script,
               .depends=depends,
-              .format=format,
               .task=task),
          params)
   rm(params)
@@ -72,7 +81,13 @@ markdownRule <- function(target,
        depends=allDeps,
        build=inShell({
          params <- p
-         rmarkdown::render(script, output_format=format, output_file=target)
+         targets <- formats
+         for (tg in names(targets)) {
+           rmarkdown::render(script,
+                             output_format=targets[[tg]],
+                             #intermediates_dir=tempdir(),
+                             output_file=tg)
+         }
        }),
        clean=paste0('$(RM) ', paste0(sanitizePath(target), collapse=' ')),
        task=task,
