@@ -38,14 +38,14 @@
 }
 
 
-.splitChain <- function(expr) {
+.splitChain <- function(expr, envir) {
   chain  <- list()
   i <- 1L
   while(is.call(expr) && .isPipe(expr[[1L]])) {
     # expr[[1L]] is a pipe operator, expr[[2L]] is lhs, expr[[3L]] is rhs
     rhs <- expr[[3L]]
     if (.isParenthesized(rhs)) {
-      rhs <- eval(rhs)
+      rhs <- eval(rhs, envir=envir)
     }
     if (.isAnonymousFunction(rhs)) {
       stop("Anonymous functions must be parenthesized", call.=FALSE)
@@ -81,6 +81,7 @@
 #'
 #' @param lhs A dependency file name or a call to a function that creates a `rmake.rule`.
 #' @param rhs A target file or a call to a function that creates a `rmake.rule`.
+#' @param envir The environment in which to evaluate the arguments of the operator.
 #' @return A list of instances of the `rmake.rule` class.
 #' @seealso [rule()], [makefile()]
 #' @author Michal Burda (`%>>%` operator is derived from the code of the `magrittr` package by
@@ -98,8 +99,8 @@
 #' job2 <- list(rRule(target='data.rds', script='preprocess.R', depends='data.csv'),
 #'              markdownRule(target='report.pdf', script='report.rnw', depends='data.rds'))
 #' @export
-`%>>%` <- function(lhs, rhs) {
-  chain <- .splitChain(match.call())
+`%>>%` <- function(lhs, rhs, envir=parent.frame()) {
+  chain <- .splitChain(match.call(), envir=envir)
 
   job <- list()
   i <- 2L
@@ -111,7 +112,7 @@
     }
     f$depends <- chain[[i-1]]
     f$target <- chain[[i+1]]
-    rule <- eval(f)
+    rule <- eval(f, envir=envir)
     if (!is.rule(rule)) {
       stop(paste0(deparse(chain[[i]]), ' must create an instance of the rmake.rule class'),
            call.=FALSE)
