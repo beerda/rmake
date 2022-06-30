@@ -12,14 +12,14 @@
 #'   'report.pdf'
 #'
 #' \dontrun{
-#' visualize(job)
+#' visualizeRules(job)
 #' }
 #' @export
 #' @importFrom visNetwork visNetwork
 #' @importFrom visNetwork visEdges
 #' @importFrom visNetwork visLegend
 #' @importFrom tools file_ext
-visualize <- function(x, legend=TRUE) {
+visualizeRules <- function(x, legend=TRUE) {
   if (is.rule(x)) {
     x <- list(x)
   }
