@@ -45,3 +45,15 @@ of \code{report.Rmd} and \code{details.Rmd} accordingly to the changes made to s
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/beerda/rmake}
+  \item Report bugs at \url{https://github.com/beerda/rmake/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Michal Burda \email{michal.burda@osu.cz} (\href{https://orcid.org/0000-0002-4182-4407}{ORCID})
+
+}

@@ -1,5 +1,7 @@
-[![Travis Build Status](https://travis-ci.org/beerda/rmake.svg?branch=master)](https://travis-ci.org/beerda/rmake) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/beerda/rmake?branch=master&svg=true)](https://ci.appveyor.com/project/beerda/rmake) [![codecov](https://codecov.io/gh/beerda/rmake/branch/master/graph/badge.svg)](https://codecov.io/gh/beerda/rmake) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rmake)](https://cran.r-project.org/package=rmake)
-
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/beerda/rmake/graph/badge.svg)](https://app.codecov.io/gh/beerda/rmake)
+<!-- badges: end -->
 
 rmake
 =====
@@ -56,8 +58,3 @@ within the ```preprocess.R``` R script.  After that, ```dataset.rds``` is then a
    made to source files.
 
 
-
-Advanced Usage
---------------
-
-Coming soon.
