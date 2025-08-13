@@ -10,8 +10,6 @@ lhs \%>>\% rhs
 \item{lhs}{A dependency file name or a call to a function that creates a \code{rmake.rule}.}
 
 \item{rhs}{A target file or a call to a function that creates a \code{rmake.rule}.}
-
-\item{envir}{The environment in which to evaluate the arguments of the operator.}
 }
 \value{
 A list of instances of the \code{rmake.rule} class.

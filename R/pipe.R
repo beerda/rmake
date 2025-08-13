@@ -81,7 +81,6 @@
 #'
 #' @param lhs A dependency file name or a call to a function that creates a `rmake.rule`.
 #' @param rhs A target file or a call to a function that creates a `rmake.rule`.
-#' @param envir The environment in which to evaluate the arguments of the operator.
 #' @return A list of instances of the `rmake.rule` class.
 #' @seealso [rule()], [makefile()]
 #' @author Michal Burda (`%>>%` operator is derived from the code of the `magrittr` package by
@@ -99,7 +98,8 @@
 #' job2 <- list(rRule(target='data.rds', script='preprocess.R', depends='data.csv'),
 #'              markdownRule(target='report.pdf', script='report.rnw', depends='data.rds'))
 #' @export
-`%>>%` <- function(lhs, rhs, envir=parent.frame()) {
+`%>>%` <- function(lhs, rhs) {
+  envir <- parent.frame()
   chain <- .splitChain(match.call(), envir=envir)
 
   job <- list()
