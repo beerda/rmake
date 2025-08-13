@@ -61,7 +61,6 @@ knitrRule <- function(target,
   rule(target=target,
        depends=allDeps,
        build=inShell({
-         library(knitr)
          params <- p
          knitr::knit(script, output=target)
        }),
