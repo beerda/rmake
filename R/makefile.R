@@ -205,16 +205,20 @@ makefile <- function(job=list(),
                     paste0(names(v), '=', v))
 
   ruleRows <- lapply(job, function(rule) {
-    res <- c(paste0(paste0(rule$pattern, collapse=' '),
+    pattern <- sanitizeSpaces(rule$pattern)
+    depends <- sanitizeSpaces(rule$depends)
+    build <- rule$build
+    res <- c(paste0(paste0(pattern, collapse=' '),
                     ': ',
-                    paste0(rule$depends, collapse=' ')),
-             paste0('\t', rule$build))
+                    paste0(depends, collapse=' ')),
+             paste0('\t', build))
     if (isTRUE(rule$phony)) {
-      res <- c(paste0('.PHONY: ', rule$pattern),
+      res <- c(paste0('.PHONY: ', pattern),
                res)
     }
     return(res)
   })
+
   ruleRows <- unlist(ruleRows)
 
   rows <- c(preambleRows, '', ruleRows)

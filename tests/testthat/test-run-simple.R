@@ -45,3 +45,42 @@ test_that('simple R script', {
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 })
+
+
+test_that('file names with spaces', {
+  initTesting('file_with_spaces')
+  print(getwd())
+  dep1 <- 'dep 1.in'
+  dep2 <- 'dep 2.in'
+  out <- 're sult.out'
+  r <- 'scr ipt.R'
+
+  writeToDepFile(dep1)
+  writeToDepFile(dep2)
+  createScriptFile(r, out)
+  createMakefile('library(rmake)',
+                 paste0('job <- list(rRule("', out, '", "', r, '", c("', dep1, '", "', dep2, '")))'),
+                 'makefile(job, "Makefile")')
+
+  expect_true(file.exists(dep1))
+  expect_true(file.exists(dep2))
+  expect_false(file.exists(out))
+  expect_true(file.exists(r))
+
+  make()
+  make()
+
+  expect_true(file.exists(out))
+  expect_true(contentGreater(out, dep1))
+  expect_true(contentGreater(out, dep2))
+
+  Sys.sleep(1)
+  writeToDepFile(dep1)
+  expect_false(contentGreater(out, dep1))
+  expect_true(contentGreater(out, dep2))
+
+  make()
+
+  expect_true(contentGreater(out, dep1))
+  expect_true(contentGreater(out, dep2))
+})
