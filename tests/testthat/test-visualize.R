@@ -1,7 +1,7 @@
 test_that('visualize', {
   job <- 'data.csv' %>>% rRule('data.R') %>>% 'data.rds' %>>%
     markdownRule('analysis.Rmd') %>>% c('analysis.pdf', 'analysis.docx')
-  res <- visualize(job)
+  res <- visualizeRules(job)
 
   n <- res$x$nodes
   expect_equal(nrow(n), 8)
