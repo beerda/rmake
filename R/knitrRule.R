@@ -1,7 +1,7 @@
 #' Rule for building text documents by using the knitr package
 #'
 #' This rule is for execution of knitr in order to create the text file,
-#' as described in [knitr:knit()].
+#' as described in [knitr::knit()].
 #'
 #' This rule executes the following command in a separate R process:
 #' `library(knitr); params <- params; knitr::knit(script, output=target)`

@@ -26,7 +26,7 @@ Instance of S3 class \code{rmake.rule}
 }
 \description{
 This rule is for execution of knitr in order to create the text file,
-as described in \code{\link[=knitr:knit]{knitr:knit()}}.
+as described in \code{\link[knitr:knit]{knitr::knit()}}.
 }
 \details{
 This rule executes the following command in a separate R process:
