@@ -62,6 +62,11 @@
 expandTemplate <- function(template, vars) {
   if (is.data.frame(vars)) {
     assert_that(!is.null(colnames(vars)))
+    if (!all(vapply(vars,
+                    function(x) { is.character(x) || is.factor(x) },
+                    logical(1L)))) {
+      warning("Converting all values in `vars` to character vectors.")
+    }
     vars <- lapply(vars, as.character)
     vars <- as.data.frame(vars)
     vars <- as.matrix(vars)

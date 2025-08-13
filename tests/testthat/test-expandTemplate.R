@@ -68,8 +68,10 @@ test_that('expandTemplate character vector', {
   expected <- c('data-3.1.csv')
   expect_equal(res, expected)
 
-  res <- expandTemplate(tmpl, expand.grid(MAJOR=c(3:4),
-                                          MINOR=c(0:2)))
+  expect_warning(
+      res <- expandTemplate(tmpl, expand.grid(MAJOR=c(3:4),
+                                              MINOR=c(0:2)))
+  )
   expected <- c('data-3.0.csv',  'data-4.0.csv',
                 'data-3.1.csv', 'data-4.1.csv',
                 'data-3.2.csv', 'data-4.2.csv')
@@ -84,8 +86,10 @@ test_that('expandTemplate character vector 2', {
   expected <- c('data-3.1.csv', 'supply-3.1.csv')
   expect_equal(res, expected)
 
-  res <- expandTemplate(tmpl, expand.grid(MAJOR=c(3:4),
-                                          MINOR=c(0:2)))
+  expect_warning(
+      res <- expandTemplate(tmpl, expand.grid(MAJOR=c(3:4),
+                                              MINOR=c(0:2)))
+  )
   expected <- c('data-3.0.csv', 'supply-3.0.csv', 'data-4.0.csv', 'supply-4.0.csv',
                 'data-3.1.csv', 'supply-3.1.csv', 'data-4.1.csv', 'supply-4.1.csv',
                 'data-3.2.csv', 'supply-3.2.csv', 'data-4.2.csv', 'supply-4.2.csv')

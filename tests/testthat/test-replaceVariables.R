@@ -10,4 +10,3 @@ test_that('replaceVariables', {
                'result-$[size].csv')
 
 })
-
