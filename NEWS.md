@@ -4,8 +4,10 @@
 * added introductory vignette
 * added subdirRule() for compilation of subdirectories
 * added knitrRule() for compilation of Rnw files with knitr:knit()
-* enabled the depends argument of makefile() that allows the makefile generator to depend on onther files
+* added depRule()
+* enabled the depends argument of makefile() that allows the makefile generator to depend on other files
 * fixed evaluation of %>>% in a function
+* fixed handling of filenames with spaces in them
 
 
 
