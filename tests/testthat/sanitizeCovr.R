@@ -4,9 +4,12 @@ sanitizeCovr <- function(r) {
   i <- grep('covr:::count(', r, fixed=TRUE)
   res <- r
   if (length(i) > 0) {
-    res[i+1] <- gsub('  ', ' ', res[i+1], fixed=TRUE)
+    #res[i+1] <- gsub('  ', ' ', res[i+1], fixed=TRUE)
     res <- res[-1 * c(i-1, i, i+2)]
   }
   res
 }
 
+isCovr <- function(x) {
+  any(grepl("covr:::count(", x, fixed = TRUE))
+}
