@@ -6,3 +6,4 @@
 ^smoketests$
 ^_experiments$
 ^\.github$
+^cran-comments.md$
