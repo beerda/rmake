@@ -1,6 +1,5 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/beerda/rmake/graph/badge.svg)](https://app.codecov.io/gh/beerda/rmake)
 <!-- badges: end -->
 
 rmake
