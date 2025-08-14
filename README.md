@@ -15,6 +15,12 @@ Installation
 To install *rmake*, simply issue the following command within your R session:
 
 ``` r
+install.packages("rmake")
+```
+
+Alternatively, you can install the latest development version from GitHub using the *devtools* package:
+
+``` r
 install.packages("devtools")
 library(devtools)
 devtools::install_github("beerda/rmake")
