@@ -85,7 +85,7 @@ markdownRule <- function(target,
          for (tg in names(targets)) {
            rmarkdown::render(script,
                              output_format=targets[[tg]],
-                             intermediates_dir=tempdir(),
+                             #intermediates_dir=tempdir(),
                              output_file=tg)
          }
        }),

@@ -19,7 +19,7 @@ test_that('single target markdownRule', {
                           '-e \'    targets <- list(target.pdf = \"pdf_document\")\' \\',
                           '-e \'    targets <- structure(list(target.pdf = \"pdf_document\"), .Names = \"target.pdf\")\' \\'),
                    '-e \'    for (tg in names(targets)) {\' \\',
-                   '-e \'        rmarkdown::render("script.Rmd", output_format = targets[[tg]], intermediates_dir = tempdir(), output_file = tg)\' \\',
+                   '-e \'        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)\' \\',
                    '-e \'    }\' \\',
                    '-e \'}\''))
   }
@@ -46,7 +46,7 @@ test_that('multiple target markdownRule', {
                           '-e \'    targets <- list(target.pdf = \"pdf_document\", target.docx = \"word_document\")\' \\',
                           '-e \'    targets <- structure(list(target.pdf = \"pdf_document\", target.docx = \"word_document\"), .Names = c(\"target.pdf\", \"target.docx\"))\' \\'),
                    '-e \'    for (tg in names(targets)) {\' \\',
-                   '-e \'        rmarkdown::render("script.Rmd", output_format = targets[[tg]], intermediates_dir = tempdir(), output_file = tg)\' \\',
+                   '-e \'        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)\' \\',
                    '-e \'    }\' \\',
                    '-e \'}\''))
   }
