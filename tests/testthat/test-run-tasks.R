@@ -27,8 +27,8 @@ test_that('tasks', {
   expect_true(file.exists(r1))
   expect_true(file.exists(r2))
 
-  make()
-  make()
+  make(.stdout = NULL)
+  make(.stdout = NULL)
 
   expect_true(file.exists(out1))
   expect_true(file.exists(out2))
@@ -44,7 +44,7 @@ test_that('tasks', {
   expect_false(contentGreater(out1, dep12))
   expect_false(contentGreater(out2, dep2))
 
-  make('task1')
+  make('task1', .stdout = NULL)
 
   expect_true(contentGreater(out1, dep11))
   expect_true(contentGreater(out1, dep12))
@@ -58,7 +58,7 @@ test_that('tasks', {
   expect_false(contentGreater(out1, dep12))
   expect_false(contentGreater(out2, dep2))
 
-  make('task2')
+  make('task2', .stdout = NULL)
 
   expect_false(contentGreater(out1, dep11))
   expect_false(contentGreater(out1, dep12))
@@ -72,7 +72,7 @@ test_that('tasks', {
   expect_false(contentGreater(out1, dep12))
   expect_false(contentGreater(out2, dep2))
 
-  make()
+  make(.stdout = NULL)
 
   expect_true(contentGreater(out1, dep11))
   expect_true(contentGreater(out1, dep12))

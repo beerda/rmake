@@ -32,8 +32,8 @@ test_that("subdir make & copy", {
   expect_false(file.exists(out1full))
   expect_false(file.exists(out2))
 
-  make()
-  make()
+  make(.stdout = NULL)
+  make(.stdout = NULL)
 
   expect_true(file.exists(out1full))
   expect_true(contentGreater(out1full, dep1full))
@@ -45,11 +45,11 @@ test_that("subdir make & copy", {
   expect_false(contentGreater(out1full, dep1full))
   expect_false(contentGreater(out2, dep1full))
 
-  make()
+  make(.stdout = NULL)
   expect_true(contentGreater(out1full, dep1full))
   expect_true(contentGreater(out2, dep1full))
 
-  make('clean')
+  make('clean', .stdout = NULL)
   expect_true(file.exists(dep1full))
   expect_true(file.exists(r1full))
   expect_false(file.exists(out1full))

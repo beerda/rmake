@@ -18,8 +18,8 @@ test_that('simple R script', {
   expect_false(file.exists(out))
   expect_true(file.exists(r))
 
-  make()
-  make()
+  make(.stdout = NULL)
+  make(.stdout = NULL)
 
   expect_true(file.exists(out))
   expect_true(contentGreater(out, dep1))
@@ -30,7 +30,7 @@ test_that('simple R script', {
   expect_false(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 
-  make()
+  make(.stdout = NULL)
 
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
@@ -40,7 +40,7 @@ test_that('simple R script', {
   expect_true(contentGreater(out, dep1))
   expect_false(contentGreater(out, dep2))
 
-  make()
+  make(.stdout = NULL)
 
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
@@ -49,7 +49,6 @@ test_that('simple R script', {
 
 test_that('file names with spaces', {
   initTesting('file_with_spaces')
-  print(getwd())
   dep1 <- 'dep 1.in'
   dep2 <- 'dep 2.in'
   out <- 're sult.out'
@@ -67,8 +66,8 @@ test_that('file names with spaces', {
   expect_false(file.exists(out))
   expect_true(file.exists(r))
 
-  make()
-  make()
+  make(.stdout = NULL)
+  make(.stdout = NULL)
 
   expect_true(file.exists(out))
   expect_true(contentGreater(out, dep1))
@@ -79,7 +78,7 @@ test_that('file names with spaces', {
   expect_false(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
 
-  make()
+  make(.stdout = NULL)
 
   expect_true(contentGreater(out, dep1))
   expect_true(contentGreater(out, dep2))
