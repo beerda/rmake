@@ -49,8 +49,8 @@ jobs:
       # tinytex::tlmgr_install("pgf") provides tikz.sty (pgf/TikZ)
       - name: Install tinytex R package and pgf (TikZ)
         run: |
-          Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org")); \
-                      if (!requireNamespace("tinytex", quietly = TRUE)) install.packages("tinytex"); \
+          Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org"));
+                      if (!requireNamespace("tinytex", quietly = TRUE)) install.packages("tinytex");
                       tinytex::tlmgr_install("pgf")'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
