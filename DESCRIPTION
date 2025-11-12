@@ -1,8 +1,8 @@
 Package: rmake
 Type: Package
 Title: Makefile Generator for R Analytical Projects
-Version: 1.2.0
-Date: 2025-08-26
+Version: 1.2.1
+Date: 2025-11-12
 Authors@R: 
     person(given = "Michal",
            family = "Burda",
@@ -19,9 +19,9 @@ BugReports: https://github.com/beerda/rmake/issues
 License: GPL (>= 3.0)
 Encoding: UTF-8
 LazyData: true
-Imports: tools, pryr, assertthat, rmarkdown, visNetwork, knitr
+Imports: tools, assertthat, rmarkdown, visNetwork, knitr
 Suggests: testthat
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Language: en-US

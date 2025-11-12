@@ -1,3 +1,9 @@
+# rmake 1.2.1
+
+* added arguments .stdout, .stderr, and .stdin to make()
+* removed dependency on pryr package
+
+
 # rmake 1.2.0
 
 * expandTemplate() now allows character vectors as templates
@@ -10,7 +16,6 @@
 * fixed handling of filenames with spaces in them
 
 
-
 # rmake 1.1.0
 
 * added %>>% pipes
@@ -19,13 +24,11 @@
 * added graphical visualization of dependencies
 
 
-
 # rmake 1.0.1
 
 * fixed unit tests for Solaris
 * fixed documentation
 * added make clean rules to generated Makefiles
-
 
 
 # rmake 1.0.0

@@ -17,14 +17,14 @@
 #'   print(x+y)
 #' })
 #' @export
-#' @importFrom pryr dots
-#' @importFrom pryr substitute_q
 inShell <- function(...) {
-  f <- as.list(parent.frame())
-  exprs <- lapply(dots(...), function(e) {
-    substitute_q(e, f)
+  pf <- as.list(parent.frame())
+  theDots <- eval(substitute(alist(...)))
+
+  exprs <- lapply(theDots, function(e) {
+    call <- substitute(substitute(e, pf), list(e=e))
+    eval(call)
   })
-  #exprs <- as.character(exprs)
 
   ctrl <- c('keepInteger', 'showAttributes', 'useSource', 'warnIncomplete', 'keepNA')
   if (getRversion() > '3.4.4') {
