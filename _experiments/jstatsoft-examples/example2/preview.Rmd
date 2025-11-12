@@ -1,0 +1,9 @@
+---
+title: "Preview"
+output: pdf_document
+---
+
+``` {r, echo=FALSE, results='asis'}
+d <- readRDS('data.rds')
+knitr::kable(d)
+```

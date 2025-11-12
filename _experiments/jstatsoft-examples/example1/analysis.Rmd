@@ -1,0 +1,9 @@
+---
+title: "Analysis"
+output: pdf_document
+---
+
+``` {r, echo=FALSE, results='asis'}
+sums <- read.csv('sums.csv')
+knitr::kable(sums)
+```
