@@ -1,27 +1,27 @@
 #' Rule for running R scripts
 #'
-#' This rule is for execution of R scripts in order to create various file outputs.
+#' This rule executes R scripts to create various file outputs.
 #'
 #' In detail, this rule executes the following command in a separate R process:
 #' `params <- params; source(script)`
 #'
-#' That is, parameters given in the `params` argument are stored into the global variable
-#' and then the `script` is sourced. That is, the re-generation of the `Makefile` with any change
-#' to `params` will not cause the re-execution of the recipe unless any other script dependencies change.
+#' That is, the parameters given in the `params` argument are stored in the global variable
+#' and then the `script` is sourced. Note that the re-generation of the `Makefile` with any change
+#' to `params` will not cause the re-execution of the recipe unless other script dependencies change.
 #'
-#' Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
+#' Issuing `make clean` from the shell causes removal of all files specified in the `target` parameter.
 #'
 #' @param target Name of output files to be created
 #' @param script Name of the R script to be executed
 #' @param depends A vector of file names that the R script depends on, or `NULL`.
 #' @param params A list of R values that become available within the `script` in
 #' a `params` variable.
-#' @param task A character vector of parent task names. The mechanism of tasks allows to
-#' group rules. Anything different from `'all'` will
-#' cause creation of a new task depending on the given rule. Executing `make taskname`
-#' will then force building of this rule.
-#' @param preBuild a character vector of shell commands to be executed before building the target
-#' @param postBuild a character vector of shell commands to be executed after building the target
+#' @param task A character vector of parent task names. The mechanism of tasks allows
+#' grouping rules. Anything different from `'all'` will
+#' cause the creation of a new task depending on the given rule. Executing `make taskname`
+#' will then force building this rule.
+#' @param preBuild A character vector of shell commands to be executed before building the target
+#' @param postBuild A character vector of shell commands to be executed after building the target
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()], [markdownRule()]
 #' @author Michal Burda

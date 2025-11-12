@@ -21,22 +21,22 @@ If \code{template} is a character vector then a character vector with all varian
 is returned.
 }
 \description{
-The functionality of \code{expandTemplate()} differs accordingly to the type of the first argument.
-If the first argument is a template job (i.e., a list of template rules), or a template rule,
-then a job is created from templates by replacing \code{rmake} variables in templates with values
+The functionality of \code{expandTemplate()} differs according to the type of the first argument.
+If the first argument is a template job (i.e., a list of template rules) or a template rule,
+then a job is created from templates by replacing \code{rmake} variables in templates with the values
 of these variables, as specified in the second argument.
-The \code{rmake} variable is a part of a string in the format
-of \verb{$[VARIABLE_NAME]}.
+An \code{rmake} variable is a part of a string in the format
+\verb{$[VARIABLE_NAME]}.
 }
 \details{
-If \code{vars} is a character vector then all variables in \code{vars} are replaced in \code{template} so that
+If \code{vars} is a character vector, then all variables in \code{vars} are replaced in \code{template} so that
 the result will contain \code{length(template)} rules. If \code{vars} is a data frame or a character
-matrix then the replacement of variables is performed row-wisely. That is, a new sequence of rules is
-created from \code{template} for each row of variables in \code{vars} so that the result will contain
+matrix, then the replacement of variables is performed row-wise. That is, a new sequence of rules is
+created from \code{template} for each row of variables in \code{vars}, so that the result will contain
 \code{nrow(vars) * length(template)} rules.
 
-If the first argument of \code{expandTemplate()} is a character vector then the result is a character
-vector created by row-wise replacements of \code{rmake} variables, similarly as in the case of template jobs.
+If the first argument of \code{expandTemplate()} is a character vector, then the result is a character
+vector created by row-wise replacements of \code{rmake} variables, similarly to the case of template jobs.
 See examples.
 }
 \examples{

@@ -16,28 +16,28 @@ markdownRule(target, script, depends = NULL, params = list(), task = "all")
 \item{params}{A list of R values that become available within the \code{script} in
 a \code{params} variable.}
 
-\item{task}{A character vector of parent task names. The mechanism of tasks allows to
-group rules. Anything different from \code{'all'} will
-cause creation of a new task depending on the given rule. Executing \verb{make taskname}
-will then force building of this rule.}
+\item{task}{A character vector of parent task names. The mechanism of tasks allows
+grouping rules. Anything different from \code{'all'} will
+cause the creation of a new task depending on the given rule. Executing \verb{make taskname}
+will then force building this rule.}
 }
 \value{
 Instance of S3 class \code{rmake.rule}
 }
 \description{
-This rule is for execution of Markdown rendering in order to create text file
-of various supported formats such as (PDF, DOCX, etc.).
+This rule executes Markdown rendering to create text files
+in various supported formats such as PDF, DOCX, etc.
 }
 \details{
 This rule executes the following command in a separate R process:
 \verb{params <- params; rmarkdown::render(script, output_format=format, output_file=target)}
 
-That is, parameters given in the \code{params} argument are stored into the global variable
-and then the \code{script} is rendered with rmarkdown. That is, the re-generation of the
+That is, the parameters given in the \code{params} argument are stored in the global variable
+and then the \code{script} is rendered with rmarkdown. Note that the re-generation of the
 \code{Makefile} with any change to \code{params} will not cause the re-execution of the recipe unless
-any other script dependencies change.
+other script dependencies change.
 
-Issuing \verb{make clean} from the shell causes removal of all files specified in \code{target} parameter.
+Issuing \verb{make clean} from the shell causes removal of all files specified in the \code{target} parameter.
 }
 \examples{
 r <- markdownRule(target='report.pdf',

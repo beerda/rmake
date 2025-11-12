@@ -1,9 +1,9 @@
-#' Variables used within Makefile generating process
+#' Variables used within the Makefile generating process
 #'
 #' `defaultVars` is a reserved variable, a named vector that defines
-#' Makefile variables, i.e. shell variables that will exist during
+#' Makefile variables, i.e., shell variables that will exist during
 #' the execution of Makefile rules. The content of this variable
-#' is written into the resulting Makefile within the execution of
+#' is written to the resulting Makefile during the execution of
 #' the [makefile()] function.
 #' @seealso [makefile()]
 #' @author Michal Burda
@@ -54,43 +54,43 @@ defaultVars <- c(SHELL='/bin/sh',
 }
 
 
-#' Generate Makefile from given list of rules (`job`).
+#' Generate Makefile from a given list of rules (`job`).
 #'
-#' In the (GNU) `make` jargon, *rule* is a sequence of commands to build a result. In this package, rule
-#' should be understood similarly: It is a command or a sequence of command that optionally produces some
-#' files and depends on some other files (such as data files, scripts) or other rules. Moreover, a rule
-#' contain a command for cleanup, i.e. for removal of generated files.
+#' In the (GNU) `make` jargon, a *rule* is a sequence of commands to build a result. In this package, a rule
+#' should be understood similarly: It is a command or a sequence of commands that optionally produces some
+#' files and depends on some other files (such as data files or scripts) or other rules. Moreover, a rule
+#' contains a command for cleanup, i.e., for removal of generated files.
 #'
 #' The [makefile()] function takes a list of rules (see [rule()]) and generates a `Makefile` from them.
-#' Additionally, `all` and `clean` rules are optionally generated too, which can be executed from shell
-#' by issuing `make all` or `make clean` command, respectively, in order to build everything or erase all
+#' Additionally, `all` and `clean` rules are optionally generated too, which can be executed from the shell
+#' by issuing the `make all` or `make clean` command, respectively, to build everything or erase all
 #' generated files.
 #'
-#' If there is a need to group some rules into a group, it can be done either via dependencies or by using
-#' the `task` mechanism. Each rule may get assigned one or more tasks (see `task` in [rule()]). Each
-#' task is then created as a standalone rule depending on assigned rules. That way, executing `make task_name`
-#' will build all rules with assigned task `task_name`. By default, all rules are assigned to task `all`,
+#' If there is a need to group some rules together, it can be done either via dependencies or by using
+#' the `task` mechanism. Each rule may be assigned one or more tasks (see `task` in [rule()]). Each
+#' task is then created as a standalone rule depending on the assigned rules. That way, executing `make task_name`
+#' will build all rules with the assigned task `task_name`. By default, all rules are assigned to task `all`,
 #' which allows `make all` to build everything.
 #'
-#' @param job A list of rules (i.e. of instances of the S3 class `rmake.rule` - see [rule()])
+#' @param job A list of rules (i.e., instances of the S3 class `rmake.rule` - see [rule()])
 #' @param fileName A file to write to. If `NULL`, the result is returned as a character vector instead of
 #' writing to a file.
-#' @param makeScript A name of the file that calls this function (in order to generate
+#' @param makeScript The name of the file that calls this function (used to generate
 #' the `makefile` rule)
 #' @param vars A named character vector of shell variables that will be declared in the resulting Makefile
-#' (additionally to `[defaultVars]`)
-#' @param all `TRUE` if the `all` rule should be automatically created and added: created `all` rule
-#' has dependencies to all the other rules, which causes that everything is built if `make all` is executed
-#' in shell's command line.
+#' (in addition to `[defaultVars]`)
+#' @param all `TRUE` if the `all` rule should be automatically created and added: the created `all` rule
+#' has dependencies on all the other rules, which causes everything to be built if `make all` is executed
+#' in the shell's command line.
 #' @param tasks `TRUE` if "task" rules should be automatically created and added -- see [rule()] for
 #' more details.
 #' @param clean `TRUE` if the `clean` rule should be automatically created and added
 #' @param makefile `TRUE` if the `Makefile` rule should be automatically created and added: this rule
-#' causes that any change in the R script - that generates the `Makefile` (i.e. that calls [makefile()]) -
-#' issues the re-generation of the Makefile in the beginning of any build.
-#' @param depends a character vector of file names that the makefile generating script depends on
+#' ensures that any change in the R script that generates the `Makefile` (i.e., that calls [makefile()])
+#' triggers the re-generation of the Makefile at the beginning of any build.
+#' @param depends A character vector of file names that the makefile generating script depends on
 #' @return If `fileName` is `NULL`, the function returns a character vector with the contents of the
-#' Makefile. Instead, the content is written to the given `fileName`.
+#' Makefile. Otherwise, the content is written to the given `fileName`.
 #' @seealso [rule()], [rmakeSkeleton()]
 #' @author Michal Burda
 #' @examples

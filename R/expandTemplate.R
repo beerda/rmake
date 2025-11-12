@@ -1,20 +1,20 @@
 #' Expand template rules into a list of rules by replacing `rmake` variables with their values
 #'
-#' The functionality of `expandTemplate()` differs accordingly to the type of the first argument.
-#' If the first argument is a template job (i.e., a list of template rules), or a template rule,
-#' then a job is created from templates by replacing `rmake` variables in templates with values
+#' The functionality of `expandTemplate()` differs according to the type of the first argument.
+#' If the first argument is a template job (i.e., a list of template rules) or a template rule,
+#' then a job is created from templates by replacing `rmake` variables in templates with the values
 #' of these variables, as specified in the second argument.
-#' The `rmake` variable is a part of a string in the format
-#' of `$[VARIABLE_NAME]`.
+#' An `rmake` variable is a part of a string in the format
+#' `$[VARIABLE_NAME]`.
 #'
-#' If `vars` is a character vector then all variables in `vars` are replaced in `template` so that
+#' If `vars` is a character vector, then all variables in `vars` are replaced in `template` so that
 #' the result will contain `length(template)` rules. If `vars` is a data frame or a character
-#' matrix then the replacement of variables is performed row-wisely. That is, a new sequence of rules is
-#' created from `template` for each row of variables in `vars` so that the result will contain
+#' matrix, then the replacement of variables is performed row-wise. That is, a new sequence of rules is
+#' created from `template` for each row of variables in `vars`, so that the result will contain
 #' `nrow(vars) * length(template)` rules.
 #'
-#' If the first argument of `expandTemplate()` is a character vector then the result is a character
-#' vector created by row-wise replacements of `rmake` variables, similarly as in the case of template jobs.
+#' If the first argument of `expandTemplate()` is a character vector, then the result is a character
+#' vector created by row-wise replacements of `rmake` variables, similarly to the case of template jobs.
 #' See examples.
 #'
 #' @param template An instance of the S3 `rmake.rule` class, or a list of such objects, or a character

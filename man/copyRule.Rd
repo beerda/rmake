@@ -2,26 +2,26 @@
 % Please edit documentation in R/copyRule.R
 \name{copyRule}
 \alias{copyRule}
-\title{Rule for copying a file into a new location}
+\title{Rule for copying a file to a new location}
 \usage{
 copyRule(target, depends, task = "all")
 }
 \arguments{
 \item{target}{Target file name to copy the file to}
 
-\item{depends}{name of the file to copy from (only the first element
+\item{depends}{Name of the file to copy from (only the first element
 of the vector is used)}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks
-allows to group rules. Anything different from \code{'all'} will
-cause creation of a new task depending on the given rule.
-Executing \verb{make taskname} will then force building of this rule.}
+allows grouping rules. Anything different from \code{'all'} will
+cause the creation of a new task depending on the given rule.
+Executing \verb{make taskname} will then force building this rule.}
 }
 \value{
 Instance of S3 class \code{rmake.rule}
 }
 \description{
-This rule is for copying a file from one location to another.
+This rule copies a file from one location to another.
 The rule executes the following command:
 \verb{$(CP) depends[1] target}
 }

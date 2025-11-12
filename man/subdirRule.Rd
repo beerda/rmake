@@ -2,7 +2,7 @@
 % Please edit documentation in R/subdirRule.R
 \name{subdirRule}
 \alias{subdirRule}
-\title{Rule for running the make process on a subdirectory}
+\title{Rule for running the make process in a subdirectory}
 \usage{
 subdirRule(target, depends = NULL, task = "all", targetTask = "all")
 }
@@ -11,18 +11,18 @@ subdirRule(target, depends = NULL, task = "all", targetTask = "all")
 
 \item{depends}{Must be \code{NULL}}
 
-\item{task}{A character vector of parent task names. The mechanism of tasks allows to group
-rules. Anything different from \code{'all'} will cause creation of a new task depending on the given
-rule. Executing \verb{make taskname} will then force building of this rule.}
+\item{task}{A character vector of parent task names. The mechanism of tasks allows grouping
+rules. Anything different from \code{'all'} will cause the creation of a new task depending on the given
+rule. Executing \verb{make taskname} will then force building this rule.}
 
 \item{targetTask}{What task to execute in the subdirectory.}
 }
 \value{
-An instance of S2 classs \code{rmake.rule}
+An instance of S3 class \code{rmake.rule}
 }
 \description{
 The subdirectory in the \code{target} argument is assumed to contain its own \code{Makefile}. This rule
-causes the execution of \verb{make <targetTask>} in this subdirectory (where \verb{<targetTask>} is the
+executes \verb{make <targetTask>} in this subdirectory (where \verb{<targetTask>} is the
 value of the \code{targetTask} argument).
 }
 \seealso{

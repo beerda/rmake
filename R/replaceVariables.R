@@ -1,7 +1,7 @@
 #' Replace `rmake` variables in a character vector
 #'
-#' This function searches for all `rmake` variables in given vector `x` and replaces them
-#' with their values that are defined in the `vars` argument. The `rmake` variable is a identified
+#' This function searches for all `rmake` variables in the given vector `x` and replaces them
+#' with their values that are defined in the `vars` argument. An `rmake` variable is identified
 #' by the `$[VARIABLE_NAME]` string.
 #'
 #' @param x A character vector where to replace the `rmake` variables

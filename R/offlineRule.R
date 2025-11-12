@@ -1,19 +1,19 @@
 #' Rule for requesting manual user action
 #'
 #' Instead of building the target, this rule simply issues the given error message.
-#' This rule is useful for cases, where the target `target` depends on `depends`, but
-#' has to be updated by some manual process. So if `target` is older than any of its
+#' This rule is useful for cases where the target `target` depends on `depends` but
+#' must be updated by some manual process. So if `target` is older than any of its
 #' dependencies, `make` will throw an error until the user manually updates the target.
 #'
 #' @param target A character vector of target file names of the manual (offline) build
 #' command
 #' @param message An error message to be issued if targets are older than dependencies
-#' from `depends`
+#' in `depends`
 #' @param depends A character vector of file names the targets depend on
-#' @param task A character vector of parent task names. The mechanism of tasks allows to
-#' group rules. Anything different from `'all'` will
-#' cause creation of a new task depending on the given rule. Executing `make taskname`
-#' will then force building of this rule.
+#' @param task A character vector of parent task names. The mechanism of tasks allows
+#' grouping rules. Anything different from `'all'` will
+#' cause the creation of a new task depending on the given rule. Executing `make taskname`
+#' will then force building this rule.
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()]
 #' @author Michal Burda

@@ -13,16 +13,16 @@ depRule(target, depends = NULL, task = "all")
 \item{depends}{A character vector of prerequisite file names that \code{target} depends on.}
 
 \item{task}{A character vector of parent task names. The mechanism of tasks
-allows to group rules. Anything different from \code{'all'} will
-cause creation of a new task depending on the given rule.
-Executing \verb{make taskname} will then force building of this rule.}
+allows grouping rules. Anything different from \code{'all'} will
+cause the creation of a new task depending on the given rule.
+Executing \verb{make taskname} will then force building this rule.}
 }
 \value{
 Instance of S3 class \code{rmake.rule}
 }
 \description{
 This rule is useful when you want to specify that a target depends on
-another target, but you do not want to execute any script to build it.
+another target but you do not want to execute any script to build it.
 }
 \seealso{
 \code{\link[=rule]{rule()}}, \code{\link[=makefile]{makefile()}}

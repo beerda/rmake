@@ -3,7 +3,7 @@
 \docType{data}
 \name{defaultVars}
 \alias{defaultVars}
-\title{Variables used within Makefile generating process}
+\title{Variables used within the Makefile generating process}
 \format{
 An object of class \code{character} of length 4.
 }
@@ -12,9 +12,9 @@ defaultVars
 }
 \description{
 \code{defaultVars} is a reserved variable, a named vector that defines
-Makefile variables, i.e. shell variables that will exist during
+Makefile variables, i.e., shell variables that will exist during
 the execution of Makefile rules. The content of this variable
-is written into the resulting Makefile within the execution of
+is written to the resulting Makefile during the execution of
 the \code{\link[=makefile]{makefile()}} function.
 }
 \seealso{

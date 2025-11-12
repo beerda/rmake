@@ -30,8 +30,8 @@
 
 %% an abstract and keywords
 \Abstract{
-  \R{} software allows to develop \emph{repeatable} statistical analyses, i.e., automatically re-computable analyses
-  if data or some data processing step changes. However, if the analyses grow on complexity,
+  \R{} software allows the development of \emph{repeatable} statistical analyses, i.e., automatically re-computable analyses
+  if data or some data processing step changes. However, if the analyses grow in complexity,
   their manual re-execution on any change may become tedious and prone to errors. \emph{Make} is a widely accepted
   tool for managing the generation of resulting files from source data and script files. \emph{Make} reads
   dependencies between data and script files from a text file called the \code{Makefile}.
@@ -90,40 +90,40 @@
 \section{Introduction}
 
 \R{} \citep{R} is a mature scripting language for statistical computations and data processing. Besides
-other benefits, an important advantage of \R{} is that it allows to write \emph{repeatable}
-statistical analyses, that is, to program all steps of data processing in a scripting language, which allows to
-re-execute the whole process after any change in data or in any processing step.
+other benefits, an important advantage of \R{} is that it allows writing \emph{repeatable}
+statistical analyses, that is, programming all steps of data processing in a scripting language, which allows
+re-executing the whole process after any change in data or in any processing step.
 
-There are several useful packages for \R{} to obtain repeatability of statistical computations much more easier.
-Among others, let us name \pkg{knitr} \citep{knitr2, knitr}
+There are several useful packages for \R{} to obtain repeatability of statistical computations much more easily.
+Among others, let us mention \pkg{knitr} \citep{knitr2, knitr}
 and \pkg{rmarkdown} \citep{rmarkdown}. These tools
-allow to write R scripts that generate reports combining text with tables and figures generated from data.
+allow writing R scripts that generate reports combining text with tables and figures generated from data.
 Creation of final statistical reports by such scripts is as simple as issuing a single statement from
 the command line or as clicking an
 icon in an integrated development environment (IDE) such as \emph{RStudio} \citep{rstudio}.
 
-However, if the analyses grow on complexity, manual re-execution of the whole process may become tedious, prone
-to errors, and very demanding from the view of computational power.
-Complex analyses involve typically a lot of pre-processing steps on large data sets, a repetitive execution of commands
-differing in several parameters only, and producing multiple output files in
-various formats. It is very inefficient to re-run over and over again all the pre-processing
-steps to refresh the final report after any change on it. A caching mechanism provided by \pkg{knitr} is very helpful there,
-but its use is still limited on a single report. It is rational to split a complex analysis into several parts
-and save intermediate results into files. However, such approach brings another challenge: management of dependencies between
-inputs, outputs and underlying scripts to ensure a refresh of all the results on change of any prerequisite.
+However, if the analyses grow in complexity, manual re-execution of the whole process may become tedious, prone
+to errors, and very demanding from the perspective of computational power.
+Complex analyses typically involve a lot of pre-processing steps on large data sets, repetitive execution of commands
+differing only in several parameters, and producing multiple output files in
+various formats. It is very inefficient to re-run all the pre-processing
+steps over and over again to refresh the final report after any change to it. A caching mechanism provided by \pkg{knitr} is very helpful there,
+but its use is still limited to a single report. It is rational to split a complex analysis into several parts
+and save intermediate results into files. However, such an approach brings another challenge: management of dependencies between
+inputs, outputs and underlying scripts to ensure a refresh of all the results on any change to any prerequisite.
 In open source community, (GNU) \emph{Make} is a popular tool to help with that.
 
-\emph{Make} is a tool which controls the generation of intermediate and resulting files from source data and
-script files. It was primarily created to help program developers to build executable binaries from source codes.
+\emph{Make} is a tool that controls the generation of intermediate and resulting files from source data and
+script files. It was primarily created to help program developers build executable binaries from source codes.
 However, it can be
-used to generate any type of file. \emph{Make} gets its knowledge of how to build the results from a file
+used to generate any type of file. \emph{Make} obtains its knowledge of how to build the results from a file
 called the \code{Makefile}, which defines dependencies between files as well as commands of how to create dependent files
 from their sources. \emph{Make} compares last-change timestamps of the files listed in \code{Makefile} to determine
 which files (and in what order) have to be refreshed in order to get all of them updated.
 
-\emph{Make} is also quite popular in the \R{} community, with a direct support e.g. by \emph{RStudio} and another tools.
-It is quite straightforward to write \code{Makefile} manually and many \R{} users write simple \code{Makefile}s for
-themselves by hand.  However, for more complex build processes,
+\emph{Make} is also quite popular in the \R{} community, with direct support e.g. by \emph{RStudio} and other tools.
+It is straightforward to write \code{Makefile} manually and many \R{} users write simple \code{Makefile}s for
+themselves by hand. However, for more complex build processes,
 manual management of \code{Makefile} may become grueling. The aim of this paper is to present \pkg{rmake},
 an \R{} package providing tools for easy generation of \code{Makefile}s for statistical and data manipulation tasks in \R.
 The main features of \pkg{rmake} are as follows:
@@ -139,10 +139,10 @@ The main features of \pkg{rmake} are as follows:
 \item compatibility with \emph{RStudio}.
 \end{itemize}
 
-A different approach to build complex analytical projects is represented e.g. by the \pkg{drake} package \citep{drake},
-which (unlike to \pkg{rmake}) processes all the tasks within the single \R{} session and which handles all the dependencies
-between \R{} objects by itself. To the opposite, \pkg{rmake} is simply a light-weight generator of the \code{Makefile} dependency file,
-which leaves the re-generation of obsolete results on the \emph{Make} utility. A large list of other pipelining projects
+A different approach to building complex analytical projects is represented e.g. by the \pkg{drake} package \citep{drake},
+which (unlike \pkg{rmake}) processes all the tasks within a single \R{} session and handles all the dependencies
+between \R{} objects by itself. In contrast, \pkg{rmake} is simply a light-weight generator of the \code{Makefile} dependency file,
+which leaves the re-generation of obsolete results to the \emph{Make} utility. A large list of other pipelining projects
 may be found also at \code{https://github.com/pditommaso/awesome-pipeline}.
 
 The rest of the paper is organized as follows. Section~\ref{sec:installation} lists all necessary steps for correct
@@ -159,9 +159,9 @@ Section~\ref{sec:conclusion} concludes the paper.
 \section{Installation}
 \label{sec:installation}
 
-In order to use \pkg{rmake}, the \R{} environment and the \emph{Make} program has to be installed and properly configured,
+In order to use \pkg{rmake}, the \R{} environment and the \emph{Make} program must be installed and properly configured
 in advance. On Linux-based systems, it is usually a matter of installing the appropriate distribution packages.
-On Windows, an installation of \code{Rtools} is recommended that contains the \emph{Make} tool included.
+On Windows, installation of \code{Rtools} is recommended, which contains the \emph{Make} tool.
 
 To install the \pkg{rmake} package from CRAN, execute the following command from within the \R{}
 session (note the leading ``\code{R>}'' denotes the \R{}'s shell prompt and it is not a part of the command):
@@ -178,7 +178,7 @@ devtools::install_github("beerda/rmake")
 \subsection[Settings for Use Outside of the R Session]{Settings for Use Outside of the \R{} Session}
 \label{sec:outside-r}
 
-For \pkg{rmake} to work properly, \code{R_HOME} and \code{R_ARCH} environment variables have to be set correctly. If executing \emph{Make} from within an \R{} session (e.g., from \emph{RStudio}), the environment variables are set automatically by \R{}. In order to execute \emph{Make} outside \R{}, for instance, from the shell, these variables have to be set manually. The \code{R_HOME} variable should contain a path to \R{}'s installation directory and \code{R_ARCH} the architecture variant. The correct values may be obtained
+For \pkg{rmake} to work properly, \code{R_HOME} and \code{R_ARCH} environment variables must be set correctly. If executing \emph{Make} from within an \R{} session (e.g., from \emph{RStudio}), the environment variables are set automatically by \R{}. To execute \emph{Make} outside \R{}, for instance, from the shell, these variables must be set manually. The \code{R_HOME} variable should contain the path to \R{}'s installation directory and \code{R_ARCH} the architecture variant. The correct values may be obtained
 from \R{} by issuing the following commands:
 <<>>=
 Sys.getenv("R_HOME")
@@ -190,7 +190,7 @@ To set environment variables on a Unix-like system, issue the following shell co
 $ export R_HOME=/usr/lib/R
 $ export R_ARCH=
 \end{verbatim}
-These commands may be added to your home \code{.profile} file for variables to be created automatically after you log-in.
+These commands may be added to your home \code{.profile} file for the variables to be created automatically when you log in.
 
 
 
@@ -200,8 +200,8 @@ These commands may be added to your home \code{.profile} file for variables to b
 
 \subsection{New Project Initialization}
 
-To start maintaining the \R{} project with \pkg{rmake}, an \R{} script \code{Makefile.R} has to be created that would
-then generate the \code{Makefile}. That script file may be created manually, or from a skeleton provided by \pkg{rmake}.
+To start maintaining the \R{} project with \pkg{rmake}, an \R{} script \code{Makefile.R} must be created that will
+then generate the \code{Makefile}. That script file may be created manually or from a skeleton provided by \pkg{rmake}.
 To start from skeleton, first load the \pkg{rmake} package:
 <<>>=
 library(rmake)
@@ -236,8 +236,8 @@ make: Nothing to be done for 'all'.
 \end{verbatim}
 
 Indeed, nothing is to be done, since the single rule generating the \code{Makefile} itself
-needs not to be re-generated. After \code{Makefile.R} gets updated, \code{Makefile} would be re-generated
-and also other tasks will be executed, as specified by the rules in \code{Makefile.R}.
+does not need to be re-generated. After \code{Makefile.R} is updated, \code{Makefile} will be re-generated
+and other tasks will be executed as specified by the rules in \code{Makefile.R}.
 
 To run \emph{Make} from shell, just enter the following command
 (note the settings needed for everything to work properly outside the \R{} session in Section~\ref{sec:outside-r}):
@@ -247,9 +247,9 @@ $ make
 make: Nothing to be done for 'all'.
 \end{verbatim}
 
-If working in \emph{RStudio}, it is beneficial to setup its environment to use Make:
-in \emph{Build}/\emph{Configure Build Tools} menu, set \emph{Project build tools} to \emph{Makefile}. A \emph{Build All}
-command becomes available that runs \emph{Make} using the generated \code{Makefile}.
+If working in \emph{RStudio}, it is beneficial to set up its environment to use Make:
+in the \emph{Build}/\emph{Configure Build Tools} menu, set \emph{Project build tools} to \emph{Makefile}. A \emph{Build All}
+command then becomes available that runs \emph{Make} using the generated \code{Makefile}.
 
 
 
@@ -273,25 +273,25 @@ sums <- data.frame(ID="sum",
                    V2=sum(d$V2))
 write.csv(sums, "sums.csv", row.names=FALSE)
 @
-The script reads \code{data.csv} into a variable \code{d}, creates a data frame \code{sums} with computed
-sums and writes it to the file \code{sums.csv}.
+The script reads \code{data.csv} into a variable \code{d}, creates a data frame \code{sums} with the computed
+sums, and writes it to the file \code{sums.csv}.
 
 Now, let us modify the \code{Makefile.R} script to build the \code{sums.csv}
-file automatically whenever either \code{data.csv} or \code{script.R} files change. All that has to be done is to update
+file automatically whenever either the \code{data.csv} or \code{script.R} file changes. All that has to be done is to update
 the line of code where the \code{job} variable is created in \code{Makefile.R}:
 <<eval=FALSE,prompt=FALSE>>=
 library(rmake)
 job <- list(rRule(target="sums.csv", script="script.R", depends="data.csv"))
 makefile(job, "makefile")
 @
-Function \code{rRule()} creates a new rule for execution of an \R{} script \code{script.R},
-whose target is  \code{sums.csv} and which depends on \code{data.csv}. Whenever any dependency file or the script file
-changes, the rule triggers and re-executes the given script in order to build the given target. Let us
+Function \code{rRule()} creates a new rule for the execution of an \R{} script \code{script.R},
+whose target is \code{sums.csv} and which depends on \code{data.csv}. Whenever any dependency file or the script file
+changes, the rule triggers and re-executes the given script to build the given target. Let us
 run the \code{make} command again:
 <<eval=FALSE>>=
 make()
 @
-The \emph{Make} utility should firstly re-generate the \code{Makefile} itself (since \code{Makefile.R} has changed)
+The \emph{Make} utility should first re-generate the \code{Makefile} itself (since \code{Makefile.R} has changed)
 and then execute \code{script.R} in a new \R{} session to create \code{sums.csv}. Further calls of \code{make}
 will do nothing until any change is detected again.
 
@@ -312,11 +312,11 @@ knitr::kable(sums)
 
 This is a markdown file, which we are going to process with the \pkg{rmarkdown} package to create
 a PDF document with the results. This script reads \code{sums.csv} and prints its content in a tabular layout. For
-more details on how to work with markdown documents see \cite{rmarkdown}.
+more details on working with markdown documents, see \cite{rmarkdown}.
 
 The \code{analysis.Rmd} script depends on the \code{sums.csv} data file. The markdown processor produces
-an \code{analysis.pdf} file from it.
-Let us now update \code{Makefile.R} so that the PDF file is refreshed everytime either the script or the data change.
+the \code{analysis.pdf} file from it.
+Let us now update \code{Makefile.R} so that the PDF file is refreshed every time either the script or the data changes.
 The job creation command should be modified as follows:
 <<eval=FALSE,prompt=FALSE>>=
 library(rmake)
@@ -369,7 +369,7 @@ job <- "data.csv" %>>% rRule("script.R") %>>%
 @
 
 Generally, every $k$-th element of the pipe chain (for $k = 2, 4, 6, \ldots$) must be
-a call to a function that creates a \pkg{rmake} rule. Prior its execution, each such function call internally obtains two additional named arguments: \code{depends} and \code{target}, whose values are respectively obtained from the preceding (i.e., $(k-1)$-th) or following (i.e., $(k+1)$-th) element of the chain.
+a call to a function that creates a \pkg{rmake} rule. Prior to its execution, each such function call internally obtains two additional named arguments: \code{depends} and \code{target}, whose values are respectively obtained from the preceding (i.e., $(k-1)$-th) or following (i.e., $(k+1)$-th) element of the chain.
 
 If some rule depends on or creates multiple files, their names have to be specified as a character vector (see the \code{c()} function) -- for instance, the \code{run.R} script reads and writes two files:
 
@@ -423,13 +423,13 @@ A graphical representation of defined dependencies is shown in Fig.~\ref{fig:com
 
 \subsection{Cleaning Up}
 
-A good manner of \code{Makefile} writers is to provide a clean-up task that deletes all files of the project
+A good practice for \code{Makefile} writers is to provide a clean-up task that deletes all files of the project
 that were generated within the build process. This is traditionally executed by the following command:
 \begin{verbatim}
 $ make clean
 \end{verbatim}
-Each \pkg{rmake}'s rule type adds automatically to the \code{Makefile} a command for deleting all target files that were generated by that rule.
-A single exception is the \code{Makefile} itself that is never deleted, although it is generated too.
+Each \pkg{rmake}'s rule type automatically adds to the \code{Makefile} a command for deleting all target files that were generated by that rule.
+A single exception is the \code{Makefile} itself, which is never deleted although it is generated too.
 
 From within \R{}, the clean-up task may be executed by
 <<eval=FALSE>>=
@@ -440,14 +440,14 @@ make("clean")
 
 \subsection{Parallel Execution}
 
-Some implementations of the \emph{Make} utility allow to build multiple targets in parallel. For instance,
+Some implementations of the \emph{Make} utility allow building multiple targets in parallel. For instance,
 \emph{GNU Make} recognizes the \code{-j} argument, which can be used to specify the number of processes to run
 simultaneously. For instance,
 \begin{verbatim}
 $ make -j8
 \end{verbatim}
-causes up to 8 targets to be prepared in parallel. If the \code{-j} option is given without a number, the \emph{Make}
-utility will not limit the number of rules that can run simultaneously.
+causes up to 8 targets to be prepared in parallel. If the \code{-j} option is given without a number, \emph{Make}
+will not limit the number of rules that can run simultaneously.
 
 From \R{}, the parallel execution might be started with the following command:
 <<eval=FALSE>>=
@@ -477,7 +477,7 @@ visualize(job, legend=FALSE)
     \label{fig:pipefig}
 \end{figure}
 
-The \code{visualize()} function converts the \code{job} into a \pkg{visNetwork}'s directed graph and renders it as an interactive web-page, in which the picture may be zoomed and nodes re-arranged with a mouse -- see Fig.~\ref{fig:pipefig} for an overview. The optional \code{legend} argument turns off the legend in the resulting figure.
+The \code{visualize()} function converts the \code{job} into a \pkg{visNetwork}'s directed graph and renders it as an interactive web page, in which the picture may be zoomed and nodes rearranged with a mouse -- see Fig.~\ref{fig:pipefig} for an overview. The optional \code{legend} argument turns off the legend in the resulting figure.
 
 In the graph, the main script files are depicted with diamonds, rules are represented with ovals, while the other
 files are symbolized with squares.
@@ -489,9 +489,9 @@ files are symbolized with squares.
 
 The \pkg{rmake} package provides several functions that represent the most common build-rule types.
 Each function has a mandatory \code{target} argument for a character vector of file names
-created by that rule. Additionally, a character vector of file names the rule depends on
+to be created by that rule. Additionally, a character vector of file names that the rule depends on
 can be specified as an optional \code{depends} argument. The \code{task}
-argument allows rules to group into \emph{tasks} -- see Section~\ref{sec:tasks} for more details. Some rules also allow an optional \code{params} argument to pass parameters to the scripts; Section~\ref{sec:params} contains detailed information on that topic. Each rule, when executed by the \emph{Make} tool, is started as a separate operating system process, that is, the \R{} scripts and markdown processors do not share the running instance of the \R{} interpreter.
+argument allows grouping rules into \emph{tasks} -- see Section~\ref{sec:tasks} for more details. Some rules also allow an optional \code{params} argument to pass parameters to the scripts; Section~\ref{sec:params} contains detailed information on that topic. Each rule, when executed by the \emph{Make} tool, is started as a separate operating system process, that is, the \R{} scripts and markdown processors do not share the running instance of the \R{} interpreter.
 
 
 \subsection{Pre-defined Rule Types}
@@ -500,7 +500,7 @@ argument allows rules to group into \emph{tasks} -- see Section~\ref{sec:tasks} 
 rRule(target, script, depends = NULL, params = list(), task = "all")
 @
 
-The \code{rRule()} rule executes the \R{} script by calling the \code{Rscript} executable file from the shell and \code{source}-ing the \code{script} file. This rule is fired if either any file from \code{depends} or the \code{script} file changes.
+The \code{rRule()} rule executes the \R{} script by calling the \code{Rscript} executable file from the shell and \code{source}-ing the \code{script} file. This rule is triggered if either any file from \code{depends} or the \code{script} file changes.
 Cleaning removes all \code{target} files.
 
 <<eval=FALSE,prompt=FALSE>>=
@@ -520,24 +520,24 @@ Cleaning removes all \code{target} files.
 offlineRule(target, message, depends = NULL, task = "all")
 @
 
-The \code{offlineRule()} rule provides a way to force some non-automated action within the \emph{Make} build process. It should be used whenever a transformation of prerequisites from the \code{depends} vector into \code{target} files requires a manual action. In case of building, a custom error \code{message} is shown that would instruct the user to perform the task by hand until the \code{target} files get more recent modification timestamps than files in \code{depends} vector. Cleaning removes all \code{target} files.
+The \code{offlineRule()} rule provides a way to force some non-automated action within the \emph{Make} build process. It should be used whenever transformation of the prerequisites from the \code{depends} vector into \code{target} files requires a manual action. In the case of building, a custom error \code{message} is shown that instructs the user to perform the task by hand until the \code{target} files have more recent modification timestamps than files in the \code{depends} vector. Cleaning removes all \code{target} files.
 
 
 \subsection{Custom Rules}
 
-Besides predefined rule types, any custom rule may be added to the build process. Internally, the \code{makefile()} function generates \code{Makefile} from a list of instances of the S3 \code{rmake.rule} class. To create an object of such type, the following general function may be used:
+Besides predefined rule types, any custom rule may be added to the build process. Internally, the \code{makefile()} function generates a \code{Makefile} from a list of instances of the S3 \code{rmake.rule} class. To create an object of such a type, the following general function may be used:
 <<eval=FALSE,prompt=FALSE>>=
 rule(target, depends = NULL, build = NULL, clean = NULL,
      task = "all", phony = FALSE)
 @
 
-where \code{target} is a character vector of target files that the rules is intended to generate, and \code{depends} is a character vector of prerequisite file names. To the contrast with predefined rule types, custom rules should add also script file names into a vector of dependencies, preceding other data files.
+where \code{target} is a character vector of target files that the rule is intended to generate, and \code{depends} is a character vector of prerequisite file names. In contrast to predefined rule types, custom rules should also add script file names to the vector of dependencies, preceding other data files.
 
 The \code{task} argument may be used to assign the rule to a certain task, see Section~\ref{sec:tasks} for more information.
 
-The \code{phony} argument is a boolean (\code{TRUE}/\code{FALSE}) value specifying whether the \emph{Make} rule has a \code{.PHONY} (i.e. non-file) target. A rule should be marked with \code{phony} if the target is not a file name that would be generated by the \code{build} command. E.g., \code{all} or \code{clean} are phony targets. Also all targets representing tasks (see Section~\ref{sec:tasks}) are phony. See also the manual to the \emph{Make} tool for more details on \code{.PHONY} targets.
+The \code{phony} argument is a boolean (\code{TRUE}/\code{FALSE}) value specifying whether the \emph{Make} rule has a \code{.PHONY} (i.e. non-file) target. A rule should be marked with \code{phony} if the target is not a file name that would be generated by the \code{build} command. E.g., \code{all} or \code{clean} are phony targets. Also, all targets representing tasks (see Section~\ref{sec:tasks}) are phony. See also the manual for the \emph{Make} tool for more details on \code{.PHONY} targets.
 
-The \code{build} and \code{clean} arguments are character vectors with shell commands that have to be executed during the build or cleaning-up, respectively. It is advisable to write shell commands with the use of \emph{Make} variables that are predefined by \pkg{rmake} at the beginning of the \code{Makefile}:
+The \code{build} and \code{clean} arguments are character vectors with shell commands that must be executed during the build or cleaning-up, respectively. It is advisable to write shell commands using \emph{Make} variables that are predefined by \pkg{rmake} at the beginning of the \code{Makefile}:
 \begin{itemize}
 \item \code{\$(R)} -- a path and file name of the \code{Rscript} binary, as obtained from the \code{R_HOME} and \code{R_ARCH} environment variable (see Section~\ref{sec:outside-r} for details);
 \item \code{\$(RM)} -- a name of the file deletion command (\code{rm} on Unix, \code{del} on Windows).
@@ -567,7 +567,7 @@ job <- list(rule(target="test.json",
 makefile(job, "Makefile")
 @
 
-The \pkg{rmake} package provides a useful tool to help write rules that execute custom \R{} sequence of commands. The \code{inShell()} function simply takes an \R{} language expression and transforms it into a character vector with a shell command that calls \code{Rscript} with parameters that execute the given expression:
+The \pkg{rmake} package provides a useful tool to help write rules that execute custom \R{} sequences of commands. The \code{inShell()} function simply takes an \R{} language expression and transforms it into a character vector with a shell command that calls \code{Rscript} with parameters that execute the given expression:
 <<>>=
 inShell({ result <- 1+1; saveRDS(result, "result.rds") })
 @
@@ -577,7 +577,7 @@ rule(target="result.rds",
      build=inShell({ result <- 1+1; saveRDS(result, "result.rds") }),
      clean="$(RM) result.rds")
 @
-However, the overuse of \code{inShell()} is not recommended. For normal processing of data, it is far better to store \R{} commands into a separate script file, because then, after any change to the code is made, the \emph{Make} tool can detect it and force update of other depending artifacts. Any rule change at the level of \code{Makefile} will not cause any rebuild of the target. The intended use of \code{inShell()} is to ease the implementation of internals such as in \code{rRule()} or \code{markdownRule()}.
+However, overuse of \code{inShell()} is not recommended. For normal processing of data, it is far better to store \R{} commands in a separate script file, because then, after any change to the code is made, the \emph{Make} tool can detect it and force an update of other depending artifacts. Any rule change at the level of \code{Makefile} will not cause any rebuild of the target. The intended use of \code{inShell()} is to ease the implementation of internals such as in \code{rRule()} or \code{markdownRule()}.
 
 
 
@@ -587,8 +587,8 @@ However, the overuse of \code{inShell()} is not recommended. For normal processi
 \subsection{Tasks}
 \label{sec:tasks}
 
-The mechanism of tasks allows to make groups of rules. Groups of rules may then be executed together.
-If not stating differently, each \pkg{rmake} rule is a member of the \code{all} task. \pkg{rmake} also provides a special \code{clean} task for project cleanup. To build all rules grouped into a task, simply invoke the \code{make} command and give it the name of the task.
+The mechanism of tasks allows making groups of rules. Groups of rules may then be executed together.
+If not stated differently, each \pkg{rmake} rule is a member of the \code{all} task. \pkg{rmake} also provides a special \code{clean} task for project cleanup. To build all rules grouped into a task, simply invoke the \code{make} command and give it the name of the task.
 For instance:
 \begin{verbatim}
 $ make all
@@ -611,15 +611,15 @@ job <- c(
 )
 makefile(job, "Makefile")
 @
-This code creates a rule \code{preprocess.R}, which transforms \code{data.csv} into \code{data.rds}, and two markdown rules, \code{preview.Rmd} and \code{final.Rmd}, that are each assigned to its own task named \code{preview} and \code{final}, respectively. Thus invoking
+This code creates a rule \code{preprocess.R}, which transforms \code{data.csv} into \code{data.rds}, and two markdown rules, \code{preview.Rmd} and \code{final.Rmd}, that are each assigned to its own task named \code{preview} and \code{final}, respectively. Thus, invoking
 <<eval=FALSE>>=
 make("preview")
 @
-would create \code{data.rds} (because \code{preview.Rmd} depends on it, irrespective of \code{preprocess.R} is a member of the \code{all} task) and \code{preview.pdf}, but not \code{final.pdf}. Similarly,
+would create \code{data.rds} (because \code{preview.Rmd} depends on it, regardless of whether \code{preprocess.R} is a member of the \code{all} task) and \code{preview.pdf}, but not \code{final.pdf}. Similarly,
 <<eval=FALSE>>=
 make("final")
 @
-would generate \code{final.pdf} (possibly with previous build of \code{data.rds}, if it was not done already), but not \code{preview.pdf}. All rules will be triggered by calling
+would generate \code{final.pdf} (possibly with a previous build of \code{data.rds}, if it was not done already), but not \code{preview.pdf}. All rules will be triggered by calling
 <<eval=FALSE>>=
 make("all")
 @
@@ -629,8 +629,8 @@ make("all")
 \subsection{Parameterized Execution of Rules}
 \label{sec:params}
 
-The \pkg{rmake} package allows to send parameters to the main script of a rule. Both \code{rRule()} and \code{markdownRule()} functions
-may obtain a list of arbitrary data as the \code{params} argument. The content of that argument would be available as the \code{params} global variable from within the script. Through such parameterization, a single \R{} script may be used to produce multiple outputs. An example is as follows:
+The \pkg{rmake} package allows sending parameters to the main script of a rule. Both \code{rRule()} and \code{markdownRule()} functions
+may obtain a list of arbitrary data as the \code{params} argument. The content of that argument will be available as the \code{params} global variable from within the script. Through such parameterization, a single \R{} script may be used to produce multiple outputs. An example is as follows:
 
 <<eval=FALSE,prompt=FALSE>>=
 library(rmake)
@@ -683,7 +683,7 @@ List of 5
  $ alpha   : num 0.4
 \end{verbatim}
 
-Indeed, the \code{params} variable contains the \code{alpha} parameter with an expected value. Besides that, \code{params} contains several
+Indeed, the \code{params} variable contains the \code{alpha} parameter with the expected value. Besides that, \code{params} contains several
 dot-named values that correspond to the arguments of \code{rRule()}: \code{.target}, \code{.script}, \code{.depends}, and \code{.task}.
 
 The \code{fit.R} script may handle the \code{params} global variable directly, but it is advisable to use the \code{getParam()} function instead, which throws an error in case the script is executed without \code{params} being defined before:
@@ -720,13 +720,13 @@ Warning message:
 In getParam("alpha") :
   rmake parameters not found - using default value for "alpha": NA
 \end{verbatim}
-Meaningful default values may be assigned to the parameters by a second argument of the \code{getParam()} function:
+Meaningful default values may be assigned to the parameters via a second argument of the \code{getParam()} function:
 <<eval=FALSE,prompt=FALSE>>=
 dataName <- getParam(".depends", "data.csv")
 resultName <- getParam(".target", "result.rds")
 alpha <- getParam("alpha", 0.2)
 @
-The warning does not disappear, but the script has now a chance to run with proper parameters, which may be useful, when debugging the script in \emph{RStudio}:
+The warning does not disappear, but the script now has a chance to run with proper parameters, which may be useful when debugging the script in \emph{RStudio}:
 <<eval=FALSE>>=
 source("fit.R")
 @
@@ -749,9 +749,9 @@ In getParam("alpha", 0.2) :
 \subsection{Rule Templates}
 \label{sec:templates}
 
-More complex analyzes may contain similar rule sequences that repeate multiple times. Think of fitting multiple models differing only in some parameters, stored into files with a name derived from parameter values. The \pkg{rmake} package provides a templating mechanism to avoid tedious copy\&paste of rule definitions and to help quickly creating and easily maintaining the \code{Makefile.R} script.
+More complex analyses may contain similar rule sequences that repeat multiple times. Think of fitting multiple models differing only in some parameters, stored in files with a name derived from parameter values. The \pkg{rmake} package provides a templating mechanism to avoid tedious copy-and-paste of rule definitions and to help quickly create and easily maintain the \code{Makefile.R} script.
 
-The idea of rule templates is best presented on the following example. Let us have a lot of CSV data files that all have to be processed and saved in a uniform way. We may create a script that processes all files in a loop, but that would make difficult a selective re-calculation of future changed data. Instead, we might to write a unique \pkg{rmake} rule for each data file:
+The idea of rule templates is best presented in the following example. Let us suppose we have a lot of CSV data files that all must be processed and saved in a uniform way. We might create a script that processes all files in a loop, but that would make selective re-calculation of future changed data difficult. Instead, we could write a unique \pkg{rmake} rule for each data file:
 <<eval=FALSE>>=
 job <- c(
   "data-1.csv" %>>% rRule("process.R") %>>% "result-1.csv",
@@ -767,7 +767,7 @@ variants <- data.frame(NUM=1:99)
 job <- expandTemplate(tmpl, variants)
 @
 
-The \code{expandTemplate()} function simply takes a list of rules, \code{tmpl}, and replaces all appearances of \emph{template variables} in all strings with their values provided by the \code{variants} data frame. The rules in \code{tmpl} are replicated for each row of the \code{variants} data frame.
+The \code{expandTemplate()} function simply takes a list of rules, \code{tmpl}, and replaces all occurrences of \emph{template variables} in all strings with their values provided by the \code{variants} data frame. The rules in \code{tmpl} are replicated for each row of the \code{variants} data frame.
 
 The following example creates rules for each combination of \code{DATA} and \code{TYPE}:
 <<>>=
@@ -800,7 +800,7 @@ However, the repeated rules are automatically removed as can be seen from the pr
 print(job)
 @
 
-On the other hand, (not only) a template expansion may often result in distinct rules producing a duplicated target. Such sequence of rules is prohibited and causes an error message in the \code{makefile()} function. The problem is illustrated in the example below.
+On the other hand, template expansion (among other things) may often result in distinct rules producing a duplicated target. Such a sequence of rules is prohibited and causes an error message in the \code{makefile()} function. The problem is illustrated in the example below.
 <<>>=
 tmpl <- "data-$[TYPE].csv" %>>% markdownRule("report.Rmd") %>>%
     "report.pdf"
@@ -820,11 +820,11 @@ makefile(job)
 \section{Conclusion}
 \label{sec:conclusion}
 
-The presented \pkg{rmake} package provides an easy but powerful way for managing complex data manipulation processes
-in \R{} using the well-known and broadly adopted \emph{Make} utility. \pkg{rmake} brings tools for generation of the
+The presented \pkg{rmake} package provides an easy but powerful way to manage complex data manipulation processes
+in \R{} using the well-known and broadly adopted \emph{Make} utility. \pkg{rmake} brings tools for the generation of the
 \code{Makefile}, in which the file dependencies and build rules are defined. Advanced features of \pkg{rmake} such as
 pipelining (\verb|%>>%|),
-parameterized rules, or rule templates, enable quick definition of that file dependencies.
+parameterized rules, or rule templates, enable quick definition of file dependencies.
 
 
 

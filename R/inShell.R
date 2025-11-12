@@ -1,12 +1,12 @@
-#' Convert R code to the character vector of shell commands evaluating the given R code.
+#' Convert R code to a character vector of shell commands evaluating the given R code.
 #'
 #' The function takes R commands, deparses them, substitutes existing variables, and converts
 #' everything to character strings, from which a shell command is created that sends the given
-#' R code to the R interpreter. Function is used internally to print the commands of R rules
-#' into `Makefile`.
+#' R code to the R interpreter. The function is used internally to print the commands of R rules
+#' into the `Makefile`.
 #'
 #' @param ... R commands to be converted
-#' @return  A character vector of shell commands, which send the given R code by pipe to the R
+#' @return A character vector of shell commands that send the given R code by pipe to the R
 #' interpreter
 #' @author Michal Burda
 #' @seealso [rRule()], [markdownRule()]

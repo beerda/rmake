@@ -5,7 +5,7 @@
 rmake
 =====
 
-Makefile generator for R analytical projects
+A Makefile generator for R analytical projects
 
 
 Installation
@@ -35,7 +35,7 @@ Basic Usage
 -----------
 
 Suppose you have a file ```dataset.csv```. You want to pre-process it and store the results into ```dataset.rds```
-within the ```preprocess.R``` R script.  After that, ```dataset.rds``` is then an input file for
+using the ```preprocess.R``` R script. After that, ```dataset.rds``` is then an input file for
 ```report.Rmd``` and ```details.Rmd```, which are R-Markdown scripts that generate ```report.pdf``` and
 ```details.pdf```. The whole project can be initialized with *rmake* as follows:
 
@@ -53,13 +53,12 @@ within the ```preprocess.R``` R script.  After that, ```dataset.rds``` is then a
    library(rmake)
    job <- c('dataset.csv' %>>% rRule('preprocess.R') %>>% 'dataset.rds' %>>% markdownRule('report.Rmd') %>>% 'report.pdf',
             'dataset.rds' %>>% markdownRule('details.Rmd') %>>% 'details.pdf')
-   )
    makefile(job, 'Makefile')
    ```
-   This will create three build rules: processing of ```preprocess.R``` and execution of ```report.Rmd``` and ```details.Rmd```
-   in order to generate resulting PDF files.
+   This will create three build rules: one for processing ```preprocess.R``` and two for executing ```report.Rmd``` and ```details.Rmd```
+   to generate the resulting PDF files.
 6. Run ```make``` or build your project in R Studio (Build/Build all). This will automatically re-generate ```Makefile```
-   and execute ```preprocess.R``` and the generation of ```report.Rmd``` and ```details.Rmd``` accordingly to the changes
-   made to source files.
+   and execute ```preprocess.R``` and the generation of ```report.Rmd``` and ```details.Rmd``` according to the changes
+   made to the source files.
 
 

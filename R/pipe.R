@@ -70,7 +70,7 @@
 #' `'inFile' %>>% rule() %>>% 'outFile'`,
 #' which is equivalent to the call `rule(depends='inFile', target='outFile')`. `rule` must be
 #' a function that accepts the named parameters `depends` and `target` and creates the
-#' `rmake.rule` object (see [rule()], [rRule()], [markdownRule()] etc.).
+#' `rmake.rule` object (see [rule()], [rRule()], [markdownRule()], etc.).
 #' `inFile` and `outFile` are file names.
 #'
 #' Multiple rules may be pipe-lined as follows:
