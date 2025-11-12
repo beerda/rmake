@@ -32,8 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Setup R first — actions that call R (tinytex installation via Rscript)
-      # require R to be available on the runner.
+      # Make R available first
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
@@ -42,16 +41,36 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      # Install TinyTeX system (this action expects R to be available)
+      # The setup-tinytex action is fine but we add explicit install/pgf and PATH fix
       - uses: r-lib/actions/setup-tinytex@v2
 
-      # Ensure tinytex R package is installed and install the pgf (tikz) bundle.
-      # tinytex::tlmgr_install("pgf") provides tikz.sty (pgf/TikZ)
-      - name: Install tinytex R package and pgf (TikZ)
+      - name: Install tinytex R package, (re-)install TinyTeX and install pgf (TikZ)
         run: |
           Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org"));
                       if (!requireNamespace("tinytex", quietly = TRUE)) install.packages("tinytex");
-                      tinytex::tlmgr_install("pgf")'
+                      # ensure TinyTeX is actually installed (force if necessary)
+                      if (!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE);
+                      tinytex::tlmgr_install("pgf");
+                      cat("tinytex_root:", tinytex::tinytex_root(), "\n");
+                      cat("is_tinytex:", tinytex::is_tinytex(), "\n");
+                      cat(\"pdflatex:\", Sys.which(\"pdflatex\"), \"\n\")'
+
+      # On Windows make sure the TinyTeX win32 bin is on PATH (setup-tinytex may not always add it)
+      - name: Add TinyTeX bin to PATH on Windows
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          # Common TinyTeX user path on Windows
+          $tt = "$env:USERPROFILE\AppData\Roaming\TinyTeX\bin\win32"
+          Write-Host "Adding TinyTeX bin to PATH: $tt"
+          Add-Content -Path $env:GITHUB_PATH -Value $tt
+
+      # Diagnostic step to show pdflatex and presence of tikz.sty
+      - name: TinyTeX / pdflatex diagnostics
+        run: |
+          Rscript -e 'library(tinytex); cat("is_tinytex:", tinytex::is_tinytex(), "\n");
+                      cat("pdflatex which:", Sys.which("pdflatex"), "\n");
+                      cat("tlmgr search tikz.sty:\\n"); print(tinytex::tlmgr_search("tikz.sty"))'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
