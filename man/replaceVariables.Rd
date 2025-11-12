@@ -16,8 +16,8 @@ are variable values)}
 A character vector with \code{rmake} variables replaced with their values
 }
 \description{
-This function searches for all \code{rmake} variables in given vector \code{x} and replaces them
-with their values that are defined in the \code{vars} argument. The \code{rmake} variable is a identified
+This function searches for all \code{rmake} variables in the given vector \code{x} and replaces them
+with their values that are defined in the \code{vars} argument. An \code{rmake} variable is identified
 by the \verb{$[VARIABLE_NAME]} string.
 }
 \examples{

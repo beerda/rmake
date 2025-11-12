@@ -2,7 +2,7 @@
 % Please edit documentation in R/replaceSuffix.R
 \name{replaceSuffix}
 \alias{replaceSuffix}
-\title{Replace suffix of the given file name with a new extension (suffix)}
+\title{Replace the suffix of a given file name with a new extension (suffix)}
 \usage{
 replaceSuffix(fileName, newSuffix)
 }
@@ -15,8 +15,8 @@ replaceSuffix(fileName, newSuffix)
 A character vector with new file names with old extensions replaced with \code{newSuffix}
 }
 \description{
-This helper function takes a file name \code{fileName}, removes an extension (a suffix)
-from it and adds a new extension \code{newSuffix}.
+This helper function takes a file name \code{fileName}, removes its extension (suffix),
+and adds a new extension \code{newSuffix}.
 }
 \examples{
 replaceSuffix('filename.Rmd', '.pdf')          # 'filename.pdf'

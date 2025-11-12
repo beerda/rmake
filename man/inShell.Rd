@@ -2,7 +2,7 @@
 % Please edit documentation in R/inShell.R
 \name{inShell}
 \alias{inShell}
-\title{Convert R code to the character vector of shell commands evaluating the given R code.}
+\title{Convert R code to a character vector of shell commands evaluating the given R code.}
 \usage{
 inShell(...)
 }
@@ -10,14 +10,14 @@ inShell(...)
 \item{...}{R commands to be converted}
 }
 \value{
-A character vector of shell commands, which send the given R code by pipe to the R
+A character vector of shell commands that send the given R code by pipe to the R
 interpreter
 }
 \description{
 The function takes R commands, deparses them, substitutes existing variables, and converts
 everything to character strings, from which a shell command is created that sends the given
-R code to the R interpreter. Function is used internally to print the commands of R rules
-into \code{Makefile}.
+R code to the R interpreter. The function is used internally to print the commands of R rules
+into the \code{Makefile}.
 }
 \examples{
 inShell({

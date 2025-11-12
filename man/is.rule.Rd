@@ -14,9 +14,9 @@ is.rule(x)
 }
 \description{
 Function tests whether \code{x} is a valid rule object, i.e., whether
-it is list a list and inherits from the \code{rmake.rule} S3 class. Instances
-of \code{rule} represent an atomic building unit, i.e. a command that
-has to be executed, which optionally depends on some files or other
+it is a list and inherits from the \code{rmake.rule} S3 class. Instances
+of \code{rule} represent an atomic building unit, i.e., a command that
+must be executed, which optionally depends on some files or other
 rules -- see \code{\link[=rule]{rule()}} for more details.
 }
 \seealso{

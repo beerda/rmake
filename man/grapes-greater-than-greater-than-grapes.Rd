@@ -24,7 +24,7 @@ The format of proper usage is as follows:
 \code{'inFile' \%>>\% rule() \%>>\% 'outFile'},
 which is equivalent to the call \code{rule(depends='inFile', target='outFile')}. \code{rule} must be
 a function that accepts the named parameters \code{depends} and \code{target} and creates the
-\code{rmake.rule} object (see \code{\link[=rule]{rule()}}, \code{\link[=rRule]{rRule()}}, \code{\link[=markdownRule]{markdownRule()}} etc.).
+\code{rmake.rule} object (see \code{\link[=rule]{rule()}}, \code{\link[=rRule]{rRule()}}, \code{\link[=markdownRule]{markdownRule()}}, etc.).
 \code{inFile} and \code{outFile} are file names.
 
 Multiple rules may be pipe-lined as follows:

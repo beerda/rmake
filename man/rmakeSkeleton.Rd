@@ -2,7 +2,7 @@
 % Please edit documentation in R/rmakeSkeleton.R
 \name{rmakeSkeleton}
 \alias{rmakeSkeleton}
-\title{Prepare existing project for building with \emph{rmake}.}
+\title{Prepare an existing project for building with \emph{rmake}.}
 \usage{
 rmakeSkeleton(path)
 }

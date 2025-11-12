@@ -7,8 +7,8 @@
 \title{Makefile generator for R analytical projects}
 \description{
 \pkg{rmake} creates and maintains a build process for complex analytic tasks in R.
-Package allows to easily generate Makefile for the (GNU) 'make' tool, which drives the build process
-by (in parallel) executing build commands in order to update results accordingly to given dependencies
+The package allows easy generation of a Makefile for the (GNU) 'make' tool, which drives the build process
+by executing build commands (in parallel) to update results according to given dependencies
 on changed data or updated source files.
 }
 \details{
@@ -16,19 +16,19 @@ Note: The package requires the \code{R_HOME} environment variable to be properly
 }
 \section{Basic Usage}{
 
-Suppose you have a file \code{dataset.csv}. You want to pre-process it and store the results into
-\code{dataset.rds} within the \code{preprocess.R} R script.  After that, \code{dataset.rds} is then
+Suppose you have a file \code{dataset.csv}. You want to pre-process it and store the results in
+\code{dataset.rds} using the \code{preprocess.R} R script. After that, \code{dataset.rds} is then
 an input file for \code{report.Rmd} and \code{details.Rmd}, which are R-Markdown scripts that generate
 \code{report.pdf} and \code{details.pdf}. The whole project can be initialized with \pkg{rmake} as follows:
 
 \enumerate{
-\item Let us assume that you have \pkg{rmake} package as well as the \code{make} tool properly installed.
+\item Let us assume that you have the \pkg{rmake} package as well as the \code{make} tool properly installed.
 \item Create a new directory (or an R studio project) and copy your \code{dataset.csv} into it.
-\item Load \pkg{rmake} package and create skeleton files for it: \cr
+\item Load the \pkg{rmake} package and create skeleton files for it: \cr
 \code{library(rmake)} \cr
 \code{rmakeSkeleton('.')} \cr\cr
-\code{Makefile.R} and \code{Makefile} will be created in current directory (\code{'.'}).
-\item Create your file \code{preprocess.R}, \code{report.Rmd} and \code{details.Rmd}.
+\code{Makefile.R} and \code{Makefile} will be created in the current directory (\code{'.'}).
+\item Create your files \code{preprocess.R}, \code{report.Rmd}, and \code{details.Rmd}.
 \item Edit \code{Makefile.R} as follows: \cr
 \code{library(rmake)} \cr
 \verb{job <- list(} \cr
@@ -37,11 +37,11 @@ an input file for \code{report.Rmd} and \code{details.Rmd}, which are R-Markdown
 \code{    markdownRule('details.pdf', 'details.Rmd', 'dataset.rds')} \cr
 \verb{)} \cr
 \code{makefile(job, "Makefile")}\cr\cr
-This will create three build rules: processing of \code{preprocess.R} and execution of \code{report.Rmd}
-and \code{details.Rmd} in order to generate resulting PDF files.
+This will create three build rules: one for processing \code{preprocess.R} and two for executing \code{report.Rmd}
+and \code{details.Rmd} to generate the resulting PDF files.
 \item Run \code{make} or build your project in R Studio (Build/Build all).
-This will automatically re-generate \code{Makefile} and execute \code{preprocess.R} and the generation
-of \code{report.Rmd} and \code{details.Rmd} accordingly to the changes made to source files.
+This will automatically re-generate the \code{Makefile} and execute \code{preprocess.R} and the generation
+of \code{report.Rmd} and \code{details.Rmd} according to the changes made to the source files.
 }
 }
 

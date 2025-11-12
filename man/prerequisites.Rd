@@ -6,7 +6,7 @@
 \alias{targets}
 \alias{tasks}
 \alias{terminals}
-\title{Return given set of properties of all rules in a list}
+\title{Return a given set of properties of all rules in a list}
 \usage{
 prerequisites(x)
 
