@@ -1,16 +1,16 @@
-#' Rule for running the make process on a subdirectory
+#' Rule for running the make process in a subdirectory
 #'
 #' The subdirectory in the `target` argument is assumed to contain its own `Makefile`. This rule
-#' causes the execution of `make <targetTask>` in this subdirectory (where `<targetTask>` is the
+#' executes `make <targetTask>` in this subdirectory (where `<targetTask>` is the
 #' value of the `targetTask` argument).
 #'
 #' @param target Name of the subdirectory
 #' @param depends Must be `NULL`
-#' @param task A character vector of parent task names. The mechanism of tasks allows to group
-#'   rules. Anything different from `'all'` will cause creation of a new task depending on the given
-#'   rule. Executing `make taskname` will then force building of this rule.
+#' @param task A character vector of parent task names. The mechanism of tasks allows grouping
+#'   rules. Anything different from `'all'` will cause the creation of a new task depending on the given
+#'   rule. Executing `make taskname` will then force building this rule.
 #' @param targetTask What task to execute in the subdirectory.
-#' @return An instance of S2 classs `rmake.rule`
+#' @return An instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()]
 #' @author Michal Burda
 #' @export

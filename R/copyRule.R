@@ -1,16 +1,16 @@
-#' Rule for copying a file into a new location
+#' Rule for copying a file to a new location
 #'
-#' This rule is for copying a file from one location to another.
+#' This rule copies a file from one location to another.
 #' The rule executes the following command:
 #' `$(CP) depends[1] target`
 #'
 #' @param target Target file name to copy the file to
-#' @param depends name of the file to copy from (only the first element
+#' @param depends Name of the file to copy from (only the first element
 #'     of the vector is used)
 #' @param task A character vector of parent task names. The mechanism of tasks
-#'     allows to group rules. Anything different from `'all'` will
-#'     cause creation of a new task depending on the given rule.
-#'     Executing `make taskname` will then force building of this rule.
+#'     allows grouping rules. Anything different from `'all'` will
+#'     cause the creation of a new task depending on the given rule.
+#'     Executing `make taskname` will then force building this rule.
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [rule()], [makefile()]
 #' @author Michal Burda

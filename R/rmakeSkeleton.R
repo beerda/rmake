@@ -1,4 +1,4 @@
-#' Prepare existing project for building with *rmake*.
+#' Prepare an existing project for building with *rmake*.
 #'
 #' This function creates a `Makefile.R` with an empty *rmake* project
 #' and generates a basic `Makefile` from it.

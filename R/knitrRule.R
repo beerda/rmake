@@ -1,27 +1,27 @@
-#' Rule for building text documents by using the knitr package
+#' Rule for building text documents using the knitr package
 #'
-#' This rule is for execution of knitr in order to create the text file,
+#' This rule executes knitr to create a text file,
 #' as described in [knitr::knit()].
 #'
 #' This rule executes the following command in a separate R process:
 #' `library(knitr); params <- params; knitr::knit(script, output=target)`
 #'
-#' That is, parameters given in the `params` argument are stored into the global variable
-#' and then the `script` is processed with knitr. That is, the re-generation of the
+#' That is, the parameters given in the `params` argument are stored in the global variable
+#' and then the `script` is processed with knitr. Note that the re-generation of the
 #' `Makefile` with any change to `params` will not cause the re-execution of the recipe unless
-#' any other script dependencies change.
+#' other script dependencies change.
 #'
-#' Issuing `make clean` from the shell causes removal of all files specified in `target` parameter.
+#' Issuing `make clean` from the shell causes removal of all files specified in the `target` parameter.
 #'
 #' @param target Name of the output file to be created
 #' @param script Name of the RNW file to be rendered
 #' @param depends A vector of file names that the markdown script depends on, or `NULL`.
 #' @param params A list of R values that become available within the `script` in
 #' a `params` variable.
-#' @param task A character vector of parent task names. The mechanism of tasks allows to
-#' group rules. Anything different from `'all'` will
-#' cause creation of a new task depending on the given rule. Executing `make taskname`
-#' will then force building of this rule.
+#' @param task A character vector of parent task names. The mechanism of tasks allows
+#' grouping rules. Anything different from `'all'` will
+#' cause the creation of a new task depending on the given rule. Executing `make taskname`
+#' will then force building this rule.
 #' @return Instance of S3 class `rmake.rule`
 #' @seealso [markdownRule()], [rule()], [makefile()], [rRule()]
 #' @author Michal Burda

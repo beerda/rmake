@@ -1,7 +1,7 @@
-#' Replace suffix of the given file name with a new extension (suffix)
+#' Replace the suffix of a given file name with a new extension (suffix)
 #'
-#' This helper function takes a file name `fileName`, removes an extension (a suffix)
-#' from it and adds a new extension `newSuffix`.
+#' This helper function takes a file name `fileName`, removes its extension (suffix),
+#' and adds a new extension `newSuffix`.
 #'
 #' @param fileName A character vector with original filenames
 #' @param newSuffix A new extension to replace old extensions in file names `fileName`
