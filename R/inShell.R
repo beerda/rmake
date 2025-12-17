@@ -38,12 +38,12 @@ inShell <- function(...) {
 
   exprs <- unlist(exprs)
   if (length(exprs) > 0) {
-    last <- length(exprs)
-    notLast <- seq_len(last-1)
     exprs <- encodeString(exprs)
-    exprs <- paste0('-e \'', exprs, '\'')
-    exprs[1] <- paste0('$(R) ', exprs[1])
-    exprs[notLast] <- paste0(exprs[notLast], ' \\')
+    exprs <- c('$(R) - <<EOFrmake',
+               '{',
+               paste0('    ', exprs),
+               '}',
+               'EOFrmake')
   }
   exprs
 }

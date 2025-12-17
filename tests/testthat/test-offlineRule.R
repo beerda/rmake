@@ -10,7 +10,9 @@ test_that('offlineRule', {
   expect_equal(r$task, 'all')
   expect_equal(r$phony, FALSE)
   expect_equal(sanitizeCovr(r$build),
-               c('$(R) -e \'{\' \\',
-                 '-e \'    stop(\"The Message\")\' \\',
-                 '-e \'}\''))
+               c('$(R) - <<EOFrmake',
+                 '{',
+                 '    stop(\"The Message\")',
+                 '}',
+                 'EOFrmake'))
 })
