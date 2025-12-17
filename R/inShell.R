@@ -38,18 +38,21 @@ inShell <- function(...) {
 
   exprs <- unlist(exprs)
   if (length(exprs) > 0) {
+    INDENT <- '    '  # 4 spaces for indentation
     exprs <- encodeString(exprs)
     # Check if the first line is "{" and last line is "}" (from compound expression)
+    # When deparse() processes a compound expression like { x <- 1; y <- 2 },
+    # it produces lines: "{", "    x <- 1", "    y <- 2", "}"
+    # In this case, we keep the structure as-is since indentation is already present
     if (length(exprs) >= 2 && exprs[1] == "{" && exprs[length(exprs)] == "}") {
-      # Keep the braces and inner lines as-is (deparse already added proper indentation)
       exprs <- c('$(R) - <<EOFrmake',
                  exprs,
                  'EOFrmake')
     } else {
-      # No compound expression, wrap with braces and indent
+      # No compound expression, wrap with braces and add indentation
       exprs <- c('$(R) - <<EOFrmake',
                  '{',
-                 paste0('    ', exprs),
+                 paste0(INDENT, exprs),
                  '}',
                  'EOFrmake')
     }
