@@ -39,11 +39,20 @@ inShell <- function(...) {
   exprs <- unlist(exprs)
   if (length(exprs) > 0) {
     exprs <- encodeString(exprs)
-    exprs <- c('$(R) - <<EOFrmake',
-               '{',
-               paste0('    ', exprs),
-               '}',
-               'EOFrmake')
+    # Check if the first line is "{" and last line is "}" (from compound expression)
+    if (length(exprs) >= 2 && exprs[1] == "{" && exprs[length(exprs)] == "}") {
+      # Keep the braces and inner lines as-is (deparse already added proper indentation)
+      exprs <- c('$(R) - <<EOFrmake',
+                 exprs,
+                 'EOFrmake')
+    } else {
+      # No compound expression, wrap with braces and indent
+      exprs <- c('$(R) - <<EOFrmake',
+                 '{',
+                 paste0('    ', exprs),
+                 '}',
+                 'EOFrmake')
+    }
   }
   exprs
 }
