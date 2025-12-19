@@ -20,7 +20,7 @@ reference:
     contents:
       - makefile
       - make
-      - visualize
+      - visualizeRules
 
   - title: "Rule Types"
     desc: >
