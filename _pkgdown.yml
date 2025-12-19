@@ -1,0 +1,68 @@
+url: https://beerda.github.io/rmake/
+
+template:
+  bootstrap: 5
+  light-switch: true
+
+news:
+  cran_dates: false
+
+reference:
+  - title: "Project Initialization"
+    desc: >
+      Functions to initialize and set up new projects with rmake.
+    contents:
+      - rmakeSkeleton
+
+  - title: "Build Process Management"
+    desc: >
+      Core functions to define and execute the build process.
+    contents:
+      - makefile
+      - make
+      - visualize
+
+  - title: "Rule Types"
+    desc: >
+      Functions for defining different types of build rules.
+    contents:
+      - rule
+      - rRule
+      - markdownRule
+      - knitrRule
+      - copyRule
+      - offlineRule
+      - depRule
+      - subdirRule
+
+  - title: "Rule Templates and Parameterization"
+    desc: >
+      Functions for creating parameterized and template-based rules.
+    contents:
+      - expandTemplate
+      - getParam
+
+  - title: "Pipe Operator"
+    desc: >
+      Special operators for creating rule chains.
+    contents:
+      - "%>>%"
+
+  - title: "Utility Functions"
+    desc: >
+      Helper functions for working with rules and building.
+    contents:
+      - inShell
+      - is.rule
+      - sanitizePath
+      - sanitizeSpaces
+      - replaceSuffix
+      - replaceVariables
+
+  - title: "Rule Getters"
+    desc: >
+      Functions to extract information from rules.
+    contents:
+      - getDepends
+      - getTarget
+      - getScript

@@ -1,0 +1,306 @@
+---
+title: "Getting Started with rmake"
+author: "Michal Burda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with rmake}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+## Introduction
+
+`rmake` is an R package that creates and maintains a build process for complex analytic tasks. It allows easy generation of a Makefile for the (GNU) 'make' tool, which drives the build process by executing build commands (in parallel) to update results according to given dependencies on changed data or updated source files.
+
+## Why Use rmake?
+
+R allows the development of **repeatable** statistical analyses. However, when analyses grow in complexity, manual re-execution on any change may become tedious and error-prone. **Make** is a widely accepted tool for managing the generation of resulting files from source data and script files. `rmake` makes it easy to generate Makefiles for R analytical projects.
+
+## Installation
+
+To install `rmake` from CRAN:
+
+```{r install, eval=FALSE}
+install.packages("rmake")
+```
+
+Alternatively, install the development version from GitHub:
+
+```{r install_github, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("beerda/rmake")
+```
+
+Load the package:
+
+```{r load}
+library(rmake)
+```
+
+## Prerequisites
+
+### System Requirements
+
+- **R**: Version 3.5.0 or higher
+- **Make**: GNU Make or compatible make tool
+  - On Linux/macOS: Usually pre-installed
+  - On Windows: Install Rtools (which includes make)
+
+### Environment Variables
+
+The package requires the `R_HOME` environment variable to be properly set. This is automatically set when running from within R or RStudio. To run make outside of R:
+
+```{r check_env, eval=FALSE}
+# Check environment variables
+Sys.getenv("R_HOME")
+Sys.getenv("R_ARCH")
+```
+
+On Unix-like systems, you can set these in your shell:
+```bash
+export R_HOME=/usr/lib/R
+export R_ARCH=
+```
+
+## Project Initialization
+
+### Creating Skeleton Files
+
+To start a new project with `rmake`:
+
+```{r skeleton, eval=FALSE}
+library(rmake)
+rmakeSkeleton(".")
+```
+
+This creates two files:
+- `Makefile.R` - R script to generate the Makefile
+- `Makefile` - The generated Makefile (initially minimal)
+
+The initial `Makefile.R` contains:
+```{r skeleton_content, eval=FALSE}
+library(rmake)
+job <- list()
+makefile(job, "Makefile")
+```
+
+## Basic Example
+
+Let's walk through a simple example. Suppose we have:
+- `data.csv` - input data file
+- `script.R` - R script to process the data
+- Output: `sums.csv` - computed results
+
+### Step 1: Create the Data File
+
+Create `data.csv`:
+```
+ID,V1,V2
+a,2,8
+b,9,1
+c,3,3
+```
+
+### Step 2: Create the Processing Script
+
+Create `script.R`:
+```{r script_content, eval=FALSE}
+d <- read.csv("data.csv")
+sums <- data.frame(ID = "sum",
+                   V1 = sum(d$V1),
+                   V2 = sum(d$V2))
+write.csv(sums, "sums.csv", row.names = FALSE)
+```
+
+### Step 3: Define the Build Rule
+
+Edit `Makefile.R`:
+```{r define_rule, eval=FALSE}
+library(rmake)
+job <- list(rRule(target = "sums.csv", 
+                  script = "script.R", 
+                  depends = "data.csv"))
+makefile(job, "Makefile")
+```
+
+### Step 4: Run the Build
+
+Execute make:
+```{r run_make, eval=FALSE}
+make()
+```
+
+Make will:
+1. Regenerate `Makefile` (if `Makefile.R` changed)
+2. Execute `script.R` to create `sums.csv`
+
+Subsequent calls to `make()` will do nothing unless files change.
+
+## Using the Pipe Operator
+
+The `%>>%` pipe operator makes rule definitions more readable:
+
+```{r pipe_example, eval=FALSE}
+library(rmake)
+job <- "data.csv" %>>% 
+  rRule("script.R") %>>% 
+  "sums.csv"
+makefile(job, "Makefile")
+```
+
+This is equivalent to the previous example but more concise.
+
+## Adding a Markdown Report
+
+Let's extend our example to create a PDF report. Create `analysis.Rmd`:
+
+````markdown
+---
+title: "Analysis"
+output: pdf_document
+---
+
+# Sums of data rows
+
+```{r, echo=FALSE, results='asis'}`r ''`
+sums <- read.csv('sums.csv')
+knitr::kable(sums)
+```
+````
+
+Update `Makefile.R`:
+```{r add_markdown, eval=FALSE}
+library(rmake)
+job <- list(
+  rRule(target = "sums.csv", script = "script.R", depends = "data.csv"),
+  markdownRule(target = "analysis.pdf", script = "analysis.Rmd", 
+               depends = "sums.csv")
+)
+makefile(job, "Makefile")
+```
+
+Or using pipes:
+```{r pipe_chain, eval=FALSE}
+library(rmake)
+job <- "data.csv" %>>% 
+  rRule("script.R") %>>% 
+  "sums.csv" %>>% 
+  markdownRule("analysis.Rmd") %>>% 
+  "analysis.pdf"
+makefile(job, "Makefile")
+```
+
+Run make again:
+```{r run_make2, eval=FALSE}
+make()
+```
+
+## Running Make
+
+### From R
+
+```{r make_options, eval=FALSE}
+# Run all tasks
+make()
+
+# Run specific task
+make("all")
+
+# Clean generated files
+make("clean")
+
+# Parallel execution (8 jobs)
+make("-j8")
+```
+
+### From Command Line
+
+```bash
+make          # Run all tasks
+make clean    # Clean generated files
+make -j8      # Parallel execution
+```
+
+### From RStudio
+
+1. Go to **Build** > **Configure Build Tools**
+2. Set **Project build tools** to **Makefile**
+3. Use **Build All** button
+
+## Visualizing Dependencies
+
+Visualize the dependency graph:
+
+```{r visualize, eval=FALSE}
+visualize(job, legend = FALSE)
+```
+
+This creates an interactive graph showing:
+- **Squares**: Data files
+- **Diamonds**: Script files  
+- **Ovals**: Rules
+- **Arrows**: Dependencies
+
+## Multiple Dependencies
+
+Handle complex dependencies:
+
+```{r multiple_deps}
+chain1 <- "data1.csv" %>>% rRule("preprocess1.R") %>>% "intermed1.rds"
+chain2 <- "data2.csv" %>>% rRule("preprocess2.R") %>>% "intermed2.rds"
+chain3 <- c("intermed1.rds", "intermed2.rds") %>>% 
+  rRule("merge.R") %>>% "merged.rds" %>>% 
+  markdownRule("report.Rmd") %>>% "report.pdf"
+
+job <- c(chain1, chain2, chain3)
+```
+
+## Rule Types
+
+`rmake` provides several pre-defined rule types:
+
+- **`rRule()`**: Execute R scripts
+- **`markdownRule()`**: Render R Markdown documents
+- **`knitrRule()`**: Process knitr documents
+- **`copyRule()`**: Copy files
+- **`offlineRule()`**: Manual tasks with reminders
+
+## Next Steps
+
+For more advanced features, see the comprehensive introduction vignette:
+
+```{r next, eval=FALSE}
+vignette("rmake-introduction", package = "rmake")
+```
+
+Topics covered in the full vignette:
+- Tasks and task management
+- Parameterized rule execution
+- Rule templates
+- Custom rule types
+- Advanced dependency patterns
+
+## Summary
+
+Key takeaways:
+1. Use `rmakeSkeleton()` to initialize projects
+2. Define rules in `Makefile.R`
+3. Use `%>>%` for readable rule chains
+4. Run `make()` to execute the build process
+5. Use `visualize()` to understand dependencies
+
+## Resources
+
+- Package documentation: `?rmake`
+- GitHub: https://github.com/beerda/rmake
+- Issues: https://github.com/beerda/rmake/issues
