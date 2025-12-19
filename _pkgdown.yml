@@ -8,6 +8,12 @@ news:
   cran_dates: false
 
 reference:
+  - title: "Package Overview"
+    desc: >
+      Overview of the rmake package.
+    contents:
+      - rmake-package
+
   - title: "Project Initialization"
     desc: >
       Functions to initialize and set up new projects with rmake.
@@ -21,6 +27,7 @@ reference:
       - makefile
       - make
       - visualizeRules
+      - defaultVars
 
   - title: "Rule Types"
     desc: >
