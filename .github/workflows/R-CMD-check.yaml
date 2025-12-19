@@ -32,6 +32,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install GNU Make on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install make
+          echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
+
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-tinytex@v2

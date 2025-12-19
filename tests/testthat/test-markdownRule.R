@@ -11,17 +11,19 @@ test_that('single target markdownRule', {
   if (!isCovr(r$build)) {
     # sanitizeCovr() does not work well in this case
     expect_equal(r$build,
-                 c('$(R) -e \'{\' \\',
+                 c('$(R) - <<EOFrmake',
+                   '{',
                    ifelse(getRversion() > '3.4.4',
-                          '-e \'    params <- list(.target = \"target.pdf\", .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")\' \\',
-                          '-e \'    params <- structure(list(.target = \"target.pdf\", .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\'),
+                          '    params <- list(.target = \"target.pdf\", .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")',
+                          '    params <- structure(list(.target = \"target.pdf\", .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))'),
                    ifelse(getRversion() > '3.4.4',
-                          '-e \'    targets <- list(target.pdf = \"pdf_document\")\' \\',
-                          '-e \'    targets <- structure(list(target.pdf = \"pdf_document\"), .Names = \"target.pdf\")\' \\'),
-                   '-e \'    for (tg in names(targets)) {\' \\',
-                   '-e \'        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)\' \\',
-                   '-e \'    }\' \\',
-                   '-e \'}\''))
+                          '    targets <- list(target.pdf = \"pdf_document\")',
+                          '    targets <- structure(list(target.pdf = \"pdf_document\"), .Names = \"target.pdf\")'),
+                   '    for (tg in names(targets)) {',
+                   '        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)',
+                   '    }',
+                   '}',
+                   'EOFrmake'))
   }
 })
 
@@ -38,17 +40,19 @@ test_that('multiple target markdownRule', {
   if (!isCovr(r$build)) {
     # sanitizeCovr() does not work well in this case
     expect_equal(sanitizeCovr(r$build),
-                 c('$(R) -e \'{\' \\',
+                 c('$(R) - <<EOFrmake',
+                   '{',
                    ifelse(getRversion() > '3.4.4',
-                          '-e \'    params <- list(.target = c(\"target.pdf\", \"target.docx\"), .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")\' \\',
-                          '-e \'    params <- structure(list(.target = c(\"target.pdf\", \"target.docx\"), .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))\' \\'),
+                          '    params <- list(.target = c(\"target.pdf\", \"target.docx\"), .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")',
+                          '    params <- structure(list(.target = c(\"target.pdf\", \"target.docx\"), .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\"), .Names = c(\".target\", \".script\", \".depends\", \".task\"))'),
                    ifelse(getRversion() > '3.4.4',
-                          '-e \'    targets <- list(target.pdf = \"pdf_document\", target.docx = \"word_document\")\' \\',
-                          '-e \'    targets <- structure(list(target.pdf = \"pdf_document\", target.docx = \"word_document\"), .Names = c(\"target.pdf\", \"target.docx\"))\' \\'),
-                   '-e \'    for (tg in names(targets)) {\' \\',
-                   '-e \'        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)\' \\',
-                   '-e \'    }\' \\',
-                   '-e \'}\''))
+                          '    targets <- list(target.pdf = \"pdf_document\", target.docx = \"word_document\")',
+                          '    targets <- structure(list(target.pdf = \"pdf_document\", target.docx = \"word_document\"), .Names = c(\"target.pdf\", \"target.docx\"))'),
+                   '    for (tg in names(targets)) {',
+                   '        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)',
+                   '    }',
+                   '}',
+                   'EOFrmake'))
   }
 })
 
