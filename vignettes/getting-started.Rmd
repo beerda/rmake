@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r gs-setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -30,7 +30,7 @@ R allows the development of **repeatable** statistical analyses. However, when a
 
 To install `rmake` from CRAN:
 
-```{r install, eval=FALSE}
+```{r gs-install, eval=FALSE}
 install.packages("rmake")
 ```
 
@@ -78,7 +78,7 @@ export R_ARCH=
 
 To start a new project with `rmake`:
 
-```{r skeleton, eval=FALSE}
+```{r gs-skeleton, eval=FALSE}
 library(rmake)
 rmakeSkeleton(".")
 ```
@@ -241,7 +241,7 @@ make -j8      # Parallel execution
 
 Visualize the dependency graph:
 
-```{r visualize, eval=FALSE}
+```{r gs-visualize, eval=FALSE}
 visualize(job, legend = FALSE)
 ```
 

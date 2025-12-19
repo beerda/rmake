@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r intro-setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -55,7 +55,7 @@ The main features of `rmake` are:
 ### Installation
 
 Install from CRAN:
-```{r install, eval=FALSE}
+```{r intro-install, eval=FALSE}
 install.packages("rmake")
 ```
 
@@ -94,7 +94,7 @@ export R_ARCH=
 
 To start maintaining an R project with `rmake`, create a script `Makefile.R` that generates the `Makefile`. Start from a skeleton:
 
-```{r skeleton, eval=FALSE}
+```{r intro-skeleton, eval=FALSE}
 library(rmake)
 rmakeSkeleton(".")
 ```
@@ -141,7 +141,7 @@ write.csv(sums, "sums.csv", row.names = FALSE)
 ```
 
 Update `Makefile.R`:
-```{r rule_ex, eval=FALSE}
+```{r rule_basic_ex, eval=FALSE}
 library(rmake)
 job <- list(rRule(target = "sums.csv", 
                   script = "script.R", 
@@ -213,7 +213,7 @@ print(job)
 ```
 
 Visualize the dependency graph:
-```{r visualize, eval=FALSE}
+```{r intro-visualize, eval=FALSE}
 visualize(job, legend = FALSE)
 ```
 
@@ -314,7 +314,7 @@ Predefined Make variables:
 - `$(RM)` - File deletion command
 
 Example with NodeJS:
-```{r rule_ex, eval=FALSE}
+```{r rule_custom_ex, eval=FALSE}
 r <- rule(target = "test.json", 
           depends = "test.js", 
           build = "node test.js",
