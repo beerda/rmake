@@ -63,6 +63,7 @@ reference:
     desc: >
       Functions to extract information from rules.
     contents:
-      - getDepends
-      - getTarget
-      - getScript
+      - prerequisites
+      - targets
+      - tasks
+      - terminals
