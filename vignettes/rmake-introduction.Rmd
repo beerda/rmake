@@ -488,6 +488,6 @@ For more information, see:
 
 ## References
 
-- Agrawal, R., & Srikant, R. (1994). Fast algorithms for mining association rules. In *Proceedings of the 20th international conference on very large data bases* (pp. 487-499).
 - Xie, Y. (2015). *Dynamic Documents with R and knitr* (2nd ed.). Chapman and Hall/CRC.
 - Allaire, J.J., et al. (2023). *rmarkdown: Dynamic Documents for R*. R package.
+- Stallman, R.M., McGrath, R., & Smith, P.D. (2023). *GNU Make: A Program for Directing Recompilation*. Free Software Foundation.
