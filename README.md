@@ -1,6 +1,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/rmake)](https://CRAN.R-project.org/package=rmake)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rmake)](https://cran.r-project.org/package=rmake)
 <!-- badges: end -->
 
 rmake
