@@ -7,7 +7,7 @@ test_that('single target rRule', {
   expect_equal(r$depends, c('script.R', 'dep1', 'dep2'))
   expect_equal(r$clean, '$(RM) target.Rdata')
   expect_equal(sanitizeCovr(r$build),
-               c('$(R) - <<EOFrmake',
+               c('$(R) - <<\'EOFrmake\'',
                  '{',
                  ifelse(getRversion() > '3.4.4',
                         '    params <- list(.target = \"target.Rdata\", .script = \"script.R\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")',
@@ -27,7 +27,7 @@ test_that('multiple target rRule', {
   expect_equal(r$depends, c('script.R', 'dep1', 'dep2'))
   expect_equal(r$clean, '$(RM) target.Rdata target2.Rdata')
   expect_equal(sanitizeCovr(r$build),
-               c('$(R) - <<EOFrmake',
+               c('$(R) - <<\'EOFrmake\'',
                  '{',
                  ifelse(getRversion() > '3.4.4',
                         '    params <- list(.target = c(\"target.Rdata\", \"target2.Rdata\"), .script = \"script.R\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")',

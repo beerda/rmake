@@ -11,7 +11,7 @@ test_that('single target markdownRule', {
   if (!isCovr(r$build)) {
     # sanitizeCovr() does not work well in this case
     expect_equal(r$build,
-                 c('$(R) - <<EOFrmake',
+                 c('$(R) - <<\'EOFrmake\'',
                    '{',
                    ifelse(getRversion() > '3.4.4',
                           '    params <- list(.target = \"target.pdf\", .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")',
@@ -40,7 +40,7 @@ test_that('multiple target markdownRule', {
   if (!isCovr(r$build)) {
     # sanitizeCovr() does not work well in this case
     expect_equal(sanitizeCovr(r$build),
-                 c('$(R) - <<EOFrmake',
+                 c('$(R) - <<\'EOFrmake\'',
                    '{',
                    ifelse(getRversion() > '3.4.4',
                           '    params <- list(.target = c(\"target.pdf\", \"target.docx\"), .script = \"script.Rmd\", .depends = c(\"dep1\", \"dep2\"), .task = \"all\")',
