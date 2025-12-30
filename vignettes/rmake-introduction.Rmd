@@ -93,7 +93,6 @@ You can also check the current values of these environment variables:
 
 ```{r check_vars, eval=FALSE}
 Sys.getenv("R_HOME")
-Sys.getenv("R_ARCH")
 ```
 
 #### Setting Environment Variables
@@ -101,19 +100,16 @@ Sys.getenv("R_ARCH")
 **On Linux/macOS:**
 ```bash
 export R_HOME=/usr/lib/R  # Use the path from R.home()
-export R_ARCH=
 ```
 
 **On Windows (Command Prompt):**
 ```cmd
 set R_HOME=C:\Program Files\R\R-4.3.0
-set R_ARCH=
 ```
 
 **On Windows (PowerShell):**
 ```powershell
 $env:R_HOME = "C:\Program Files\R\R-4.3.0"
-$env:R_ARCH = ""
 ```
 
 For permanent setup, add the export commands to your shell configuration file (`.bashrc`, `.zshrc`, etc. on Unix-like systems, or configure system environment variables on Windows through System Properties > Advanced > Environment Variables).
