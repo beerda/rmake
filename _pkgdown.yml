@@ -50,6 +50,15 @@ reference:
     contents:
       - "%>>%"
 
+  - title: "Rule Getters"
+    desc: >
+      Functions to extract information from rules.
+    contents:
+      - prerequisites
+      - targets
+      - tasks
+      - terminals
+
   - title: "Utility Functions"
     desc: >
       Helper functions for working with rules and building.
@@ -60,12 +69,3 @@ reference:
       - sanitizeSpaces
       - replaceSuffix
       - replaceVariables
-
-  - title: "Rule Getters"
-    desc: >
-      Functions to extract information from rules.
-    contents:
-      - prerequisites
-      - targets
-      - tasks
-      - terminals

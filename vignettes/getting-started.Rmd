@@ -16,11 +16,40 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+library(rmake)
 ```
 
 ## Introduction
 
-`rmake` is an R package that creates and maintains a build process for complex analytic tasks. It allows easy generation of a Makefile for the (GNU) 'make' tool, which drives the build process by executing build commands (in parallel) to update results according to given dependencies on changed data or updated source files.
+R is a mature scripting language for statistical computations and data processing. An important advantage of R is that it allows writing **repeatable** statistical analyses by programming all steps of data processing in scripts, which allows re-executing the whole process after any change in data or processing steps.
+
+There are several useful packages for R to obtain repeatability of statistical computations, such as `knitr` and `rmarkdown`. These tools allow writing R scripts that generate reports combining text with tables and figures generated from data.
+
+However, if analyses grow in complexity, manual re-execution of the whole process may become tedious, prone to errors, and very demanding computationally. Complex analyses typically involve:
+
+- Many pre-processing steps on large datasets
+- Repetitive execution of commands differing only in parameters
+- Production of multiple output files in various formats
+
+It is inefficient to re-run all pre-processing steps repeatedly to refresh the final report after any change. A caching mechanism provided by `knitr` is helpful but limited to a single report. Splitting complex analyses into several parts and saving intermediate results into files is rational, but brings another challenge: **management of dependencies** between inputs, outputs, and underlying scripts.
+
+This is where **Make** comes in. Make is a tool that controls the generation of files from source data and script files by reading dependencies from a `Makefile` and comparing timestamps to determine which files need to be refreshed.
+
+The `rmake` package provides tools for easy generation of Makefiles for statistical and data manipulation tasks in R.
+
+## Key Features
+
+The main features of `rmake` are:
+
+- Use of the well-known Make tool
+- Easy definitions of file dependencies in the R language
+- High flexibility through parameterized execution and programmatic rule generation
+- Simple, short code thanks to the `%>>%` pipeline operator and templating
+- Support for R scripts and R markdown files
+- Extensibility for user-defined rule types
+- Isolated and parallel execution via Make's parallel processing
+- Support for all platforms: Unix (Linux), MacOS, Windows, and Solaris
+- Compatibility with RStudio
 
 ## Why Use rmake?
 
@@ -58,19 +87,46 @@ library(rmake)
 
 ### Environment Variables
 
-The package requires the `R_HOME` environment variable to be properly set. This is automatically set when running from within R or RStudio. To run make outside of R:
+The package requires the `R_HOME` environment variable to be properly set. This variable indicates the directory where R is installed and is automatically set when running from within R or RStudio.
+
+#### When is R_HOME needed?
+
+When running `make` from the command line (outside of R), you may need to set `R_HOME` manually.
+
+#### Finding R_HOME
+
+To find the correct value for your system, run this in R:
 
 ```{r check_env, eval=FALSE}
-# Check environment variables
-Sys.getenv("R_HOME")
-Sys.getenv("R_ARCH")
+R.home()
 ```
 
-On Unix-like systems, you can set these in your shell:
-```bash
-export R_HOME=/usr/lib/R
-export R_ARCH=
+You can also check the current values of R environment variables:
+
+```{r check_env_vars, eval=FALSE}
+Sys.getenv("R_HOME")
 ```
+
+#### Setting R_HOME
+
+**On Linux/macOS:**
+```bash
+export R_HOME=/usr/lib/R  # Use the path from R.home()
+```
+
+**On Windows (Command Prompt):**
+```cmd
+set R_HOME=C:\Program Files\R\R-4.3.0
+```
+
+**On Windows (PowerShell):**
+```powershell
+$env:R_HOME = "C:\Program Files\R\R-4.3.0"
+```
+
+For permanent setup, add the export commands to your shell configuration file (`.bashrc`, `.zshrc`, etc. on Unix-like systems, or system environment variables on Windows).
+
+For more information on R environment variables, see the [official R documentation](https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html).
 
 ## Project Initialization
 
@@ -265,6 +321,18 @@ chain3 <- c("intermed1.rds", "intermed2.rds") %>>%
 job <- c(chain1, chain2, chain3)
 ```
 
+Alternatively, you can define all chains directly without intermediate variables:
+
+```{r multiple_deps_alt, eval=FALSE}
+job <- c(
+  "data1.csv" %>>% rRule("preprocess1.R") %>>% "intermed1.rds",
+  "data2.csv" %>>% rRule("preprocess2.R") %>>% "intermed2.rds",
+  c("intermed1.rds", "intermed2.rds") %>>% 
+    rRule("merge.R") %>>% "merged.rds" %>>% 
+    markdownRule("report.Rmd") %>>% "report.pdf"
+)
+```
+
 ## Rule Types
 
 `rmake` provides several pre-defined rule types:
@@ -275,20 +343,15 @@ job <- c(chain1, chain2, chain3)
 - **`copyRule()`**: Copy files
 - **`offlineRule()`**: Manual tasks with reminders
 
+For detailed documentation on all rule types including `depRule()`, `subdirRule()`, and custom rules, see the **Build Rules** vignette.
+
 ## Next Steps
 
-For more advanced features, see the comprehensive introduction vignette:
+For more information on specific topics, see these vignettes:
 
-```{r next, eval=FALSE}
-vignette("rmake-introduction", package = "rmake")
-```
-
-Topics covered in the full vignette:
-- Tasks and task management
-- Parameterized rule execution
-- Rule templates
-- Custom rule types
-- Advanced dependency patterns
+- **rmake Project Management**: Learn about project initialization, running builds, cleaning, and parallel execution
+- **Build Rules**: Comprehensive reference for all rule types (rRule, markdownRule, knitrRule, copyRule, depRule, subdirRule, offlineRule)
+- **Tasks and Templates**: Advanced features including tasks, parameterized execution, and rule templates
 
 ## Summary
 
