@@ -35,8 +35,10 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/getting-started.html">Getting Started with rmake</a></li>
-    <li><a class="dropdown-item" href="articles/rmake-introduction.html">Introduction to rmake</a></li>
+<li><a class="dropdown-item" href="articles/build-rules.html">Build Rules</a></li>
+    <li><a class="dropdown-item" href="articles/getting-started.html">Getting Started with rmake</a></li>
+    <li><a class="dropdown-item" href="articles/project-management.html">rmake Project Management</a></li>
+    <li><a class="dropdown-item" href="articles/tasks-and-templates.html">Tasks and Templates</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -113,7 +115,28 @@
 <div class="section level3">
 <h3 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h3>
-<p>The package requires the <code>R_HOME</code> environment variable to be properly set.</p>
+<p>The package requires the <code>R_HOME</code> environment variable to be properly set. This variable indicates the directory where R is installed.</p>
+<p><strong>When running from within R or RStudio</strong>, this is automatically set and no action is needed.</p>
+<p><strong>When running <code>make</code> from the command line</strong>, you may need to set it manually:</p>
+<div class="section level4">
+<h4 id="finding-r_home">Finding R_HOME<a class="anchor" aria-label="anchor" href="#finding-r_home"></a>
+</h4>
+<p>To find the correct value for your system, run this in R:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="setting-r_home">Setting R_HOME<a class="anchor" aria-label="anchor" href="#setting-r_home"></a>
+</h4>
+<p><strong>On Linux/macOS:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="bu">export</span> <span class="va">R_HOME</span><span class="op">=</span>/usr/lib/R  <span class="co"># Use the path from R.home()</span></span></code></pre></div>
+<p><strong>On Windows (Command Prompt):</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="bu">set</span> <span class="va">R_HOME</span>=C:\Program Files\R\R-4.3.0  # Use the path from R.home(<span class="kw">)</span></span></code></pre></div>
+<p><strong>On Windows (PowerShell):</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="va">$env</span><span class="op">:</span><span class="va">R_HOME</span> <span class="op">=</span> <span class="st">"C:\Program Files\R\R-4.3.0"</span>  <span class="co"># Use the path from R.home()</span></span></code></pre></div>
+<p>For permanent setup, add these to your shell configuration file (<code>.bashrc</code>, <code>.zshrc</code>, etc. on Unix-like systems).</p>
+<p>For more information on R environment variables, see the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html" class="external-link">official R documentation</a>.</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="basic-example">Basic Example<a class="anchor" aria-label="anchor" href="#basic-example"></a>
@@ -124,7 +147,7 @@
 <li><p>Create a new directory (or an R studio project) and copy your <code>dataset.csv</code> into it.</p></li>
 <li>
 <p>Load <code>rmake</code> and create skeleton files:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/beerda/rmake" class="external-link">rmake</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/rmakeSkeleton.html">rmakeSkeleton</a></span><span class="op">(</span><span class="st">'.'</span><span class="op">)</span></span></code></pre></div>
 <p><code>Makefile.R</code> and <code>Makefile</code> will be created.</p>
@@ -132,7 +155,7 @@
 <li><p>Create your files <code>preprocess.R</code>, <code>report.Rmd</code> and <code>details.Rmd</code>.</p></li>
 <li>
 <p>Edit <code>Makefile.R</code> as follows:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/beerda/rmake" class="external-link">rmake</a></span><span class="op">)</span></span>
 <span><span class="va">job</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'dataset.csv'</span> <span class="op"><a href="reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="fu"><a href="reference/rRule.html">rRule</a></span><span class="op">(</span><span class="st">'preprocess.R'</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="st">'dataset.rds'</span> <span class="op"><a href="reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> </span>
 <span>           <span class="fu"><a href="reference/markdownRule.html">markdownRule</a></span><span class="op">(</span><span class="st">'report.Rmd'</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="st">'report.pdf'</span>,</span>
@@ -148,7 +171,7 @@
 <h2 id="the-pipe-operator">The Pipe Operator<a class="anchor" aria-label="anchor" href="#the-pipe-operator"></a>
 </h2>
 <p>The <code>%&gt;&gt;%</code> pipe operator makes it easy to define chains of dependencies:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/beerda/rmake" class="external-link">rmake</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Simple chain</span></span>
@@ -172,14 +195,14 @@
 <h2 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
 </h2>
 <p>Visualize your build dependencies:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">visualize</span><span class="op">(</span><span class="va">job</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="parallel-execution">Parallel Execution<a class="anchor" aria-label="anchor" href="#parallel-execution"></a>
 </h2>
 <p>Run multiple targets in parallel using Make’s <code>-j</code> option:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/make.html">make</a></span><span class="op">(</span><span class="st">"-j8"</span><span class="op">)</span>  <span class="co"># Run up to 8 targets simultaneously</span></span></code></pre></div>
 </div>
 <div class="section level2">

@@ -82,6 +82,16 @@ Special operators for creating rule chains.
 - [`` `%>>%` ``](https://beerda.github.io/rmake/reference/grapes-greater-than-greater-than-grapes.md)
   : A pipe operator for rmake rules
 
+## Rule Getters
+
+Functions to extract information from rules.
+
+- [`prerequisites()`](https://beerda.github.io/rmake/reference/prerequisites.md)
+  [`targets()`](https://beerda.github.io/rmake/reference/prerequisites.md)
+  [`tasks()`](https://beerda.github.io/rmake/reference/prerequisites.md)
+  [`terminals()`](https://beerda.github.io/rmake/reference/prerequisites.md)
+  : Return a given set of properties of all rules in a list
+
 ## Utility Functions
 
 Helper functions for working with rules and building.
@@ -108,13 +118,3 @@ Helper functions for working with rules and building.
   :
 
   Replace `rmake` variables in a character vector
-
-## Rule Getters
-
-Functions to extract information from rules.
-
-- [`prerequisites()`](https://beerda.github.io/rmake/reference/prerequisites.md)
-  [`targets()`](https://beerda.github.io/rmake/reference/prerequisites.md)
-  [`tasks()`](https://beerda.github.io/rmake/reference/prerequisites.md)
-  [`terminals()`](https://beerda.github.io/rmake/reference/prerequisites.md)
-  : Return a given set of properties of all rules in a list

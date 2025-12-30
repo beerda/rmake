@@ -54,7 +54,47 @@ devtools::install_github("beerda/rmake")
 ### Setup
 
 The package requires the `R_HOME` environment variable to be properly
-set.
+set. This variable indicates the directory where R is installed.
+
+**When running from within R or RStudio**, this is automatically set and
+no action is needed.
+
+**When running `make` from the command line**, you may need to set it
+manually:
+
+#### Finding R_HOME
+
+To find the correct value for your system, run this in R:
+
+``` r
+R.home()
+```
+
+#### Setting R_HOME
+
+**On Linux/macOS:**
+
+``` bash
+export R_HOME=/usr/lib/R  # Use the path from R.home()
+```
+
+**On Windows (Command Prompt):**
+
+``` cmd
+set R_HOME=C:\Program Files\R\R-4.3.0  # Use the path from R.home()
+```
+
+**On Windows (PowerShell):**
+
+``` powershell
+$env:R_HOME = "C:\Program Files\R\R-4.3.0"  # Use the path from R.home()
+```
+
+For permanent setup, add these to your shell configuration file
+(`.bashrc`, `.zshrc`, etc. on Unix-like systems).
+
+For more information on R environment variables, see the [official R
+documentation](https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html).
 
 ### Basic Example
 

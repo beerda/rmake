@@ -2,9 +2,11 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  build-rules: build-rules.html
   getting-started: getting-started.html
-  rmake-introduction: rmake-introduction.html
-last_built: 2025-12-30T19:59Z
+  project-management: project-management.html
+  tasks-and-templates: tasks-and-templates.html
+last_built: 2025-12-30T21:00Z
 urls:
   reference: https://beerda.github.io/rmake/reference
   article: https://beerda.github.io/rmake/articles

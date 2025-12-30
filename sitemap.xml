@@ -1,9 +1,11 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://beerda.github.io/rmake/404.html</loc></url>
 <url><loc>https://beerda.github.io/rmake/RELEASE_HOWTO.html</loc></url>
+<url><loc>https://beerda.github.io/rmake/articles/build-rules.html</loc></url>
 <url><loc>https://beerda.github.io/rmake/articles/getting-started.html</loc></url>
 <url><loc>https://beerda.github.io/rmake/articles/index.html</loc></url>
-<url><loc>https://beerda.github.io/rmake/articles/rmake-introduction.html</loc></url>
+<url><loc>https://beerda.github.io/rmake/articles/project-management.html</loc></url>
+<url><loc>https://beerda.github.io/rmake/articles/tasks-and-templates.html</loc></url>
 <url><loc>https://beerda.github.io/rmake/authors.html</loc></url>
 <url><loc>https://beerda.github.io/rmake/copilot-instructions.html</loc></url>
 <url><loc>https://beerda.github.io/rmake/index.html</loc></url>
