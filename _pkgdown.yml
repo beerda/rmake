@@ -7,6 +7,20 @@ template:
 news:
   cran_dates: false
 
+articles:
+  - title: "Getting Started"
+    desc: >
+      Introductory articles to get you started with rmake
+    contents:
+      - getting-started
+      - project-management
+  - title: "Advanced Topics"
+    desc: >
+      Advanced features and detailed references
+    contents:
+      - build-rules
+      - tasks-and-templates
+
 reference:
   - title: "Package Overview"
     desc: >

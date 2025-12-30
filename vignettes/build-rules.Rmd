@@ -23,7 +23,7 @@ library(rmake)
 
 This vignette describes the various types of build rules available in `rmake` for defining how targets are built from their dependencies.
 
-For information on project management (initialization, running builds, cleaning), see the **rmake Project Management** vignette. For advanced features like tasks and templates, see the **Tasks and Templates** vignette.
+For information on project management (initialization, running builds, cleaning), see the [rmake Project Management](project-management.html) vignette. For advanced features like tasks and templates, see the [Tasks and Templates](tasks-and-templates.html) vignette.
 
 ## Common Rule Parameters
 
@@ -36,7 +36,7 @@ All rule functions have the following common parameters:
 
 Each rule executes in a separate R process (no shared state).
 
-Note: The `task` parameter is covered in detail in the **Tasks and Templates** vignette, and the `params` parameter is explained in the parameterized execution section of that vignette.
+Note: The `task` parameter is covered in detail in the [Tasks and Templates](tasks-and-templates.html) vignette, and the `params` parameter is explained in the parameterized execution section of that vignette.
 
 ## Pre-defined Rule Types
 
@@ -283,6 +283,6 @@ rule(target = "result.rds",
 
 For more information on related topics, see these vignettes:
 
-- **Getting Started with rmake**: Introduction and basic usage
-- **rmake Project Management**: Project initialization, running builds, and cleaning
-- **Tasks and Templates**: Advanced features including tasks, parameterized execution, and rule templates
+- [Getting Started with rmake](getting-started.html): Introduction and basic usage
+- [rmake Project Management](project-management.html): Project initialization, running builds, and cleaning
+- [Tasks and Templates](tasks-and-templates.html): Advanced features including tasks, parameterized execution, and rule templates
