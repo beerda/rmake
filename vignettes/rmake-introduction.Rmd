@@ -75,18 +75,50 @@ devtools::install_github("beerda/rmake")
 
 ### Environment Variables
 
-For `rmake` to work properly, `R_HOME` and `R_ARCH` environment variables must be set correctly. If executing Make from within an R session (e.g., from RStudio), these variables are set automatically. To execute Make outside R (from shell), set them manually:
+For `rmake` to work properly, `R_HOME` and `R_ARCH` environment variables must be set correctly. The `R_HOME` variable indicates the directory where R is installed. These variables are automatically set when executing Make from within an R session (e.g., from RStudio).
+
+#### When do you need to set these variables?
+
+When executing `make` from the command line (outside of R), you may need to set these environment variables manually.
+
+#### Finding R_HOME
+
+To find the correct value for your system, run this in R:
+
+```{r find_rhome, eval=FALSE}
+R.home()
+```
+
+You can also check the current values of these environment variables:
 
 ```{r check_vars, eval=FALSE}
 Sys.getenv("R_HOME")
 Sys.getenv("R_ARCH")
 ```
 
-On Unix-like systems:
+#### Setting Environment Variables
+
+**On Linux/macOS:**
 ```bash
-export R_HOME=/usr/lib/R
+export R_HOME=/usr/lib/R  # Use the path from R.home()
 export R_ARCH=
 ```
+
+**On Windows (Command Prompt):**
+```cmd
+set R_HOME=C:\Program Files\R\R-4.3.0
+set R_ARCH=
+```
+
+**On Windows (PowerShell):**
+```powershell
+$env:R_HOME = "C:\Program Files\R\R-4.3.0"
+$env:R_ARCH = ""
+```
+
+For permanent setup, add the export commands to your shell configuration file (`.bashrc`, `.zshrc`, etc. on Unix-like systems, or configure system environment variables on Windows through System Properties > Advanced > Environment Variables).
+
+For more information on R environment variables, see the [official R documentation](https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html).
 
 ## Basic Usage
 

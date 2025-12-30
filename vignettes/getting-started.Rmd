@@ -58,19 +58,50 @@ library(rmake)
 
 ### Environment Variables
 
-The package requires the `R_HOME` environment variable to be properly set. This is automatically set when running from within R or RStudio. To run make outside of R:
+The package requires the `R_HOME` environment variable to be properly set. This variable indicates the directory where R is installed and is automatically set when running from within R or RStudio.
+
+#### When is R_HOME needed?
+
+When running `make` from the command line (outside of R), you may need to set `R_HOME` manually.
+
+#### Finding R_HOME
+
+To find the correct value for your system, run this in R:
 
 ```{r check_env, eval=FALSE}
-# Check environment variables
+R.home()
+```
+
+You can also check the current values of R environment variables:
+
+```{r check_env_vars, eval=FALSE}
 Sys.getenv("R_HOME")
 Sys.getenv("R_ARCH")
 ```
 
-On Unix-like systems, you can set these in your shell:
+#### Setting R_HOME
+
+**On Linux/macOS:**
 ```bash
-export R_HOME=/usr/lib/R
+export R_HOME=/usr/lib/R  # Use the path from R.home()
 export R_ARCH=
 ```
+
+**On Windows (Command Prompt):**
+```cmd
+set R_HOME=C:\Program Files\R\R-4.3.0
+set R_ARCH=
+```
+
+**On Windows (PowerShell):**
+```powershell
+$env:R_HOME = "C:\Program Files\R\R-4.3.0"
+$env:R_ARCH = ""
+```
+
+For permanent setup, add the export commands to your shell configuration file (`.bashrc`, `.zshrc`, etc. on Unix-like systems, or system environment variables on Windows).
+
+For more information on R environment variables, see the [official R documentation](https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html).
 
 ## Project Initialization
 
