@@ -22,6 +22,8 @@ knitr::opts_chunk$set(
 
 This vignette covers the essential aspects of managing an `rmake` project, including project initialization, running the build process, cleaning up generated files, and executing builds in parallel.
 
+For an introduction to rmake concepts and basic usage, see the **Getting Started with rmake** vignette. For detailed information on rule types, see the **Build Rules** vignette. For advanced features like tasks and templates, see the **Tasks and Templates** vignette.
+
 ## Project Initialization
 
 To start maintaining an R project with `rmake`, create a script `Makefile.R` that generates the `Makefile`. Start from a skeleton:
@@ -90,4 +92,10 @@ This vignette covered the basics of managing an `rmake` project:
 - **Cleaning Up**: Use `make("clean")` to remove generated files
 - **Parallel Execution**: Use `make("-j8")` to run multiple targets simultaneously
 
-For more details on defining rules and advanced features, see the "Introduction to rmake" vignette.
+## See Also
+
+For more information on related topics, see these vignettes:
+
+- **Getting Started with rmake**: Introduction, basic usage, and the pipe operator
+- **Build Rules**: Comprehensive reference for all rule types
+- **Tasks and Templates**: Advanced features including tasks, parameterized execution, and rule templates

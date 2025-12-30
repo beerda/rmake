@@ -22,6 +22,8 @@ knitr::opts_chunk$set(
 
 This vignette describes the various types of build rules available in `rmake` for defining how targets are built from their dependencies.
 
+For information on project management (initialization, running builds, cleaning), see the **rmake Project Management** vignette. For advanced features like tasks and templates, see the **Tasks and Templates** vignette.
+
 ## Common Rule Parameters
 
 All rule functions have the following common parameters:
@@ -32,6 +34,8 @@ All rule functions have the following common parameters:
 - `params` - Parameters to pass to scripts (optional for some rules)
 
 Each rule executes in a separate R process (no shared state).
+
+Note: The `task` parameter is covered in detail in the **Tasks and Templates** vignette, and the `params` parameter is explained in the parameterized execution section of that vignette.
 
 ## Pre-defined Rule Types
 
@@ -274,4 +278,10 @@ rule(target = "result.rds",
 - **offlineRule()**: Require manual intervention
 - **rule()**: Create custom rules with shell commands
 
-For information on advanced features like tasks, parameterized execution, and rule templates, see the "Introduction to rmake" vignette.
+## See Also
+
+For more information on related topics, see these vignettes:
+
+- **Getting Started with rmake**: Introduction and basic usage
+- **rmake Project Management**: Project initialization, running builds, and cleaning
+- **Tasks and Templates**: Advanced features including tasks, parameterized execution, and rule templates

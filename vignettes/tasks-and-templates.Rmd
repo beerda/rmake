@@ -22,6 +22,8 @@ knitr::opts_chunk$set(
 
 This vignette covers advanced features of `rmake` that help manage complex build processes: **tasks** for organizing and selectively executing groups of rules, and **templates** for efficiently generating multiple similar rules with parameterization.
 
+For basic usage and an introduction to rmake, see the **Getting Started with rmake** vignette. For information on specific rule types, see the **Build Rules** vignette. For project management basics, see the **rmake Project Management** vignette.
+
 ## Tasks
 
 Tasks allow grouping rules that can be executed together. Each rule is a member of the `"all"` task by default. Rules can belong to multiple tasks.
