@@ -4,6 +4,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/beerda/rmake/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/rmake)](https://CRAN.R-project.org/package=rmake)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rmake)](https://cran.r-project.org/package=rmake)
 <!-- badges: end -->
 
 `rmake` is an R package that creates and maintains a build process for complex analytic tasks. The package allows easy generation of a Makefile for the (GNU) 'make' tool, which drives the build process by executing build commands (in parallel) to update results according to given dependencies on changed data or updated source files.
