@@ -292,6 +292,18 @@ chain3 <- c("intermed1.rds", "intermed2.rds") %>>%
 job <- c(chain1, chain2, chain3)
 ```
 
+Alternatively, you can define all chains directly without intermediate variables:
+
+```{r multiple_deps_alt, eval=FALSE}
+job <- c(
+  "data1.csv" %>>% rRule("preprocess1.R") %>>% "intermed1.rds",
+  "data2.csv" %>>% rRule("preprocess2.R") %>>% "intermed2.rds",
+  c("intermed1.rds", "intermed2.rds") %>>% 
+    rRule("merge.R") %>>% "merged.rds" %>>% 
+    markdownRule("report.Rmd") %>>% "report.pdf"
+)
+```
+
 ## Rule Types
 
 `rmake` provides several pre-defined rule types:
