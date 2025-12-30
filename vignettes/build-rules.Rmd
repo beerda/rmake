@@ -1,0 +1,277 @@
+---
+title: "Build Rules"
+author: "Michal Burda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Build Rules}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r br-setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+## Introduction
+
+This vignette describes the various types of build rules available in `rmake` for defining how targets are built from their dependencies.
+
+## Common Rule Parameters
+
+All rule functions have the following common parameters:
+
+- `target` - Character vector of files to create
+- `depends` - Character vector of prerequisite files (optional)
+- `task` - Task name(s) for grouping (default: "all")
+- `params` - Parameters to pass to scripts (optional for some rules)
+
+Each rule executes in a separate R process (no shared state).
+
+## Pre-defined Rule Types
+
+### rRule()
+
+Executes an R script using `Rscript`. The rule is triggered when any dependency or the script itself changes.
+
+```{r rrule_sig, eval=FALSE}
+rRule(target, script, depends = NULL, params = list(), task = "all")
+```
+
+**Parameters:**
+
+- `target` - Name of the output file to be created
+- `script` - Name of the R script to execute
+- `depends` - Vector of file names that the script depends on, or `NULL`
+- `params` - List of R values that become available within the script in a `params` variable
+- `task` - Character vector of parent task names
+
+**Example:**
+```{r rrule_ex, eval=FALSE}
+rRule(target = "output.rds", 
+      script = "process.R", 
+      depends = "input.csv")
+```
+
+### markdownRule()
+
+Renders a document from R Markdown using `rmarkdown::render()`.
+
+```{r markdown_sig, eval=FALSE}
+markdownRule(target, script, depends = NULL, format = "all",
+             params = list(), task = "all")
+```
+
+**Parameters:**
+
+- `target` - Name of the output file to be created
+- `script` - Name of the R Markdown file to render
+- `depends` - Vector of file names that the markdown script depends on, or `NULL`
+- `format` - Output format specification (see below)
+- `params` - List of R values available within the script in a `params` variable
+- `task` - Character vector of parent task names
+
+**Format Options:**
+
+- `"all"` - All formats defined in the Rmd file
+- `"html_document"` - HTML web page
+- `"pdf_document"` - PDF document
+- `"word_document"` - Microsoft Word
+- `"odt_document"` - OpenDocument Text
+- `"rtf_document"` - Rich Text Format
+- `"md_document"` - Markdown
+- Vector of format names for multiple formats
+
+**Example:**
+```{r markdown_ex, eval=FALSE}
+markdownRule(target = "report.pdf",
+             script = "report.Rmd",
+             depends = "data.rds",
+             format = "pdf_document")
+```
+
+### knitrRule()
+
+Executes knitr to create a text file using `knitr::knit()`. This is useful for processing Sweave-style documents (.Rnw files).
+
+```{r knitr_sig, eval=FALSE}
+knitrRule(target, script, depends = NULL, params = list(), task = "all")
+```
+
+**Parameters:**
+
+- `target` - Name of the output file to be created
+- `script` - Name of the Rnw file to be rendered
+- `depends` - Vector of file names that the knitr script depends on, or `NULL`
+- `params` - List of R values available within the script in a `params` variable
+- `task` - Character vector of parent task names
+
+**Example:**
+```{r knitr_ex, eval=FALSE}
+knitrRule(target = "report.tex",
+          script = "report.Rnw",
+          depends = c("data1.csv", "data2.csv"))
+```
+
+### copyRule()
+
+Copies a file from one location to another. The rule executes `$(CP) depends[1] target`.
+
+```{r copy_sig, eval=FALSE}
+copyRule(target, depends, task = "all")
+```
+
+**Parameters:**
+
+- `target` - Target file name to copy the file to
+- `depends` - Name of the file to copy from (only the first element is used)
+- `task` - Character vector of parent task names
+
+**Example:**
+```{r copy_ex, eval=FALSE}
+copyRule(target = "backup/data.csv",
+         depends = "data.csv")
+```
+
+### depRule()
+
+Defines a dependency between targets without providing any execution script. This is useful when you want to specify that a target depends on another target but don't need to execute any command to build it.
+
+```{r dep_sig, eval=FALSE}
+depRule(target, depends = NULL, task = "all")
+```
+
+**Parameters:**
+
+- `target` - Target file name that depends on `depends`
+- `depends` - Character vector of prerequisite file names
+- `task` - Character vector of parent task names
+
+**Example:**
+```{r dep_ex, eval=FALSE}
+# Ensure all preprocessing is done before starting the analysis
+depRule(target = "analysis-ready",
+        depends = c("data1.rds", "data2.rds", "data3.rds"))
+```
+
+### subdirRule()
+
+Runs the make process in a subdirectory. The subdirectory is assumed to contain its own `Makefile`. This rule executes `make <targetTask>` in the specified subdirectory.
+
+```{r subdir_sig, eval=FALSE}
+subdirRule(target, depends = NULL, task = "all", targetTask = "all")
+```
+
+**Parameters:**
+
+- `target` - Name of the subdirectory
+- `depends` - Must be `NULL`
+- `task` - Character vector of parent task names
+- `targetTask` - What task to execute in the subdirectory (default: "all")
+
+**Example:**
+```{r subdir_ex, eval=FALSE}
+subdirRule(target = "subproject",
+           targetTask = "all")
+```
+
+### offlineRule()
+
+Forces manual action within the build process. Shows a custom error message instructing the user to perform a task manually. This is useful when transformation requires manual intervention.
+
+```{r offline_sig, eval=FALSE}
+offlineRule(target, message, depends = NULL, task = "all")
+```
+
+**Parameters:**
+
+- `target` - Name of the file to be created manually
+- `message` - Custom message to display to the user
+- `depends` - Vector of prerequisite file names, or `NULL`
+- `task` - Character vector of parent task names
+
+**Example:**
+```{r offline_ex, eval=FALSE}
+offlineRule(target = "cleaned_data.csv",
+            message = "Please manually clean data.csv and save as cleaned_data.csv",
+            depends = "data.csv")
+```
+
+## Custom Rules
+
+Create custom rules using the general `rule()` function:
+
+```{r rule_sig, eval=FALSE}
+rule(target, depends = NULL, build = NULL, clean = NULL,
+     task = "all", phony = FALSE)
+```
+
+**Arguments:**
+
+- `target` - Target file names
+- `depends` - Prerequisite file names
+- `build` - Shell commands to build targets
+- `clean` - Shell commands to clean targets
+- `task` - Task assignment
+- `phony` - Whether target is a non-file target (TRUE/FALSE)
+
+**Predefined Make Variables:**
+
+- `$(R)` - Path to Rscript binary
+- `$(RM)` - File deletion command
+- `$(CP)` - File copy command
+
+**Example with NodeJS:**
+```{r rule_custom_ex, eval=FALSE}
+r <- rule(target = "test.json", 
+          depends = "test.js", 
+          build = "node test.js",
+          clean = "$(RM) test.json")
+```
+
+**Define custom Make variables:**
+```{r vars_ex, eval=FALSE}
+defaultVars["JS"] <- "/usr/bin/node"
+
+job <- list(rule(target = "test.json",
+                 depends = "test.js",
+                 build = "$(JS) test.js",
+                 clean = "$(RM) test.json"))
+```
+
+### Using inShell()
+
+The `inShell()` function converts R expressions to shell commands:
+
+```{r inshell_ex}
+inShell({ result <- 1 + 1; saveRDS(result, "result.rds") })
+```
+
+**Example rule using inShell():**
+```{r inshell_rule, eval=FALSE}
+rule(target = "result.rds",
+     build = inShell({ result <- 1 + 1; saveRDS(result, "result.rds") }),
+     clean = "$(RM) result.rds")
+```
+
+**Note:** Overuse of `inShell()` is not recommended. Prefer separate script files so Make can detect changes.
+
+## Summary
+
+`rmake` provides a comprehensive set of rule types:
+
+- **rRule()**: Execute R scripts
+- **markdownRule()**: Render R Markdown documents
+- **knitrRule()**: Process knitr/Sweave documents
+- **copyRule()**: Copy files
+- **depRule()**: Define dependencies without execution
+- **subdirRule()**: Run make in subdirectories
+- **offlineRule()**: Require manual intervention
+- **rule()**: Create custom rules with shell commands
+
+For information on advanced features like tasks, parameterized execution, and rule templates, see the "Introduction to rmake" vignette.
