@@ -6,8 +6,11 @@ This vignette describes the various types of build rules available in
 `rmake` for defining how targets are built from their dependencies.
 
 For information on project management (initialization, running builds,
-cleaning), see the **rmake Project Management** vignette. For advanced
-features like tasks and templates, see the **Tasks and Templates**
+cleaning), see the [rmake Project
+Management](https://beerda.github.io/rmake/articles/project-management.md)
+vignette. For advanced features like tasks and templates, see the [Tasks
+and
+Templates](https://beerda.github.io/rmake/articles/tasks-and-templates.md)
 vignette.
 
 ## Common Rule Parameters
@@ -21,9 +24,10 @@ All rule functions have the following common parameters:
 
 Each rule executes in a separate R process (no shared state).
 
-Note: The `task` parameter is covered in detail in the **Tasks and
-Templates** vignette, and the `params` parameter is explained in the
-parameterized execution section of that vignette.
+Note: The `task` parameter is covered in detail in the [Tasks and
+Templates](https://beerda.github.io/rmake/articles/tasks-and-templates.md)
+vignette, and the `params` parameter is explained in the parameterized
+execution section of that vignette.
 
 ## Pre-defined Rule Types
 
@@ -306,8 +310,13 @@ changes.
 
 For more information on related topics, see these vignettes:
 
-- **Getting Started with rmake**: Introduction and basic usage
-- **rmake Project Management**: Project initialization, running builds,
-  and cleaning
-- **Tasks and Templates**: Advanced features including tasks,
-  parameterized execution, and rule templates
+- [Getting Started with
+  rmake](https://beerda.github.io/rmake/articles/getting-started.md):
+  Introduction and basic usage
+- [rmake Project
+  Management](https://beerda.github.io/rmake/articles/project-management.md):
+  Project initialization, running builds, and cleaning
+- [Tasks and
+  Templates](https://beerda.github.io/rmake/articles/tasks-and-templates.md):
+  Advanced features including tasks, parameterized execution, and rule
+  templates

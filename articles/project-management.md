@@ -6,10 +6,14 @@ This vignette covers the essential aspects of managing an `rmake`
 project, including project initialization, running the build process,
 cleaning up generated files, and executing builds in parallel.
 
-For an introduction to rmake concepts and basic usage, see the **Getting
-Started with rmake** vignette. For detailed information on rule types,
-see the **Build Rules** vignette. For advanced features like tasks and
-templates, see the **Tasks and Templates** vignette.
+For an introduction to rmake concepts and basic usage, see the [Getting
+Started with
+rmake](https://beerda.github.io/rmake/articles/getting-started.md)
+vignette. For detailed information on rule types, see the [Build
+Rules](https://beerda.github.io/rmake/articles/build-rules.md) vignette.
+For advanced features like tasks and templates, see the [Tasks and
+Templates](https://beerda.github.io/rmake/articles/tasks-and-templates.md)
+vignette.
 
 ## Project Initialization
 
@@ -92,8 +96,12 @@ This vignette covered the basics of managing an `rmake` project:
 
 For more information on related topics, see these vignettes:
 
-- **Getting Started with rmake**: Introduction, basic usage, and the
-  pipe operator
-- **Build Rules**: Comprehensive reference for all rule types
-- **Tasks and Templates**: Advanced features including tasks,
-  parameterized execution, and rule templates
+- [Getting Started with
+  rmake](https://beerda.github.io/rmake/articles/getting-started.md):
+  Introduction, basic usage, and the pipe operator
+- [Build Rules](https://beerda.github.io/rmake/articles/build-rules.md):
+  Comprehensive reference for all rule types
+- [Tasks and
+  Templates](https://beerda.github.io/rmake/articles/tasks-and-templates.md):
+  Advanced features including tasks, parameterized execution, and rule
+  templates

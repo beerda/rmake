@@ -370,18 +370,24 @@ job <- c(
 For detailed documentation on all rule types including
 [`depRule()`](https://beerda.github.io/rmake/reference/depRule.md),
 [`subdirRule()`](https://beerda.github.io/rmake/reference/subdirRule.md),
-and custom rules, see the **Build Rules** vignette.
+and custom rules, see the [Build
+Rules](https://beerda.github.io/rmake/articles/build-rules.md) vignette.
 
 ## Next Steps
 
 For more information on specific topics, see these vignettes:
 
-- **rmake Project Management**: Learn about project initialization,
-  running builds, cleaning, and parallel execution
-- **Build Rules**: Comprehensive reference for all rule types (rRule,
-  markdownRule, knitrRule, copyRule, depRule, subdirRule, offlineRule)
-- **Tasks and Templates**: Advanced features including tasks,
-  parameterized execution, and rule templates
+- [rmake Project
+  Management](https://beerda.github.io/rmake/articles/project-management.md):
+  Learn about project initialization, running builds, cleaning, and
+  parallel execution
+- [Build Rules](https://beerda.github.io/rmake/articles/build-rules.md):
+  Comprehensive reference for all rule types (rRule, markdownRule,
+  knitrRule, copyRule, depRule, subdirRule, offlineRule)
+- [Tasks and
+  Templates](https://beerda.github.io/rmake/articles/tasks-and-templates.md):
+  Advanced features including tasks, parameterized execution, and rule
+  templates
 
 ## Summary
 

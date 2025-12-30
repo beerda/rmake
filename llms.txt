@@ -218,14 +218,6 @@ Email: <michal.burda@osu.cz>
 
 # Package index
 
-## Package Overview
-
-Overview of the rmake package.
-
-- [`rmake`](https://beerda.github.io/rmake/reference/rmake-package.md)
-  [`rmake-package`](https://beerda.github.io/rmake/reference/rmake-package.md)
-  : Makefile generator for R analytical projects
-
 ## Build Process Creation and Management
 
 Core functions to define and execute the build process.
@@ -339,12 +331,19 @@ Helper functions for working with rules and building.
 
 # Articles
 
-### All vignettes
+### Getting Started
 
-- [Build Rules](https://beerda.github.io/rmake/articles/build-rules.md):
+Introductory articles to get you started with rmake
+
 - [Getting Started with
   rmake](https://beerda.github.io/rmake/articles/getting-started.md):
 - [rmake Project
   Management](https://beerda.github.io/rmake/articles/project-management.md):
+
+### Advanced Topics
+
+Advanced features and detailed references
+
+- [Build Rules](https://beerda.github.io/rmake/articles/build-rules.md):
 - [Tasks and
   Templates](https://beerda.github.io/rmake/articles/tasks-and-templates.md):

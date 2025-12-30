@@ -7,10 +7,13 @@ complex build processes: **tasks** for organizing and selectively
 executing groups of rules, and **templates** for efficiently generating
 multiple similar rules with parameterization.
 
-For basic usage and an introduction to rmake, see the **Getting Started
-with rmake** vignette. For information on specific rule types, see the
-**Build Rules** vignette. For project management basics, see the **rmake
-Project Management** vignette.
+For basic usage and an introduction to rmake, see the [Getting Started
+with rmake](https://beerda.github.io/rmake/articles/getting-started.md)
+vignette. For information on specific rule types, see the [Build
+Rules](https://beerda.github.io/rmake/articles/build-rules.md) vignette.
+For project management basics, see the [rmake Project
+Management](https://beerda.github.io/rmake/articles/project-management.md)
+vignette.
 
 ## Tasks
 
@@ -291,5 +294,8 @@ This vignette covered:
   workflows
 
 For more information on basic usage and rule types, see the other
-vignettes: - “Getting Started with rmake” - “rmake Project Management” -
-“Build Rules”
+vignettes: - [Getting Started with
+rmake](https://beerda.github.io/rmake/articles/getting-started.md) -
+[rmake Project
+Management](https://beerda.github.io/rmake/articles/project-management.md) -
+[Build Rules](https://beerda.github.io/rmake/articles/build-rules.md)

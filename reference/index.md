@@ -1,13 +1,5 @@
 # Package index
 
-## Package Overview
-
-Overview of the rmake package.
-
-- [`rmake`](https://beerda.github.io/rmake/reference/rmake-package.md)
-  [`rmake-package`](https://beerda.github.io/rmake/reference/rmake-package.md)
-  : Makefile generator for R analytical projects
-
 ## Build Process Creation and Management
 
 Core functions to define and execute the build process.
