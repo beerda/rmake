@@ -1,3 +1,8 @@
+# rmake 1.2.2
+
+* fixed buggy behavior if a rule had really long command lines
+
+
 # rmake 1.2.1
 
 * added arguments .stdout, .stderr, and .stdin to make()
