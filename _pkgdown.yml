@@ -22,12 +22,6 @@ articles:
       - tasks-and-templates
 
 reference:
-  - title: "Package Overview"
-    desc: >
-      Overview of the rmake package.
-    contents:
-      - rmake-package
-
   - title: "Build Process Creation and Management"
     desc: >
       Core functions to define and execute the build process.
