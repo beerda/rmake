@@ -8,18 +8,14 @@ Overview of the rmake package.
   [`rmake-package`](https://beerda.github.io/rmake/reference/rmake-package.md)
   : Makefile generator for R analytical projects
 
-## Project Initialization
+## Build Process Creation and Management
 
-Functions to initialize and set up new projects with rmake.
+Core functions to define and execute the build process.
 
 - [`rmakeSkeleton()`](https://beerda.github.io/rmake/reference/rmakeSkeleton.md)
   :
 
   Prepare an existing project for building with *rmake*.
-
-## Build Process Management
-
-Core functions to define and execute the build process.
 
 - [`makefile()`](https://beerda.github.io/rmake/reference/makefile.md) :
 

@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   getting-started: getting-started.html
   rmake-introduction: rmake-introduction.html
-last_built: 2025-12-30T19:25Z
+last_built: 2025-12-30T19:40Z
 urls:
   reference: https://beerda.github.io/rmake/reference
   article: https://beerda.github.io/rmake/articles
