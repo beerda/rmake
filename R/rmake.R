@@ -35,4 +35,5 @@
 #'     This will automatically re-generate the `Makefile` and execute `preprocess.R` and the generation
 #'     of `report.Rmd` and `details.Rmd` according to the changes made to the source files.
 #' }
+#' @keywords internal
 "_PACKAGE"

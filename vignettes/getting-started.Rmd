@@ -343,15 +343,15 @@ job <- c(
 - **`copyRule()`**: Copy files
 - **`offlineRule()`**: Manual tasks with reminders
 
-For detailed documentation on all rule types including `depRule()`, `subdirRule()`, and custom rules, see the **Build Rules** vignette.
+For detailed documentation on all rule types including `depRule()`, `subdirRule()`, and custom rules, see the [Build Rules](build-rules.html) vignette.
 
 ## Next Steps
 
 For more information on specific topics, see these vignettes:
 
-- **rmake Project Management**: Learn about project initialization, running builds, cleaning, and parallel execution
-- **Build Rules**: Comprehensive reference for all rule types (rRule, markdownRule, knitrRule, copyRule, depRule, subdirRule, offlineRule)
-- **Tasks and Templates**: Advanced features including tasks, parameterized execution, and rule templates
+- [rmake Project Management](project-management.html): Learn about project initialization, running builds, cleaning, and parallel execution
+- [Build Rules](build-rules.html): Comprehensive reference for all rule types (rRule, markdownRule, knitrRule, copyRule, depRule, subdirRule, offlineRule)
+- [Tasks and Templates](tasks-and-templates.html): Advanced features including tasks, parameterized execution, and rule templates
 
 ## Summary
 

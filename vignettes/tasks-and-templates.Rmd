@@ -23,7 +23,7 @@ library(rmake)
 
 This vignette covers advanced features of `rmake` that help manage complex build processes: **tasks** for organizing and selectively executing groups of rules, and **templates** for efficiently generating multiple similar rules with parameterization.
 
-For basic usage and an introduction to rmake, see the **Getting Started with rmake** vignette. For information on specific rule types, see the **Build Rules** vignette. For project management basics, see the **rmake Project Management** vignette.
+For basic usage and an introduction to rmake, see the [Getting Started with rmake](getting-started.html) vignette. For information on specific rule types, see the [Build Rules](build-rules.html) vignette. For project management basics, see the [rmake Project Management](project-management.html) vignette.
 
 ## Tasks
 
@@ -238,6 +238,6 @@ This vignette covered:
 - **Combining Features**: Using tasks and templates together for complex workflows
 
 For more information on basic usage and rule types, see the other vignettes:
-- "Getting Started with rmake"
-- "rmake Project Management"
-- "Build Rules"
+- [Getting Started with rmake](getting-started.html)
+- [rmake Project Management](project-management.html)
+- [Build Rules](build-rules.html)

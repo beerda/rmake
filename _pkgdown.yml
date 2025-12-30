@@ -7,13 +7,21 @@ template:
 news:
   cran_dates: false
 
-reference:
-  - title: "Package Overview"
+articles:
+  - title: "Getting Started"
     desc: >
-      Overview of the rmake package.
+      Introductory articles to get you started with rmake
     contents:
-      - rmake-package
+      - getting-started
+      - project-management
+  - title: "Advanced Topics"
+    desc: >
+      Advanced features and detailed references
+    contents:
+      - build-rules
+      - tasks-and-templates
 
+reference:
   - title: "Build Process Creation and Management"
     desc: >
       Core functions to define and execute the build process.

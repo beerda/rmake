@@ -57,3 +57,4 @@ Useful links:
 \strong{Maintainer}: Michal Burda \email{michal.burda@osu.cz} (\href{https://orcid.org/0000-0002-4182-4407}{ORCID})
 
 }
+\keyword{internal}
