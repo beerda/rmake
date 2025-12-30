@@ -1,6 +1,6 @@
 test_that("inShell", {
   expect_equal(inShell({ print(x) }),
-               c("$(R) - <<EOFrmake",
+               c("$(R) - <<\'EOFrmake\'",
                  "{",
                  "    print(x)",
                  "}",
@@ -9,7 +9,7 @@ test_that("inShell", {
                    x <- 1
                    print(x)
                }),
-               c("$(R) - <<EOFrmake",
+               c("$(R) - <<\'EOFrmake\'",
                  "{",
                  "    x <- 1",
                  "    print(x)",

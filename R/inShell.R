@@ -45,12 +45,12 @@ inShell <- function(...) {
     # it produces lines: "{", "    x <- 1", "    y <- 2", "}"
     # In this case, we keep the structure as-is since indentation is already present
     if (length(exprs) >= 2 && exprs[1] == "{" && exprs[length(exprs)] == "}") {
-      exprs <- c('$(R) - <<EOFrmake',
+      exprs <- c("$(R) - <<'EOFrmake'",
                  exprs,
                  'EOFrmake')
     } else {
       # No compound expression, wrap with braces and add indentation
-      exprs <- c('$(R) - <<EOFrmake',
+      exprs <- c("$(R) - <<'EOFrmake'",
                  '{',
                  paste0(INDENT, exprs),
                  '}',
