@@ -14,16 +14,11 @@ reference:
     contents:
       - rmake-package
 
-  - title: "Project Initialization"
-    desc: >
-      Functions to initialize and set up new projects with rmake.
-    contents:
-      - rmakeSkeleton
-
-  - title: "Build Process Management"
+  - title: "Build Process Creation and Management"
     desc: >
       Core functions to define and execute the build process.
     contents:
+      - rmakeSkeleton
       - makefile
       - make
       - visualizeRules
