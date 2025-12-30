@@ -1,0 +1,591 @@
+# Introduction to rmake
+
+## Introduction
+
+R is a mature scripting language for statistical computations and data
+processing. An important advantage of R is that it allows writing
+**repeatable** statistical analyses by programming all steps of data
+processing in scripts, which allows re-executing the whole process after
+any change in data or processing steps.
+
+There are several useful packages for R to obtain repeatability of
+statistical computations, such as `knitr` and `rmarkdown`. These tools
+allow writing R scripts that generate reports combining text with tables
+and figures generated from data.
+
+However, if analyses grow in complexity, manual re-execution of the
+whole process may become tedious, prone to errors, and very demanding
+computationally. Complex analyses typically involve:
+
+- Many pre-processing steps on large datasets
+- Repetitive execution of commands differing only in parameters
+- Production of multiple output files in various formats
+
+It is inefficient to re-run all pre-processing steps repeatedly to
+refresh the final report after any change. A caching mechanism provided
+by `knitr` is helpful but limited to a single report. Splitting complex
+analyses into several parts and saving intermediate results into files
+is rational, but brings another challenge: **management of
+dependencies** between inputs, outputs, and underlying scripts.
+
+This is where **Make** comes in. Make is a tool that controls the
+generation of files from source data and script files by reading
+dependencies from a `Makefile` and comparing timestamps to determine
+which files need to be refreshed.
+
+The `rmake` package provides tools for easy generation of Makefiles for
+statistical and data manipulation tasks in R.
+
+## Key Features
+
+The main features of `rmake` are:
+
+- Use of the well-known Make tool
+- Easy definitions of file dependencies in the R language
+- High flexibility through parameterized execution and programmatic rule
+  generation
+- Simple, short code thanks to the `%>>%` pipeline operator and
+  templating
+- Support for R scripts and R markdown files
+- Extensibility for user-defined rule types
+- Isolated and parallel execution via Make’s parallel processing
+- Support for all platforms: Unix (Linux), MacOS, Windows, and Solaris
+- Compatibility with RStudio
+
+## Installation and Setup
+
+### Installation
+
+Install from CRAN:
+
+``` r
+install.packages("rmake")
+```
+
+Or install the development version from GitHub:
+
+``` r
+install.packages("devtools")
+devtools::install_github("beerda/rmake")
+```
+
+### System Requirements
+
+- R environment (version 3.5.0 or higher)
+- GNU Make or compatible make tool
+  - Linux: Usually pre-installed
+  - macOS: Pre-installed or via Xcode
+  - Windows: Install Rtools
+
+### Environment Variables
+
+For `rmake` to work properly, `R_HOME` and `R_ARCH` environment
+variables must be set correctly. If executing Make from within an R
+session (e.g., from RStudio), these variables are set automatically. To
+execute Make outside R (from shell), set them manually:
+
+``` r
+Sys.getenv("R_HOME")
+Sys.getenv("R_ARCH")
+```
+
+On Unix-like systems:
+
+``` bash
+export R_HOME=/usr/lib/R
+export R_ARCH=
+```
+
+## Basic Usage
+
+### Project Initialization
+
+To start maintaining an R project with `rmake`, create a script
+`Makefile.R` that generates the `Makefile`. Start from a skeleton:
+
+``` r
+library(rmake)
+rmakeSkeleton(".")
+```
+
+This creates two files: - `Makefile.R` - R script with rule
+definitions - `Makefile` - Generated Makefile
+
+Initial `Makefile.R`:
+
+``` r
+library(rmake)
+job <- list()
+makefile(job, "Makefile")
+```
+
+### Running the Build Process
+
+Execute make from within R:
+
+``` r
+make()
+```
+
+Or from shell:
+
+``` bash
+make
+```
+
+In RStudio: 1. **Build** \> **Configure Build Tools** 2. Set **Project
+build tools** to **Makefile** 3. Use **Build All** command
+
+### Adding a Build Rule
+
+Suppose we have `data.csv` and want to compute sums using `script.R` to
+create `sums.csv`.
+
+The `script.R` file:
+
+``` r
+d <- read.csv("data.csv")
+sums <- data.frame(ID = "sum",
+                   V1 = sum(d$V1),
+                   V2 = sum(d$V2))
+write.csv(sums, "sums.csv", row.names = FALSE)
+```
+
+Update `Makefile.R`:
+
+``` r
+library(rmake)
+job <- list(rRule(target = "sums.csv", 
+                  script = "script.R", 
+                  depends = "data.csv"))
+makefile(job, "Makefile")
+```
+
+Run make to execute the script:
+
+``` r
+make()
+```
+
+### The Pipe Operator
+
+Rule chains can be written more concisely using the `%>>%` pipe
+operator:
+
+``` r
+library(rmake)
+job <- "data.csv" %>>% rRule("script.R") %>>% "sums.csv"
+```
+
+Every second element (positions 2, 4, 6, …) must be a rule-creating
+function. The function receives `depends` from the preceding element and
+`target` from the following element.
+
+Example with multiple files:
+
+``` r
+job <- c('in1.csv', 'in2.csv') %>>%
+  rRule('run.R') %>>%
+  c('out1.csv', 'out2.csv')
+```
+
+Example with complex dependencies:
+
+``` r
+chain1 <- "data1.csv" %>>% rRule("preprocess1.R") %>>% "intermed1.rds"
+chain2 <- "data2.csv" %>>% rRule("preprocess2.R") %>>% "intermed2.rds"
+chain3 <- c("intermed1.rds", "intermed2.rds") %>>% 
+  rRule("merge.R") %>>% "merged.rds" %>>% 
+  markdownRule("report.Rmd") %>>% "report.pdf"
+
+job <- c(chain1, chain2, chain3)
+```
+
+### Cleaning Up
+
+Delete all generated files:
+
+``` r
+make("clean")
+```
+
+Each rule automatically adds commands to delete its target files. The
+`Makefile` itself is never deleted.
+
+### Parallel Execution
+
+GNU Make supports parallel execution with the `-j` option:
+
+``` r
+make("-j8")  # Run up to 8 tasks simultaneously
+```
+
+From shell:
+
+``` bash
+make -j8
+```
+
+### Visualization
+
+Print rules to see dependencies:
+
+``` r
+print(job)
+#> [[1]]
+#> (preprocess1.R, data1.csv) -> R -> (intermed1.rds)
+#> [[2]]
+#> (preprocess2.R, data2.csv) -> R -> (intermed2.rds)
+#> [[3]]
+#> (merge.R, intermed1.rds, intermed2.rds) -> R -> (merged.rds)
+#> [[4]]
+#> (report.Rmd, merged.rds) -> markdown -> (report.pdf)
+```
+
+Visualize the dependency graph:
+
+``` r
+visualize(job, legend = FALSE)
+```
+
+The graph shows: - **Squares**: Data files - **Diamonds**: Main script
+files - **Ovals**: Rules - **Arrows**: Dependencies
+
+## Details on Build Rules
+
+All rule functions have: - `target` - Character vector of files to
+create - `depends` - Character vector of prerequisite files (optional) -
+`task` - Task name(s) for grouping (default: “all”) - `params` -
+Parameters to pass to scripts (optional for some rules)
+
+Each rule executes in a separate R process (no shared state).
+
+### Pre-defined Rule Types
+
+#### rRule()
+
+``` r
+rRule(target, script, depends = NULL, params = list(), task = "all")
+```
+
+Executes an R script using `Rscript`. Triggered when any dependency or
+the script changes.
+
+Example:
+
+``` r
+rRule(target = "output.rds", 
+      script = "process.R", 
+      depends = "input.csv")
+```
+
+#### markdownRule()
+
+``` r
+markdownRule(target, script, depends = NULL, format = "all",
+             params = list(), task = "all")
+```
+
+Renders a document from R Markdown using
+[`rmarkdown::render()`](https://pkgs.rstudio.com/rmarkdown/reference/render.html).
+
+The `format` argument specifies output format: - `"all"` - All formats
+defined in the Rmd file - `"html_document"` - HTML web page -
+`"pdf_document"` - PDF document - `"word_document"` - Microsoft Word -
+`"odt_document"` - OpenDocument Text - `"rtf_document"` - Rich Text
+Format - `"md_document"` - Markdown - Vector of format names for
+multiple formats
+
+Example:
+
+``` r
+markdownRule(target = "report.pdf",
+             script = "report.Rmd",
+             depends = "data.rds",
+             format = "pdf_document")
+```
+
+#### offlineRule()
+
+``` r
+offlineRule(target, message, depends = NULL, task = "all")
+```
+
+Forces manual action within the build process. Shows a custom error
+message instructing the user to perform a task manually. Useful when
+transformation requires manual intervention.
+
+Example:
+
+``` r
+offlineRule(target = "cleaned_data.csv",
+            message = "Please manually clean data.csv and save as cleaned_data.csv",
+            depends = "data.csv")
+```
+
+### Custom Rules
+
+Create custom rules using the general
+[`rule()`](https://beerda.github.io/rmake/reference/rule.md) function:
+
+``` r
+rule(target, depends = NULL, build = NULL, clean = NULL,
+     task = "all", phony = FALSE)
+```
+
+Arguments: - `target` - Target file names - `depends` - Prerequisite
+file names - `build` - Shell commands to build targets - `clean` - Shell
+commands to clean targets - `task` - Task assignment - `phony` - Whether
+target is a non-file target (TRUE/FALSE)
+
+Predefined Make variables: - `$(R)` - Path to Rscript binary - `$(RM)` -
+File deletion command
+
+Example with NodeJS:
+
+``` r
+r <- rule(target = "test.json", 
+          depends = "test.js", 
+          build = "node test.js",
+          clean = "$(RM) test.json")
+```
+
+Define custom Make variables:
+
+``` r
+defaultVars["JS"] <- "/usr/bin/node"
+
+job <- list(rule(target = "test.json",
+                 depends = "test.js",
+                 build = "$(JS) test.js",
+                 clean = "$(RM) test.json"))
+```
+
+The [`inShell()`](https://beerda.github.io/rmake/reference/inShell.md)
+function converts R expressions to shell commands:
+
+``` r
+inShell({ result <- 1 + 1; saveRDS(result, "result.rds") })
+#> [1] "$(R) - <<'EOFrmake'"                 "{"                                  
+#> [3] "    result <- 1 + 1"                 "    saveRDS(result, \"result.rds\")"
+#> [5] "}"                                   "EOFrmake"
+```
+
+Example rule using
+[`inShell()`](https://beerda.github.io/rmake/reference/inShell.md):
+
+``` r
+rule(target = "result.rds",
+     build = inShell({ result <- 1 + 1; saveRDS(result, "result.rds") }),
+     clean = "$(RM) result.rds")
+```
+
+Note: Overuse of
+[`inShell()`](https://beerda.github.io/rmake/reference/inShell.md) is
+not recommended. Prefer separate script files so Make can detect
+changes.
+
+## Advanced Usage
+
+### Tasks
+
+Tasks allow grouping rules that can be executed together. Each rule is a
+member of the `"all"` task by default. Rules can belong to multiple
+tasks.
+
+Execute a task:
+
+``` r
+make('all')
+make('preview')
+```
+
+Assign rules to tasks:
+
+``` r
+library(rmake)
+job <- c(
+  "data.csv" %>>% rRule("preprocess.R") %>>% "data.rds",
+  "data.rds" %>>% markdownRule("preview.Rmd", task = "preview") %>>% 
+    "preview.pdf",
+  "data.rds" %>>% markdownRule("final.Rmd", task = "final") %>>% 
+    "final.pdf"
+)
+makefile(job, "Makefile")
+```
+
+Running `make("preview")` creates `data.rds` and `preview.pdf` but not
+`final.pdf`.
+
+### Parameterized Execution
+
+Pass parameters to scripts via the `params` argument:
+
+``` r
+library(rmake)
+job <- c(
+  "data.csv" %>>% rRule("fit.R", params = list(alpha = 0.1)) %>>% "out-0.1.rds",
+  "data.csv" %>>% rRule("fit.R", params = list(alpha = 0.2)) %>>% "out-0.2.rds",
+  "data.csv" %>>% rRule("fit.R", params = list(alpha = 0.3)) %>>% "out-0.3.rds"
+)
+makefile(job, "Makefile")
+```
+
+Parameters are available in scripts as the `params` global variable:
+
+``` r
+# fit.R
+str(params)
+# List of 5
+#  $ .target : chr "out-0.1.rds"
+#  $ .script : chr "fit.R"
+#  $ .depends: chr "data.csv"
+#  $ .task   : chr "all"
+#  $ alpha   : num 0.1
+```
+
+Use [`getParam()`](https://beerda.github.io/rmake/reference/getParam.md)
+to access parameters safely:
+
+``` r
+# fit.R
+library(rmake)
+
+dataName <- getParam(".depends")
+resultName <- getParam(".target")
+alpha <- getParam("alpha")
+
+# Use parameters...
+cat("Processing with alpha =", alpha, "\n")
+```
+
+[`getParam()`](https://beerda.github.io/rmake/reference/getParam.md)
+with default values:
+
+``` r
+dataName <- getParam(".depends", "data.csv")
+resultName <- getParam(".target", "result.rds")
+alpha <- getParam("alpha", 0.2)
+```
+
+### Rule Templates
+
+Rule templates avoid repetitive rule definitions using
+[`expandTemplate()`](https://beerda.github.io/rmake/reference/expandTemplate.md):
+
+``` r
+tmpl <- "data-$[NUM].csv" %>>% 
+  rRule("process.R") %>>% 
+  "result-$[NUM].csv"
+variants <- data.frame(NUM = 1:99)
+job <- expandTemplate(tmpl, variants)
+```
+
+This creates 99 rules, one for each value of `NUM`.
+
+Template with multiple variables:
+
+``` r
+variants <- expand.grid(DATA = c("dataSimple", "dataComplex"),
+                        TYPE = c("lm", "rf", "nnet"))
+print(variants)
+#>          DATA TYPE
+#> 1  dataSimple   lm
+#> 2 dataComplex   lm
+#> 3  dataSimple   rf
+#> 4 dataComplex   rf
+#> 5  dataSimple nnet
+#> 6 dataComplex nnet
+
+tmpl <- "$[DATA].csv" %>>% 
+  rRule("fit-$[TYPE].R") %>>%
+  "result-$[DATA]_$[TYPE].csv"
+job <- expandTemplate(tmpl, variants)
+print(job)
+#> [[1]]
+#> (fit-lm.R, dataSimple.csv) -> R -> (result-dataSimple_lm.csv)
+#> [[2]]
+#> (fit-lm.R, dataComplex.csv) -> R -> (result-dataComplex_lm.csv)
+#> [[3]]
+#> (fit-rf.R, dataSimple.csv) -> R -> (result-dataSimple_rf.csv)
+#> [[4]]
+#> (fit-rf.R, dataComplex.csv) -> R -> (result-dataComplex_rf.csv)
+#> [[5]]
+#> (fit-nnet.R, dataSimple.csv) -> R -> (result-dataSimple_nnet.csv)
+#> [[6]]
+#> (fit-nnet.R, dataComplex.csv) -> R -> (result-dataComplex_nnet.csv)
+```
+
+Duplicate rules are automatically removed:
+
+``` r
+tmpl <- "data.csv" %>>%
+  rRule("pre.R") %>>% "pre.rds" %>>%
+  rRule("comp.R", params = list(alpha = "$[NUM]")) %>>% 
+  "result-$[NUM].csv"
+variants <- data.frame(NUM = 1:5)
+job <- expandTemplate(tmpl, variants)
+#> Warning in expandTemplate(tmpl, variants): Converting all values in `vars` to
+#> character vectors.
+print(job)
+#> [[1]]
+#> (pre.R, data.csv) -> R -> (pre.rds)
+#> [[2]]
+#> (comp.R, pre.rds) -> R -> (result-1.csv)
+#> [[3]]
+#> (comp.R, pre.rds) -> R -> (result-2.csv)
+#> [[4]]
+#> (comp.R, pre.rds) -> R -> (result-3.csv)
+#> [[5]]
+#> (comp.R, pre.rds) -> R -> (result-4.csv)
+#> [[6]]
+#> (comp.R, pre.rds) -> R -> (result-5.csv)
+```
+
+Warning: Different rules producing the same target will cause an error:
+
+``` r
+tmpl <- "data-$[TYPE].csv" %>>% 
+  markdownRule("report.Rmd") %>>% "report.pdf"
+variants <- data.frame(TYPE = c("a", "b", "c"))
+job <- expandTemplate(tmpl, variants)
+print(job)
+#> [[1]]
+#> (report.Rmd, data-a.csv) -> markdown -> (report.pdf)
+#> [[2]]
+#> (report.Rmd, data-b.csv) -> markdown -> (report.pdf)
+#> [[3]]
+#> (report.Rmd, data-c.csv) -> markdown -> (report.pdf)
+
+# This would error:
+# makefile(job)
+# Error: Multiple rules detected for the same target
+```
+
+## Summary
+
+The `rmake` package provides an easy but powerful way to manage complex
+data manipulation processes in R using the Make utility. Key features
+include:
+
+- Pipeline operator `%>>%` for readable rule chains
+- Parameterized rules for flexible processing
+- Rule templates for efficient rule generation
+- Support for R scripts, R Markdown, and custom rules
+- Parallel execution capability
+- Visualization of dependencies
+- Cross-platform compatibility
+
+For more information, see: - Package documentation:
+[`?rmake`](https://beerda.github.io/rmake/reference/rmake-package.md) -
+GitHub repository: <https://github.com/beerda/rmake> - Submit issues:
+<https://github.com/beerda/rmake/issues>
+
+## References
+
+- Xie, Y. (2015). *Dynamic Documents with R and knitr* (2nd ed.).
+  Chapman and Hall/CRC.
+- Allaire, J.J., et al. (2023). *rmarkdown: Dynamic Documents for R*. R
+  package.
+- Stallman, R.M., McGrath, R., & Smith, P.D. (2023). *GNU Make: A
+  Program for Directing Recompilation*. Free Software Foundation.
