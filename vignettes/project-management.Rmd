@@ -1,0 +1,93 @@
+---
+title: "rmake Project Management"
+author: "Michal Burda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rmake Project Management}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r pm-setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+## Introduction
+
+This vignette covers the essential aspects of managing an `rmake` project, including project initialization, running the build process, cleaning up generated files, and executing builds in parallel.
+
+## Project Initialization
+
+To start maintaining an R project with `rmake`, create a script `Makefile.R` that generates the `Makefile`. Start from a skeleton:
+
+```{r pm-skeleton, eval=FALSE}
+library(rmake)
+rmakeSkeleton(".")
+```
+
+This creates two files:
+- `Makefile.R` - R script with rule definitions
+- `Makefile` - Generated Makefile
+
+Initial `Makefile.R`:
+```{r skeleton_code, eval=FALSE}
+library(rmake)
+job <- list()
+makefile(job, "Makefile")
+```
+
+## Running the Build Process
+
+Execute make from within R:
+```{r make_run, eval=FALSE}
+make()
+```
+
+Or from shell:
+```bash
+make
+```
+
+In RStudio:
+1. **Build** > **Configure Build Tools**
+2. Set **Project build tools** to **Makefile**
+3. Use **Build All** command
+
+## Cleaning Up
+
+Delete all generated files:
+```{r clean, eval=FALSE}
+make("clean")
+```
+
+Each rule automatically adds commands to delete its target files. The `Makefile` itself is never deleted.
+
+## Parallel Execution
+
+GNU Make supports parallel execution with the `-j` option:
+
+```{r parallel, eval=FALSE}
+make("-j8")  # Run up to 8 tasks simultaneously
+```
+
+From shell:
+```bash
+make -j8
+```
+
+## Summary
+
+This vignette covered the basics of managing an `rmake` project:
+
+- **Project Initialization**: Use `rmakeSkeleton()` to create initial project files
+- **Running Builds**: Execute `make()` from R or `make` from shell, or use RStudio's build tools
+- **Cleaning Up**: Use `make("clean")` to remove generated files
+- **Parallel Execution**: Use `make("-j8")` to run multiple targets simultaneously
+
+For more details on defining rules and advanced features, see the "Introduction to rmake" vignette.
