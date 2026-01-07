@@ -2,6 +2,8 @@
 - released: 2026-01-07
 
 * fixed buggy behavior if a rule had really long command lines
+* added tests for the presence of GNU Make
+* added hasGnuMake() function
 * improved vignettes
 
 
