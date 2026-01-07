@@ -21,7 +21,7 @@
 make <- function(..., .stdout = "", .stderr = "", .stdin = "") {
   if (!hasGnuMake()) {
     stop("Failed to run 'make': Ensure GNU Make (at least ",
-         .minimumRequiredVesionGNUMake,
+         .minimumRequiredGNUMakeVersion,
          " is installed and available in your system PATH and an alias 'make' points to it.")
   }
   args <- as.character(c(...))
