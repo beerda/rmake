@@ -205,6 +205,10 @@ makefile <- function(job=list(),
                     'ifeq ($(origin .FEATURES),undefined)',
                     "$(error This Makefile requires GNU Make. Please install it and use 'gmake' or 'make' depending on your system)",
                     'endif',
+                    paste0('REQUIRED_VERSION := ', .minimumRequiredGNUMakeVersion),
+                    'ifeq ($(filter $(REQUIRED_VERSION),$(firstword $(sort $(MAKE_VERSION) $(REQUIRED_VERSION)))),)',
+                    '$(error GNU Make $(REQUIRED_VERSION) or higher is required. You are using $(MAKE_VERSION))',
+                    'endif',
                     paste0(names(v), '=', v),
                     '.ONESHELL:')
 

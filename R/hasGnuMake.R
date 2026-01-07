@@ -1,4 +1,4 @@
-.minimumRequiredVesionGNUMake <- "3.82"
+.minimumRequiredGNUMakeVersion <- "3.82"
 
 #' Check if GNU Make is available via the 'make' command
 #'
@@ -29,7 +29,7 @@ hasGnuMake <- function() {
                                             version_output[1]))
         if (length(version_match) > 0) {
           found_version <- version_match[1]
-          if (package_version(found_version) >= package_version(.minimumRequiredVesionGNUMake)) {
+          if (package_version(found_version) >= package_version(.minimumRequiredGNUMakeVersion)) {
             return(TRUE)
           }
         }
