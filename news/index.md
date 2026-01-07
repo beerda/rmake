@@ -6,6 +6,10 @@
 
 - fixed buggy behavior if a rule had really long command lines
 
+- added tests for the presence of GNU Make
+
+- added hasGnuMake() function
+
 - improved vignettes
 
 ## rmake 1.2.1

@@ -306,6 +306,9 @@ Functions to extract information from rules.
 
 Helper functions for working with rules and building.
 
+- [`hasGnuMake()`](https://beerda.github.io/rmake/reference/hasGnuMake.md)
+  : Check if GNU Make is available via the 'make' command
+
 - [`inShell()`](https://beerda.github.io/rmake/reference/inShell.md) :
   Convert R code to a character vector of shell commands evaluating the
   given R code.
