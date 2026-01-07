@@ -71,6 +71,7 @@ reference:
     desc: >
       Helper functions for working with rules and building.
     contents:
+      - hasGnuMake
       - inShell
       - is.rule
       - sanitizePath
