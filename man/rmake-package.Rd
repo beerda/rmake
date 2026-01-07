@@ -49,6 +49,7 @@ of \code{report.Rmd} and \code{details.Rmd} according to the changes made to the
 Useful links:
 \itemize{
   \item \url{https://github.com/beerda/rmake}
+  \item \url{https://beerda.github.io/rmake/}
   \item Report bugs at \url{https://github.com/beerda/rmake/issues}
 }
 
