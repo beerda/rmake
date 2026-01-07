@@ -6,6 +6,8 @@
 
 - fixed buggy behavior if a rule had really long command lines
 
+- improved vignettes
+
 ## rmake 1.2.1
 
 - released: 2025-11-12

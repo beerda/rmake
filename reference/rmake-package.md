@@ -59,6 +59,8 @@ Useful links:
 
 - <https://github.com/beerda/rmake>
 
+- <https://beerda.github.io/rmake/>
+
 - Report bugs at <https://github.com/beerda/rmake/issues>
 
 ## Author
