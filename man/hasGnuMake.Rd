@@ -4,7 +4,11 @@
 \alias{hasGnuMake}
 \title{Check if GNU Make is available via the 'make' command}
 \usage{
-hasGnuMake()
+hasGnuMake(version = "3.82")
+}
+\arguments{
+\item{version}{Optional minimum version string to check (the default value,
+i.e., "3.82" is the minimum required version for rmake package functionality)}
 }
 \value{
 Logical value indicating if GNU Make is available
