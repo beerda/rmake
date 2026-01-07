@@ -1,6 +1,7 @@
 source('realRunTools.R')
 
 test_that('tasks', {
+  skip_if_not(hasGnuMake(), 'GNU make is not available')
   initTesting('tasks')
   dep11 <- 'dep1.1.in'
   dep12 <- 'dep1.2.in'

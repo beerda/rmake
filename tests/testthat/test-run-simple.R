@@ -1,6 +1,7 @@
 source('realRunTools.R')
 
 test_that('simple R script', {
+  skip_if_not(hasGnuMake(), 'GNU make is not available')
   initTesting('simple')
   dep1 <- 'dep1.in'
   dep2 <- 'dep2.in'
@@ -48,6 +49,7 @@ test_that('simple R script', {
 
 
 test_that('file names with spaces', {
+  skip_if_not(hasGnuMake(), 'GNU make is not available')
   initTesting('file_with_spaces')
   dep1 <- 'dep 1.in'
   dep2 <- 'dep 2.in'

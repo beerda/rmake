@@ -1,6 +1,7 @@
 source('realRunTools.R')
 
 test_that("subdir make & copy", {
+  skip_if_not(hasGnuMake(), 'GNU make is not available')
   initTesting('subdir_make')
   dir1 <- 'dir1'
   dep1 <- 'dep1.in'

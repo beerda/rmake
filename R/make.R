@@ -19,6 +19,9 @@
 #' }
 #' @export
 make <- function(..., .stdout = "", .stderr = "", .stdin = "") {
+  if (!hasGnuMake()) {
+    stop("Failed to run 'make': Ensure GNU Make is installed and available in your system PATH and an alias 'make' points to it.")
+  }
   args <- as.character(c(...))
   system2('make', args=args, stdout = .stdout, stderr = .stderr, stdin = .stdin)
 }
