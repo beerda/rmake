@@ -1,20 +1,15 @@
 # Check if GNU Make is available via the 'make' command
 
-Check if GNU Make is available via the 'make' command
+Function checks if GNU Make is installed and available in the system
+PATH via the 'make' command. It also verifies that the version of GNU
+Make is at least the minimum required version needed by the package,
+which is currently set to 3.82.
 
 ## Usage
 
 ``` r
-hasGnuMake(version = "3.82")
+hasGnuMake()
 ```
-
-## Arguments
-
-- version:
-
-  Optional minimum version string to check (the default value, i.e.,
-  "3.82" is the minimum required version for rmake package
-  functionality)
 
 ## Value
 
