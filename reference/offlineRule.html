@@ -108,31 +108,35 @@ will then force building this rule.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "ifeq ($(origin .FEATURES),undefined)"                                                                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "$(error This Makefile requires GNU Make. Please install it and use 'gmake' or 'make' depending on your system)"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "endif"                                                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "SHELL=/bin/sh"                                                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "R=\"$(R_HOME)/bin$(R_ARCH)/Rscript\""                                                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "RM=rm"                                                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "CP=cp"                                                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] ".ONESHELL:"                                                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] ""                                                                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] ".PHONY: all"                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "all: Makefile offlinedata.csv"                                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "\t"                                                                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "offlinedata.csv: source1.csv source2.csv"                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "\t$(R) - &lt;&lt;'EOFrmake'"                                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "\t{"                                                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "\t    stop(\"Please re-generate manually offlinedata.csv\")"                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "\t}"                                                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "\tEOFrmake"                                                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] ".PHONY: clean"                                                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "clean: "                                                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "\t$(RM) offlinedata.csv"                                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "Makefile: Makefile.R"                                                                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "\t$(R) - &lt;&lt;'EOFrmake'"                                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "\t{"                                                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "\t    params &lt;- list(.target = \"Makefile\", .script = \"Makefile.R\", .depends = NULL, .task = \"all\")"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "\t    source(\"Makefile.R\")"                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "\t}"                                                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "\tEOFrmake"                                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "REQUIRED_VERSION := 3.82"                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "ifeq ($(filter $(REQUIRED_VERSION),$(firstword $(sort $(MAKE_VERSION) $(REQUIRED_VERSION)))),)"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "$(error GNU Make $(REQUIRED_VERSION) or higher is required. You are using $(MAKE_VERSION))"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "endif"                                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "SHELL=/bin/sh"                                                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "R=\"$(R_HOME)/bin$(R_ARCH)/Rscript\""                                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "RM=rm"                                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "CP=cp"                                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] ".ONESHELL:"                                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] ""                                                                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] ".PHONY: all"                                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "all: Makefile offlinedata.csv"                                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "\t"                                                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "offlinedata.csv: source1.csv source2.csv"                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "\t$(R) - &lt;&lt;'EOFrmake'"                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "\t{"                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "\t    stop(\"Please re-generate manually offlinedata.csv\")"                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "\t}"                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "\tEOFrmake"                                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [24] ".PHONY: clean"                                                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "clean: "                                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "\t$(RM) offlinedata.csv"                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "Makefile: Makefile.R"                                                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "\t$(R) - &lt;&lt;'EOFrmake'"                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "\t{"                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "\t    params &lt;- list(.target = \"Makefile\", .script = \"Makefile.R\", .depends = NULL, .task = \"all\")"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "\t    source(\"Makefile.R\")"                                                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [32] "\t}"                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "\tEOFrmake"                                                                                                    </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate to file</span></span></span>
 <span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
