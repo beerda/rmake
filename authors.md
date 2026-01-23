@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/beerda/rmake/blob/v1.2.2/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/beerda/rmake/blob/master/DESCRIPTION)
 
 Burda M (2026). *rmake: Makefile Generator for R Analytical Projects*. R
 package version 1.2.2, <https://github.com/beerda/rmake>.
