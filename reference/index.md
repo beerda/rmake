@@ -53,6 +53,9 @@ Functions for defining different types of build rules.
 - [`subdirRule()`](https://beerda.github.io/rmake/reference/subdirRule.md)
   : Rule for running the make process in a subdirectory
 
+- [`pythonRule()`](https://beerda.github.io/rmake/reference/pythonRule.md)
+  : Rule for running Python scripts
+
 ## Rule Templates and Parameterization
 
 Functions for creating parameterized and template-based rules.

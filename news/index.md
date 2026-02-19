@@ -1,5 +1,10 @@
 # Changelog
 
+## rmake 1.2.3
+
+- released: ???
+- added pythonRule()
+
 ## rmake 1.2.2
 
 - released: 2026-01-08
