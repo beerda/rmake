@@ -44,6 +44,7 @@ reference:
       - offlineRule
       - depRule
       - subdirRule
+      - pythonRule
 
   - title: "Rule Templates and Parameterization"
     desc: >
