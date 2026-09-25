@@ -11,3 +11,5 @@
 ^RELEASE_HOWTO.md$
 ^_pkgdown\.yml$
 ^index\.md$
+^\.positai$
+^\.claude$
