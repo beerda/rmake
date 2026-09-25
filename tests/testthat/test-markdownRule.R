@@ -20,7 +20,7 @@ test_that('single target markdownRule', {
                           '    targets <- list(target.pdf = \"pdf_document\")',
                           '    targets <- structure(list(target.pdf = \"pdf_document\"), .Names = \"target.pdf\")'),
                    '    for (tg in names(targets)) {',
-                   '        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)',
+                   '        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_dir = dirname(tg), output_file = basename(tg))',
                    '    }',
                    '}',
                    'EOFrmake'))
@@ -49,7 +49,7 @@ test_that('multiple target markdownRule', {
                           '    targets <- list(target.pdf = \"pdf_document\", target.docx = \"word_document\")',
                           '    targets <- structure(list(target.pdf = \"pdf_document\", target.docx = \"word_document\"), .Names = c(\"target.pdf\", \"target.docx\"))'),
                    '    for (tg in names(targets)) {',
-                   '        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_file = tg)',
+                   '        rmarkdown::render("script.Rmd", output_format = targets[[tg]], output_dir = dirname(tg), output_file = basename(tg))',
                    '    }',
                    '}',
                    'EOFrmake'))
