@@ -1,7 +1,7 @@
 Package: rmake
 Type: Package
 Title: Makefile Generator for R Analytical Projects
-Version: 1.2.2
+Version: 1.2.3
 Date: 2026-09-25
 Authors@R: 
     person(given = "Michal",
