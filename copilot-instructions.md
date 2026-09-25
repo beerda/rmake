@@ -28,6 +28,7 @@ GNU Make tool.
 ### Building and Testing
 
 ``` r
+
 # Install dependencies
 install.packages(c("devtools", "roxygen2", "testthat"))
 devtools::install_deps(dependencies = TRUE)

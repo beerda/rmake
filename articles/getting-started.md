@@ -66,12 +66,14 @@ analytical projects.
 To install `rmake` from CRAN:
 
 ``` r
+
 install.packages("rmake")
 ```
 
 Alternatively, install the development version from GitHub:
 
 ``` r
+
 install.packages("devtools")
 devtools::install_github("beerda/rmake")
 ```
@@ -79,6 +81,7 @@ devtools::install_github("beerda/rmake")
 Load the package:
 
 ``` r
+
 library(rmake)
 ```
 
@@ -107,12 +110,14 @@ to set `R_HOME` manually.
 To find the correct value for your system, run this in R:
 
 ``` r
+
 R.home()
 ```
 
 You can also check the current values of R environment variables:
 
 ``` r
+
 Sys.getenv("R_HOME")
 ```
 
@@ -150,6 +155,7 @@ documentation](https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.ht
 To start a new project with `rmake`:
 
 ``` r
+
 library(rmake)
 rmakeSkeleton(".")
 ```
@@ -160,6 +166,7 @@ Makefile - `Makefile` - The generated Makefile (initially minimal)
 The initial `Makefile.R` contains:
 
 ``` r
+
 library(rmake)
 job <- list()
 makefile(job, "Makefile")
@@ -185,6 +192,7 @@ Create `data.csv`:
 Create `script.R`:
 
 ``` r
+
 d <- read.csv("data.csv")
 sums <- data.frame(ID = "sum",
                    V1 = sum(d$V1),
@@ -197,6 +205,7 @@ write.csv(sums, "sums.csv", row.names = FALSE)
 Edit `Makefile.R`:
 
 ``` r
+
 library(rmake)
 job <- list(rRule(target = "sums.csv", 
                   script = "script.R", 
@@ -209,6 +218,7 @@ makefile(job, "Makefile")
 Execute make:
 
 ``` r
+
 make()
 ```
 
@@ -224,6 +234,7 @@ nothing unless files change.
 The `%>>%` pipe operator makes rule definitions more readable:
 
 ``` r
+
 library(rmake)
 job <- "data.csv" %>>% 
   rRule("script.R") %>>% 
@@ -254,6 +265,7 @@ knitr::kable(sums)
 Update `Makefile.R`:
 
 ``` r
+
 library(rmake)
 job <- list(
   rRule(target = "sums.csv", script = "script.R", depends = "data.csv"),
@@ -266,6 +278,7 @@ makefile(job, "Makefile")
 Or using pipes:
 
 ``` r
+
 library(rmake)
 job <- "data.csv" %>>% 
   rRule("script.R") %>>% 
@@ -278,6 +291,7 @@ makefile(job, "Makefile")
 Run make again:
 
 ``` r
+
 make()
 ```
 
@@ -286,6 +300,7 @@ make()
 ### From R
 
 ``` r
+
 # Run all tasks
 make()
 
@@ -318,6 +333,7 @@ make -j8      # Parallel execution
 Visualize the dependency graph:
 
 ``` r
+
 visualize(job, legend = FALSE)
 ```
 
@@ -330,6 +346,7 @@ This creates an interactive graph showing: - **Squares**: Data files -
 Handle complex dependencies:
 
 ``` r
+
 chain1 <- "data1.csv" %>>% rRule("preprocess1.R") %>>% "intermed1.rds"
 chain2 <- "data2.csv" %>>% rRule("preprocess2.R") %>>% "intermed2.rds"
 chain3 <- c("intermed1.rds", "intermed2.rds") %>>% 
@@ -343,6 +360,7 @@ Alternatively, you can define all chains directly without intermediate
 variables:
 
 ``` r
+
 job <- c(
   "data1.csv" %>>% rRule("preprocess1.R") %>>% "intermed1.rds",
   "data2.csv" %>>% rRule("preprocess2.R") %>>% "intermed2.rds",

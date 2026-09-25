@@ -37,6 +37,7 @@ Executes an R script using `Rscript`. The rule is triggered when any
 dependency or the script itself changes.
 
 ``` r
+
 rRule(target, script, depends = NULL, params = list(), task = "all")
 ```
 
@@ -52,6 +53,7 @@ rRule(target, script, depends = NULL, params = list(), task = "all")
 **Example:**
 
 ``` r
+
 rRule(target = "output.rds", 
       script = "process.R", 
       depends = "input.csv")
@@ -63,6 +65,7 @@ Renders a document from R Markdown using
 [`rmarkdown::render()`](https://pkgs.rstudio.com/rmarkdown/reference/render.html).
 
 ``` r
+
 markdownRule(target, script, depends = NULL, format = "all",
              params = list(), task = "all")
 ```
@@ -92,6 +95,7 @@ markdownRule(target, script, depends = NULL, format = "all",
 **Example:**
 
 ``` r
+
 markdownRule(target = "report.pdf",
              script = "report.Rmd",
              depends = "data.rds",
@@ -105,6 +109,7 @@ Executes knitr to create a text file using
 useful for processing Sweave-style documents (.Rnw files).
 
 ``` r
+
 knitrRule(target, script, depends = NULL, params = list(), task = "all")
 ```
 
@@ -121,6 +126,7 @@ knitrRule(target, script, depends = NULL, params = list(), task = "all")
 **Example:**
 
 ``` r
+
 knitrRule(target = "report.tex",
           script = "report.Rnw",
           depends = c("data1.csv", "data2.csv"))
@@ -132,6 +138,7 @@ Copies a file from one location to another. The rule executes
 `$(CP) depends[1] target`.
 
 ``` r
+
 copyRule(target, depends, task = "all")
 ```
 
@@ -145,6 +152,7 @@ copyRule(target, depends, task = "all")
 **Example:**
 
 ``` r
+
 copyRule(target = "backup/data.csv",
          depends = "data.csv")
 ```
@@ -156,6 +164,7 @@ script. This is useful when you want to specify that a target depends on
 another target but don’t need to execute any command to build it.
 
 ``` r
+
 depRule(target, depends = NULL, task = "all")
 ```
 
@@ -168,6 +177,7 @@ depRule(target, depends = NULL, task = "all")
 **Example:**
 
 ``` r
+
 # Ensure all preprocessing is done before starting the analysis
 depRule(target = "analysis-ready",
         depends = c("data1.rds", "data2.rds", "data3.rds"))
@@ -180,6 +190,7 @@ contain its own `Makefile`. This rule executes `make <targetTask>` in
 the specified subdirectory.
 
 ``` r
+
 subdirRule(target, depends = NULL, task = "all", targetTask = "all")
 ```
 
@@ -194,6 +205,7 @@ subdirRule(target, depends = NULL, task = "all", targetTask = "all")
 **Example:**
 
 ``` r
+
 subdirRule(target = "subproject",
            targetTask = "all")
 ```
@@ -205,6 +217,7 @@ message instructing the user to perform a task manually. This is useful
 when transformation requires manual intervention.
 
 ``` r
+
 offlineRule(target, message, depends = NULL, task = "all")
 ```
 
@@ -218,6 +231,7 @@ offlineRule(target, message, depends = NULL, task = "all")
 **Example:**
 
 ``` r
+
 offlineRule(target = "cleaned_data.csv",
             message = "Please manually clean data.csv and save as cleaned_data.csv",
             depends = "data.csv")
@@ -229,6 +243,7 @@ Create custom rules using the general
 [`rule()`](https://beerda.github.io/rmake/reference/rule.md) function:
 
 ``` r
+
 rule(target, depends = NULL, build = NULL, clean = NULL,
      task = "all", phony = FALSE)
 ```
@@ -251,6 +266,7 @@ rule(target, depends = NULL, build = NULL, clean = NULL,
 **Example with NodeJS:**
 
 ``` r
+
 r <- rule(target = "test.json", 
           depends = "test.js", 
           build = "node test.js",
@@ -260,6 +276,7 @@ r <- rule(target = "test.json",
 **Define custom Make variables:**
 
 ``` r
+
 defaultVars["JS"] <- "/usr/bin/node"
 
 job <- list(rule(target = "test.json",
@@ -274,6 +291,7 @@ The [`inShell()`](https://beerda.github.io/rmake/reference/inShell.md)
 function converts R expressions to shell commands:
 
 ``` r
+
 inShell({ result <- 1 + 1; saveRDS(result, "result.rds") })
 #> [1] "$(R) - <<'EOFrmake'"                 "{"                                  
 #> [3] "    result <- 1 + 1"                 "    saveRDS(result, \"result.rds\")"
@@ -283,6 +301,7 @@ inShell({ result <- 1 + 1; saveRDS(result, "result.rds") })
 **Example rule using inShell():**
 
 ``` r
+
 rule(target = "result.rds",
      build = inShell({ result <- 1 + 1; saveRDS(result, "result.rds") }),
      clean = "$(RM) result.rds")

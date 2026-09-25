@@ -38,6 +38,7 @@ To install the stable version of `rmake` from CRAN, type the following
 command within the R session:
 
 ``` r
+
 install.packages("rmake")
 ```
 
@@ -45,6 +46,7 @@ Alternatively, you can install the latest development version from
 GitHub using the `devtools` package:
 
 ``` r
+
 install.packages("devtools")
 devtools::install_github("beerda/rmake")
 ```
@@ -67,6 +69,7 @@ manually:
 To find the correct value for your system, run this in R:
 
 ``` r
+
 R.home()
 ```
 
@@ -114,6 +117,7 @@ follows:
 3.  Load `rmake` and create skeleton files:
 
     ``` r
+
     library(rmake)
     rmakeSkeleton('.')
     ```
@@ -125,6 +129,7 @@ follows:
 5.  Edit `Makefile.R` as follows:
 
     ``` r
+
     library(rmake)
     job <- c('dataset.csv' %>>% rRule('preprocess.R') %>>% 'dataset.rds' %>>% 
                markdownRule('report.Rmd') %>>% 'report.pdf',
@@ -147,6 +152,7 @@ follows:
 The `%>>%` pipe operator makes it easy to define chains of dependencies:
 
 ``` r
+
 library(rmake)
 
 # Simple chain
@@ -172,6 +178,7 @@ makefile(job, "Makefile")
 Visualize your build dependencies:
 
 ``` r
+
 visualize(job, legend = FALSE)
 ```
 
@@ -180,6 +187,7 @@ visualize(job, legend = FALSE)
 Run multiple targets in parallel using Make’s `-j` option:
 
 ``` r
+
 make("-j8")  # Run up to 8 targets simultaneously
 ```
 

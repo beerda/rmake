@@ -13,10 +13,6 @@ function.
 defaultVars
 ```
 
-## Format
-
-An object of class `character` of length 4.
-
 ## See also
 
 [`makefile()`](https://beerda.github.io/rmake/reference/makefile.md)

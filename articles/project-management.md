@@ -21,6 +21,7 @@ To start maintaining an R project with `rmake`, create a script
 `Makefile.R` that generates the `Makefile`. Start from a skeleton:
 
 ``` r
+
 library(rmake)
 rmakeSkeleton(".")
 ```
@@ -31,6 +32,7 @@ definitions - `Makefile` - Generated Makefile
 Initial `Makefile.R`:
 
 ``` r
+
 library(rmake)
 job <- list()
 makefile(job, "Makefile")
@@ -41,6 +43,7 @@ makefile(job, "Makefile")
 Execute make from within R:
 
 ``` r
+
 make()
 ```
 
@@ -58,6 +61,7 @@ build tools** to **Makefile** 3. Use **Build All** command
 Delete all generated files:
 
 ``` r
+
 make("clean")
 ```
 
@@ -69,6 +73,7 @@ Each rule automatically adds commands to delete its target files. The
 GNU Make supports parallel execution with the `-j` option:
 
 ``` r
+
 make("-j8")  # Run up to 8 tasks simultaneously
 ```
 

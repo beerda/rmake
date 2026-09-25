@@ -26,6 +26,7 @@ tasks.
 Execute a task:
 
 ``` r
+
 make('all')
 make('preview')
 ```
@@ -35,6 +36,7 @@ make('preview')
 Assign rules to tasks:
 
 ``` r
+
 library(rmake)
 job <- c(
   "data.csv" %>>% rRule("preprocess.R") %>>% "data.rds",
@@ -65,6 +67,7 @@ Tasks are useful for:
 Pass parameters to scripts via the `params` argument:
 
 ``` r
+
 library(rmake)
 job <- c(
   "data.csv" %>>% rRule("fit.R", params = list(alpha = 0.1)) %>>% "out-0.1.rds",
@@ -79,6 +82,7 @@ makefile(job, "Makefile")
 Parameters are available in scripts as the `params` global variable:
 
 ``` r
+
 # fit.R
 str(params)
 # List of 5
@@ -95,6 +99,7 @@ Use [`getParam()`](https://beerda.github.io/rmake/reference/getParam.md)
 to access parameters safely:
 
 ``` r
+
 # fit.R
 library(rmake)
 
@@ -110,6 +115,7 @@ cat("Processing with alpha =", alpha, "\n")
 with default values:
 
 ``` r
+
 dataName <- getParam(".depends", "data.csv")
 resultName <- getParam(".target", "result.rds")
 alpha <- getParam("alpha", 0.2)
@@ -134,6 +140,7 @@ different parameters or on different datasets.
 ### Simple Template
 
 ``` r
+
 tmpl <- "data-$[NUM].csv" %>>% 
   rRule("process.R") %>>% 
   "result-$[NUM].csv"
@@ -146,6 +153,7 @@ This creates 99 rules, one for each value of `NUM`.
 ### Template with Multiple Variables
 
 ``` r
+
 variants <- expand.grid(DATA = c("dataSimple", "dataComplex"),
                         TYPE = c("lm", "rf", "nnet"))
 print(variants)
@@ -181,6 +189,7 @@ print(job)
 Duplicate rules are automatically removed:
 
 ``` r
+
 tmpl <- "data.csv" %>>%
   rRule("pre.R") %>>% "pre.rds" %>>%
   rRule("comp.R", params = list(alpha = "$[NUM]")) %>>% 
@@ -214,6 +223,7 @@ and dependencies) - Script names - Parameters passed to rules
 Warning: Different rules producing the same target will cause an error:
 
 ``` r
+
 tmpl <- "data-$[TYPE].csv" %>>% 
   markdownRule("report.Rmd") %>>% "report.pdf"
 variants <- data.frame(TYPE = c("a", "b", "c"))
@@ -236,6 +246,7 @@ print(job)
 You can combine tasks and templates for powerful workflow management:
 
 ``` r
+
 # Create template for different models
 tmpl <- "data.csv" %>>% 
   rRule("fit-$[MODEL].R", params = list(model = "$[MODEL]")) %>>%

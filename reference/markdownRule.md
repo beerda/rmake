@@ -95,7 +95,7 @@ makefile(list(r))
 #> [21] "\t    params <- list(.target = \"report.pdf\", .script = \"report.Rmd\", .depends = c(\"data1.csv\", \"data2.csv\"), .task = \"all\")"
 #> [22] "\t    targets <- list(report.pdf = \"pdf_document\")"                                                                                 
 #> [23] "\t    for (tg in names(targets)) {"                                                                                                   
-#> [24] "\t        rmarkdown::render(\"report.Rmd\", output_format = targets[[tg]], output_file = tg)"                                         
+#> [24] "\t        rmarkdown::render(\"report.Rmd\", output_format = targets[[tg]], output_dir = dirname(tg), output_file = basename(tg))"     
 #> [25] "\t    }"                                                                                                                              
 #> [26] "\t}"                                                                                                                                  
 #> [27] "\tEOFrmake"                                                                                                                           

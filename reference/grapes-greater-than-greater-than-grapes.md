@@ -57,6 +57,7 @@ package by Stefan Milton Bache and Hadley Wickham)
 ## Examples
 
 ``` r
+
 job1 <- 'data.csv' %>>%
   rRule('preprocess.R') %>>%
   'data.rds' %>>%
