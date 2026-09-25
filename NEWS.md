@@ -1,6 +1,8 @@
 # rmake 1.2.3
-* released: ???
+* released: 2026-09-25
 * added pythonRule()
+* fixed markdownRule() to properly generate the resulting PDF if the output
+  is to a different directory than the source Rmd file
 
 
 # rmake 1.2.2

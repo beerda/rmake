@@ -2,7 +2,7 @@ Package: rmake
 Type: Package
 Title: Makefile Generator for R Analytical Projects
 Version: 1.2.2
-Date: 2026-01-08
+Date: 2026-09-25
 Authors@R: 
     person(given = "Michal",
            family = "Burda",
@@ -22,6 +22,6 @@ LazyData: true
 Imports: tools, assertthat, rmarkdown, visNetwork, knitr
 Suggests: testthat
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Language: en-US
+Config/roxygen2/version: 8.1.0

@@ -33,8 +33,12 @@ import(assertthat)
 importFrom(assertthat,on_failure)
 importFrom(knitr,knit)
 importFrom(rmarkdown,render)
-importFrom(tools,file_ext)
-importFrom(tools,file_path_sans_ext)
-importFrom(visNetwork,visEdges)
-importFrom(visNetwork,visLegend)
-importFrom(visNetwork,visNetwork)
+importFrom(tools,
+  file_ext,
+  file_path_sans_ext
+)
+importFrom(visNetwork,
+  visEdges,
+  visLegend,
+  visNetwork
+)
